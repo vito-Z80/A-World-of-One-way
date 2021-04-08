@@ -3,7 +3,7 @@
 
 //--------------------------------------------------------------------------
 	include "code/struct.asm"
-	include "code/system.asm" 	; любые подгрузки после, так как тут начальлный ORG
+	include "code/system.asm" 	; Р»СЋР±С‹Рµ РїРѕРґРіСЂСѓР·РєРё РїРѕСЃР»Рµ, С‚Р°Рє РєР°Рє С‚СѓС‚ РЅР°С‡Р°Р»СЊР»РЅС‹Р№ ORG
 	include "code/debug.asm" 	; remove before release!!!
 lds:
 	include "maps/levelsData.asm"
@@ -29,16 +29,16 @@ tmp_direction:		db DIRECTION.NONE
 textColor:		db 0,0
 //---------------------------------SPACE--------------------------------
 				align 256
-attrBufferScroll: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх
+attrBufferScroll: 		block 256, 0 	; Р±СѓС„РµСЂ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ Р°С‚С‚РёР±СѓСЂС‚РѕРІ РґР»СЏ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕР№ Р±РµРіСѓС‰РµР№ СЃС‚СЂРѕРєРё РІРІРµСЂС…
 levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
-		; забить данными не более 64 байта, что бы floorCells LOW = 0	
+		; Р·Р°Р±РёС‚СЊ РґР°РЅРЅС‹РјРё РЅРµ Р±РѕР»РµРµ 64 Р±Р°Р№С‚Р°, С‡С‚Рѕ Р±С‹ floorCells LOW = 0	
 globalSeed:			dw 0
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 floorColor:			db 0
-attrScrollAddr:			dw #0000 ; адрес рисования атрибутов информационной бегущей строки вверх 
-attrBitmapColor:		db 0 	; цвет атрибутов информационной бегущей строки вверх
-delta:				db 0	; каждый кадр +1 в GAME.update
+attrScrollAddr:			dw #0000 ; Р°РґСЂРµСЃ СЂРёСЃРѕРІР°РЅРёСЏ Р°С‚СЂРёР±СѓС‚РѕРІ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕР№ Р±РµРіСѓС‰РµР№ СЃС‚СЂРѕРєРё РІРІРµСЂС… 
+attrBitmapColor:		db 0 	; С†РІРµС‚ Р°С‚СЂРёР±СѓС‚РѕРІ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕР№ Р±РµРіСѓС‰РµР№ СЃС‚СЂРѕРєРё РІРІРµСЂС…
+delta:				db 0	; РєР°Р¶РґС‹Р№ РєР°РґСЂ +1 РІ GAME.update
 ; title data
 byteValue:			db 0
 pathAddress:			dw 0
