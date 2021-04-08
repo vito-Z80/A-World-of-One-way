@@ -46,9 +46,11 @@ setNextLevel:
 	ld a,(ix+oData.spriteId)
 	cp HERO_FACE_00_PBM_ID
 	ret nz
+	push hl
 	ld hl,currentLevel
 	inc (hl)
 	inc hl 	; isLevelPassed label
 	ld (hl),SYSTEM.GAME_INIT
+	pop hl
 	ret
 	endmodule

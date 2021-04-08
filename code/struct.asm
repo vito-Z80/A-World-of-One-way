@@ -28,9 +28,7 @@ scrAddrH:	byte
 sprAddrL:	byte
 sprAddrH:	byte
 
-bgScrAddrL:	byte
-bgScrAddrH:	byte
-bgSprAddrL:	byte
+
 isRemove:	byte
 
 dstX:		byte
@@ -44,7 +42,7 @@ animationId 	byte
 endToEnd	byte	; объект сквозной. То есть при коллизии этого объекта с другим - другой продолжает путь дальше. 
 			
 id		byte	; id of this object in objects map
-		block 2
+		block 5
      	ends
 
 

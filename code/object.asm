@@ -119,244 +119,7 @@ cellContents:
 	//.......
 	ret
 ;----------------------------------------------------------------
-moveObject:
-; 	ld a,(ix+oData.operated)
-; 	or a
-; 	ret z 		; объект не управляется с клавиатуры
-	ld a,(global_direction)
-	or a
-	ret z 		; движение отсутствует
-	ld h,high levelCells
-	rrca
-	jp c,moveLeft
-	rrca 	
-	jp c,moveRight
-	rrca 	
-	jp c,moveUp
-	rrca 	
-	ret nc
-	; move down
-moveDown:
-	call accelerate
-	ld a,(ix+oData.cellId)
-	add 16
-	ld l,a
-	ld a,(hl)
-	or a
-	jr nz,.stopDown			; stop move > bottom cell have wall
-	ld a,(ix+oData.preY)
-	ld e,a
-	and %11110000
-	ld c,a
-	ld a,(ix+oData.y)
-	add (ix+oData.accelerate)
-	ld d,a
-	ld (ix+oData.preY),a
-	ld (ix+oData.y),a
-	and %11110000
-	sub c 				; clear or not flag (!0 = clear; 0 = not clear)
-	jr z,.sameCellD
-	; next cell
-	ld (ix+oData.cellId),l 		; save new cell id (next symbol)
-	ld a,l
-	add 16
-	ld l,a
-	push hl
-	call cellContents 		; check into cell
-	pop hl
-	ld a,(hl)
-	or a
-	jr nz,.sd
-.sameCellD:
-	ld a,(global_direction) 
-	ld (ix+oData.direction),a 
-	call checkForRemoveSide
-	jp getDrawData
-.sd:
-	ld a,(ix+oData.direction) 
-	ld (ix+oData.isRemove),a 	; save "direction" to "isRemove"
-.stopDown:
-	ld a,(ix+oData.y)
-	jp verticalStop
-; .moveDown:
-; 	call accelerate
-; 	ld e,(ix+oData.x)
-; 	ld d,(ix+oData.y)
-; 	ld c,(ix+oData.accelerate)
-; 	ld l,(ix+oData.cellId)
-; 	ld a,d
-; 	add c
-; 	ld b,a
-; 	ld d,a
-; 	call getCellIDByCoords 	; breaking reg.D
-; 	add MAP_WIDTH
-; 	ld l,a
-; 	ld a,(hl)
-; 	or a
-; 	jr z,.moveD
-; 	; stop down
-; 	ld a,b
-; 	and %11110000
-; 	ld (ix+oData.y),a
-; 	ld a,1
-; 	ld (ix+oData.accelerate),a
-; 	dec a
-; 	ld (ix+oData.delta),a
-; 	jr .mD
-; .moveD:
-; 	ld (ix+oData.cellId),l
-; 	ld (ix+oData.y),b
-; 	ld a,(global_direction)
-; .mD:
-; 	ld (ix+oData.direction),a
-; 	jp getDrawData
-moveLeft:
-	call accelerate
-	ld a,(ix+oData.preX)
-	ld e,a 				; save preX
-	and %11110000 			; multiple of 16
-	ld c,a
-	ld a,(ix+oData.x)
-	sub (ix+oData.accelerate) 	; get new X and save to X, preX
-	ld d,a 				; save X - accelerate
-	ld (ix+oData.preX),a
-	ld (ix+oData.x),a
-	and %11110000 			; multiple of 16
-	sub c 				; clear or not flag (!0 = clear; 0 = not clear)
-	jr z,.sameCellL 		; preX and X in same cell
-	; next cell
-	ld l,(ix+oData.cellId)
-	dec l 				; cell from left
 
-	push hl
-	call cellContents 		; check into cell
-	pop hl
-	
-	ld a,(hl)
-	or a
-	jr nz,.stopLeft 		; cell have wall > STOP
-	ld (ix+oData.cellId),l 		; save new cell id (left cell)
-.sameCellL:
-	; здесь checkForRemoveSide выполняется перед сохранением направления, так как старт движения должен содержать 0 в направлении,
-	; это предотвратит стирание стены справа
-	call checkForRemoveSide 	; calculate enable/disable clear method
-	ld a,(global_direction) 
-	ld (ix+oData.direction),a  	; save direction for this object
-	jp getDrawData
-.stopLeft:
-	; When the sprite has reached the wall, the side must also be cleaned once. 
-	; To do this, let's keep "isRemove" and reset the "direction".
-	ld a,(ix+oData.direction) 	; also may get from ix+oData.direction
-	ld (ix+oData.isRemove),a
-	ld a,e
-	jr horizontalStop
-;-------
-moveRight:
-	call accelerate
-	ld l,(ix+oData.cellId)
-	inc l
-	ld a,(hl)
-	or a
-	jr nz,.stopRight 		; stop move > right cell have wall
-	ld a,(ix+oData.preX)
-	ld e,a
-	and %11110000
-	ld c,a
-	ld a,(ix+oData.x)
-	add (ix+oData.accelerate)
-	ld d,a
-	ld (ix+oData.preX),a
-	ld (ix+oData.x),a
-	and %11110000
-	sub c 				; clear or not flag (!0 = clear; 0 = not clear)
-	jr z,.sameCellR
-	; next cell
-	ld (ix+oData.cellId),l 		; save new cell id (next symbol)
-	inc l
-
-	push hl
-	call cellContents 		; check into cell
-	pop hl
-
-	ld a,(hl)
-	or a
-	jr nz,.sr
-.sameCellR:
-	ld a,(global_direction) 
-	ld (ix+oData.direction),a 
-	call checkForRemoveSide
-	jp getDrawData
-.sr:
-	ld a,(ix+oData.direction) 
-	ld (ix+oData.isRemove),a 	; save "direction" to "isRemove"
-.stopRight:
-	ld a,(ix+oData.x)
-horizontalStop:
-	; correct X coordinate to cell
-	and %11110000
-	ld (ix+oData.x),a
-	ld (ix+oData.preX),a
-	; reset values
-	xor a
-	ld (ix+oData.delta),a
-	ld (ix+oData.direction),a
-	inc a
-	ld (ix+oData.accelerate),a
-	jp getDrawData
-;-------
-moveUp:
-	call accelerate
-	ld a,(ix+oData.preY)
-	ld e,a 				; save preX
-	and %11110000 			; multiple of 16
-	ld c,a
-	ld a,(ix+oData.y)
-	sub (ix+oData.accelerate) 	; get new X and save to X, preX
-	ld d,a 				; save X - accelerate
-	ld (ix+oData.preY),a
-	ld (ix+oData.y),a
-	and %11110000 			; multiple of 16
-	sub c 				; clear or not flag (!0 = clear; 0 = not clear)
-	jr z,.sameCellU			; preX and X in same cell
-	; next cell
-	ld a,(ix+oData.cellId)
-	sub 16
-	ld l,a 				; cell from left
-
-	push hl
-	call cellContents 		; check into cell
-	pop hl
-
-	ld a,(hl)
-	or a
-	jr nz,.stopUp	 		; cell have wall > STOP
-	ld (ix+oData.cellId),l 		; save new cell id (left cell)
-.sameCellU:
-	; здесь checkForRemoveSide выполняется перед сохранением направления, так как старт движения должен содержать 0 в направлении,
-	; это предотвратит стирание стены справа
-	call checkForRemoveSide 	; calculate enable/disable clear method
-	ld a,(global_direction) 
-	ld (ix+oData.direction),a  	; save direction for this object
-	jp getDrawData
-.stopUp:
-	; When the sprite has reached the wall, the side must also be cleaned once. 
-	; To do this, let's keep "isRemove" and reset the "direction".
-	ld a,(ix+oData.direction) 	
-	ld (ix+oData.isRemove),a
-	ld a,e
-verticalStop:
-	; correct Y coordinate to cell
-	and %11110000
-	ld (ix+oData.y),a
-	ld (ix+oData.preY),a
-	; reset values
-	xor a
-	ld (ix+oData.delta),a
-	ld (ix+oData.direction),a
-	inc a
-	ld (ix+oData.accelerate),a
-	jp getDrawData
-;-------
 checkForRemoveSide:
 	; E - x || y
 	; D - preX || preY
@@ -372,44 +135,6 @@ checkForRemoveSide:
 	ld (ix+oData.isRemove),a
 	ret
 ;------------------------------------
-; .moveUp:
-; 	call accelerate
-; 	ld a,(ix+oData.y)
-; 	ld b,a
-; 	ld c,(ix+oData.accelerate)
-; 	ld l,(ix+oData.cellId)
-; 	and 15
-; 	sub c
-; 	jr nc,.contUp
-; 	; check top cell
-; 	ld e,l
-; 	ld a,l
-; 	sub MAP_WIDTH
-; 	ld l,a
-; 	ld h, high levelCells
-; 	ld a,(hl)
-; 	or a
-; 	jr z,.contUp
-; 	ld a,b
-; 	and %11110000
-; 	ld b,a
-; 	ld c,0
-; 	ld l,e
-; 	ld a,1
-; 	ld (ix+oData.accelerate),a
-; 	dec a
-; 	ld (ix+oData.delta),a
-; 	jr .contUp + 3
-; .contUp:
-; 	ld a,(global_direction)
-; 	ld (ix+oData.direction),a
-; 	ld a,b
-; 	sub c
-; 	ld (ix+oData.y),a
-; 	ld (ix+oData.cellId),l
-; 	call getDrawData
-; 	ret
-;-----------
 accelerate:
 	ld a,(ix+oData.delta)
 	add ACCELERATE_STEP 		; ACCELERATE_STEP
@@ -477,8 +202,7 @@ findObj:
 	jp z,CHUPA.init
 	cp EXIT_DOOR_PBM_ID
 	jp z,EXIT_DOOR.init
-	cp START_POSITION_PBM_ID
-	jp z,START_POSITION.init
+
 
 	ret
 
@@ -543,6 +267,8 @@ collision:
 	ld h,high levelCells
 	ld e,(ix+oData.x)
 	ld d,(ix+oData.y)
+
+
 	ex af,af
 	call getCellIDByCoords
 	ld l,a 		; cell ID
@@ -587,6 +313,8 @@ setCollisionData:
 	ld (ix+oData.cellId),l
 	ld (ix+oData.accelerate),1
 	ld (ix+oData.direction),0
+	ld a,(ix+oData.id)
+	ld (hl),a 	; когда объект остановлен - заносим его object ID в ячейку карты. 
 	ret
 ;-------
 checkRight:
@@ -629,8 +357,43 @@ targetCell:
 	jp z,EXIT_DOOR.toNextLevel
 	cp BOOM_01_PBM_ID
 	jp z,CHUPA.destroy
+
+	cp ENEMY_FACE_00_PBM_ID
+	jp z,ENEMY_SKULL.target
 	//.......
 	ret
+;----------------------------------------------------------------
+clearCellsForMovableObjects:
+	ld ix,objectsData 
+	ld h,high levelCells
+	ld b,MAX_OBJECTS
+.loop:
+	ld a,(ix+oData.isMovable)
+	or a
+	jr z,.next
+	ld l,(ix+oData.cellId)
+	ld (hl),0
+.next:
+	ld de,OBJECT_DATA_SIZE
+	add ix,de
+	djnz .loop
+	ret
+;----------------------------------------------------------------
+/*
+	когда объект остановлен - заносим в ячейку карты на месте остановки объекта object ID
+
+	как только объект начинает движение - эта ячейка очищается !!
+	перед пунктом выше требуется проверить один раз каждый объект, с целью выяснить разрешено ли движение в требуемом направлении ?
+	К примеру могут стоять 2 врага рядом по горизонтали (движение влево)
+		слева от них стена = стоят оба
+		справа от них стена = оба движутяся
+
+		тут будет косяк...... переработать.
+
+
+
+	приминимо только к передвигаемым объектам - isMovable
+*/
 ;----------------------------------------------------------------
 
 	; TODO разобраться что нужно обнулять, что нет !!!

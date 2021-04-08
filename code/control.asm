@@ -33,15 +33,15 @@ update:
 	ret nz
 toDown:
 	ld (hl),DIRECTION.DOWN
-	ret
+	jp OBJECTS.clearCellsForMovableObjects
 toUp:
 	ld (hl),DIRECTION.UP
-	ret
+	jp OBJECTS.clearCellsForMovableObjects
 toLeft:
 	ld (hl),DIRECTION.LEFT
-	ret
+	jp OBJECTS.clearCellsForMovableObjects
 toRight:
 	ld (hl),DIRECTION.RIGHT
-	ret
+	jp OBJECTS.clearCellsForMovableObjects
 
 	endmodule

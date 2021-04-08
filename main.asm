@@ -33,8 +33,10 @@ attrBufferScroll: 		block 256, 0 	; буфер восстановления ат
 levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
 		; забить данными не более 64 байта, что бы floorCells LOW = 0	
 globalSeed:			dw 0
+		; две переменных ниже должны следовать друг за другом !!!
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
+
 floorColor:			db 0
 attrScrollAddr:			dw #0000 ; адрес рисования атрибутов информационной бегущей строки вверх 
 attrBitmapColor:		db 0 	; цвет атрибутов информационной бегущей строки вверх
@@ -68,7 +70,7 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
 
 
         display "::::::::: ",/A,OBJECTS.stepUp
-        display "::::::::: ",/A,GAME.update
+        display "::::::::: ",/A,GAME.setNextLevel
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

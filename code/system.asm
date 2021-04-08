@@ -2,27 +2,8 @@
 	module SYSTEM
 ;------------------------------------
 run:
-; 	ld hl,#5b08
-; 	ld (attrScrollAddr),hl
-; 	ld a,7
-; .loop:
-; 	ei
-; 	halt
-
-; 	ld hl,#5800
-; 	ld de,#5801
-; 	ld bc,767
-; 	ld (hl),7
-; 	ldir
-
-; 	call attrScoreShow
-
-
-; 	jr .loop
-
-; 	jr $
 	xor a
-	inc a 		; remove later
+; 	inc a 		; remove later
 	out (254),a
 	ld bc,$
 	; A - system ID

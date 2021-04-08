@@ -21,7 +21,19 @@ update:
 	call getDrawData
 	ret
 ;-------------------------------------------
-; 	когда моб съедает чупу он становится бомбой
+target:
+	ld a,(ix+oData.spriteId)
+	cp HERO_FACE_00_PBM_ID
+	jr z,killHero
+
+	ret
+;-------
+killHero:
+	call OBJECTS.resetObjectIX
+	ret
+
+
+;-------------------------------------------
 	
 
 
