@@ -1,0 +1,1497 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"attr",
+				"attrScrollAddr"
+			],
+			[
+				"attrB",
+				"attrBitmapColor"
+			],
+			[
+				"bitma",
+				"bitmapAttrColor"
+			],
+			[
+				"score",
+				"scoreUpAddress"
+			],
+			[
+				"EXI",
+				"EXIT_DOOR"
+			],
+			[
+				"addr",
+				"address"
+			],
+			[
+				"obj",
+				"object"
+			],
+			[
+				"pre",
+				"preY"
+			],
+			[
+				"chec",
+				"checkUp"
+			],
+			[
+				"GAM",
+				"GAME.update"
+			],
+			[
+				"save",
+				"saveNDrawH"
+			],
+			[
+				"sav",
+				"saveNDrawV"
+			],
+			[
+				"stop",
+				"stopHorizontal"
+			],
+			[
+				"look",
+				"lookLeft"
+			],
+			[
+				"OBJ",
+				"OBJECT_DATA_SIZE"
+			],
+			[
+				"dst",
+				"dstY"
+			],
+			[
+				"di",
+				"direction"
+			],
+			[
+				"step",
+				"stepLeft"
+			],
+			[
+				"MAP",
+				"MAP_WIDTH"
+			],
+			[
+				"set",
+				"setDestination"
+			],
+			[
+				"cell",
+				"cellId"
+			],
+			[
+				"by",
+				"byte"
+			],
+			[
+				"MAX",
+				"MAX_OBJECTS"
+			],
+			[
+				"is",
+				"isMoving"
+			],
+			[
+				"col",
+				"collision"
+			],
+			[
+				"nex",
+				"next"
+			],
+			[
+				"ob",
+				"object"
+			],
+			[
+				"drawFloorCellI",
+				"drawFloorCellIX"
+			],
+			[
+				"drawr",
+				"drawFloorCellIX"
+			],
+			[
+				"LEVE",
+				"LEVEL"
+			],
+			[
+				"draw",
+				"drawFloorCell"
+			],
+			[
+				"LE",
+				"LEVEL"
+			],
+			[
+				"floo",
+				"floorColor"
+			],
+			[
+				"curr",
+				"currentLevel"
+			],
+			[
+				"flo",
+				"floorColor"
+			],
+			[
+				"print",
+				"printSpr"
+			],
+			[
+				"E",
+				"EMPTY_PBM"
+			],
+			[
+				"get",
+				"getScreenAddrByCellId"
+			],
+			[
+				"BO",
+				"BOOM_01_PBM_ID"
+			],
+			[
+				"spr",
+				"spriteId"
+			],
+			[
+				"reset",
+				"resetObject"
+			],
+			[
+				"scr",
+				"scrAddrL"
+			],
+			[
+				"SET",
+				"SET_SPRITE_ADDR_IX"
+			],
+			[
+				"ENEM",
+				"ENEMY_FACE_00_PBM_ID"
+			],
+			[
+				"HERO",
+				"HERO_FACE_00_PBM_ID"
+			],
+			[
+				"BOO",
+				"BOOM_01_PBM_ID"
+			],
+			[
+				"HER",
+				"HERO_FACE_00_PBM_ID"
+			],
+			[
+				"bu",
+				"buildLevel"
+			],
+			[
+				"SYS",
+				"SYSTEM.GAME_INIT"
+			],
+			[
+				"check",
+				"checkLevelPassed"
+			],
+			[
+				"cur",
+				"currentLevel"
+			],
+			[
+				"sp",
+				"spriteId"
+			],
+			[
+				"SCORE",
+				"SCORE_10_PBM"
+			],
+			[
+				"end",
+				"endmodule"
+			],
+			[
+				"STAR",
+				"START_POSITION_PBM_ID"
+			],
+			[
+				"OB",
+				"OBJECT_DATA_SIZE"
+			],
+			[
+				"level",
+				"levelCells"
+			],
+			[
+				"cel",
+				"cellId"
+			],
+			[
+				"spri",
+				"spriteId"
+			],
+			[
+				"anim",
+				"animationId"
+			],
+			[
+				"prin",
+				"printSpr"
+			],
+			[
+				"printS",
+				"printSpr"
+			],
+			[
+				"CHU",
+				"CHUPA_001_PBM_ID"
+			],
+			[
+				"pai",
+				"paint2x2"
+			],
+			[
+				"scrA",
+				"scrAddrToAttrAddr"
+			],
+			[
+				"oD",
+				"oData.x"
+			],
+			[
+				"EENM",
+				"ENEMY_FACE_00_PBM"
+			],
+			[
+				"fals",
+				"falseIX"
+			],
+			[
+				"heroO",
+				"heroOffsetX"
+			],
+			[
+				"heroOff",
+				"heroOffsetX"
+			],
+			[
+				"SOU",
+				"SOUND.fire"
+			],
+			[
+				"offset",
+				"offsetX"
+			],
+			[
+				"WIDTH",
+				"WIDTH_S"
+			],
+			[
+				"fi",
+				"fire"
+			],
+			[
+				"world",
+				"worldControlAddresses"
+			],
+			[
+				"show",
+				"showWorld"
+			],
+			[
+				"WID",
+				"WIDTH_S"
+			],
+			[
+				"heroM",
+				"heroMapAddress"
+			],
+			[
+				"offse",
+				"offsetX"
+			],
+			[
+				"gene",
+				"generateCode"
+			],
+			[
+				"tmp",
+				"tmpLength"
+			],
+			[
+				"DAA",
+				"DATA.screenLines"
+			],
+			[
+				"soun",
+				"soundData"
+			],
+			[
+				"setOff",
+				"setOffestY"
+			],
+			[
+				"ldi",
+				"ldir"
+			],
+			[
+				"sta",
+				"stack"
+			],
+			[
+				"muta",
+				"mutableData"
+			],
+			[
+				"heroC",
+				"heroControl"
+			],
+			[
+				"minim",
+				"miniMapControl"
+			],
+			[
+				"LIS",
+				"LISTENER"
+			],
+			[
+				"mini",
+				"miniMapControl"
+			],
+			[
+				"move",
+				"moveUp"
+			],
+			[
+				"contr",
+				"controlKeys"
+			],
+			[
+				"MAIN",
+				"MAIN_MENU.show"
+			],
+			[
+				"WO",
+				"WORLD.setScene"
+			],
+			[
+				"MAI",
+				"MAIN_MENU"
+			],
+			[
+				"prep",
+				"prepare"
+			],
+			[
+				"WORL",
+				"WORLD.setScene"
+			],
+			[
+				"wai",
+				"waitKey"
+			],
+			[
+				"lis",
+				"listenKeys"
+			],
+			[
+				"only",
+				"onlyOffsetShift"
+			],
+			[
+				"key",
+				"keyPressed"
+			],
+			[
+				"herOM",
+				"heroMapAddress"
+			],
+			[
+				"WI",
+				"WIDTH_S"
+			],
+			[
+				"exit",
+				"exitMiniMap"
+			],
+			[
+				"center",
+				"centeredMap"
+			],
+			[
+				"miniMa",
+				"miniMapControlText"
+			],
+			[
+				"UT",
+				"UTILS.rnd16"
+			],
+			[
+				"color",
+				"colorScreen"
+			],
+			[
+				"fill",
+				"fillAttributesRectangle"
+			],
+			[
+				"UTI",
+				"UTILS.fadeOut"
+			],
+			[
+				"black",
+				"blackFrame"
+			],
+			[
+				"clear",
+				"clearScreen"
+			],
+			[
+				"flash",
+				"flashHeroInMap"
+			],
+			[
+				"fla",
+				"flashTimer"
+			],
+			[
+				"li",
+				"lines"
+			],
+			[
+				"dow",
+				"downDE"
+			],
+			[
+				"dec",
+				"decE"
+			],
+			[
+				"scree",
+				"screenLines"
+			],
+			[
+				"create",
+				"createScreenLinesAddresses"
+			],
+			[
+				"i_lo",
+				"i_llop2"
+			],
+			[
+				"setAf",
+				"setAF"
+			],
+			[
+				"сме",
+				"смещения"
+			],
+			[
+				"into",
+				"intoCell"
+			],
+			[
+				"heroo",
+				"heroOffsetX"
+			],
+			[
+				"stac",
+				"stackDraw"
+			],
+			[
+				"DATA",
+				"DATA.genLines"
+			],
+			[
+				"next",
+				"nextLine"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.asm",
+			"settings":
+			{
+				"buffer_size": 2688,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "utils/utils.asm",
+			"settings":
+			{
+				"buffer_size": 9465,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/system.asm",
+			"settings":
+			{
+				"buffer_size": 831,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/object.asm",
+			"settings":
+			{
+				"buffer_size": 13170,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/objects/exitDoor.asm",
+			"settings":
+			{
+				"buffer_size": 359,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/objects/chupa.asm",
+			"settings":
+			{
+				"buffer_size": 2102,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/control.asm",
+			"settings":
+			{
+				"buffer_size": 692,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/objects/hero.asm",
+			"settings":
+			{
+				"buffer_size": 512,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/game.asm",
+			"settings":
+			{
+				"buffer_size": 902,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/objects/bomb.asm",
+			"settings":
+			{
+				"buffer_size": 510,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "sprites/storage.asm",
+			"settings":
+			{
+				"buffer_size": 4762,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "maps/levelsData.asm",
+			"settings":
+			{
+				"buffer_size": 536,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "code/struct.asm",
+			"settings":
+			{
+				"buffer_size": 1688,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/level.asm",
+			"settings":
+			{
+				"buffer_size": 2899,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/z80asm/z80asm.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/z80asm/z80asm.sublime-build",
+					""
+				],
+				[
+					"Packages/z80asm/z80asm.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/z80asm/z80asm.sublime-build",
+					"Build and Run"
+				]
+			],
+			[
+				"Packages/z80asm/z80asm.sublime-build",
+				"Build and Run"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/P/ZX/A World of One-way"
+	],
+	"file_history":
+	[
+		"/P/ZX/Retro Platform Jam/code/objects/enemySkull.asm",
+		"/P/ZX/Retro Platform Jam/code/control.asm",
+		"/P/ZX/Retro Platform Jam/utils/utils.asm",
+		"/P/ZX/Retro Platform Jam/code/objects/chupa.asm",
+		"/P/ZX/Retro Platform Jam/code/objects/exitDoor.asm",
+		"/P/ZX/Retro Platform Jam/code/objects/startPosition.asm",
+		"/P/ZX/Retro Platform Jam/object.asm",
+		"/P/ZX/Retro Platform Jam/code/objects/info.txt",
+		"/P/ZX/GenerateLabirint/code/ui.asm",
+		"/P/ZX/GenerateLabirint/code/text.asm",
+		"/P/ZX/GenerateLabirint/code/mainMenu.asm",
+		"/P/ZX/GenerateLabirint/code/map.asm",
+		"/P/ZX/GenerateLabirint/code/listener.asm",
+		"/P/ZX/GenerateLabirint/code/hero.asm",
+		"/P/ZX/GenerateLabirint/code/mutableData.asm",
+		"/P/ZX/GenerateLabirint/code/world.asm",
+		"/P/ZX/GenerateLabirint/code/test.asm",
+		"/P/ZX/GenerateLabirint/main.asm",
+		"/P/ZX/GenerateLabirint/test.asm",
+		"/P/ZX/GenerateLabirint/code/sound.asm",
+		"/P/ZX/GenerateLabirint/code/utils.asm",
+		"/P/ZX/GenerateLabirint/code/control.asm",
+		"/C/Users/Serdjuk/AppData/Roaming/Sublime Text 3/Packages/z80asm/build.bat",
+		"/C/Users/Serdjuk/AppData/Roaming/Sublime Text 3/Packages/z80asm/run.bat",
+		"/P/ZX/GenerateLabirint/code/enemy.asm",
+		"/P/ZX/GenerateLabirint/world.asm",
+		"/P/ZX/GenerateLabirint/genLab.sublime-project",
+		"/P/ZX/GenerateLabirint/code/show.asm",
+		"/P/ZX/GenerateLabirint/utils.asm",
+		"/P/ZX/labirinto/code/interplay.asm",
+		"/P/ZX/labirinto/code/keyboard.asm",
+		"/P/ZX/labirinto/tmp.asm",
+		"/P/ZX/labirinto/globalData.asm",
+		"/P/ZX/labirinto/game.asm",
+		"/P/ZX/labirinto/utils.asm",
+		"/P/ZX/labirinto/map.asm",
+		"/P/ZX/labirinto/main.asm",
+		"/C/ZX/Sublime/Data/Packages/z80asm/run.bat",
+		"/C/ZX/Projects/16kb/labirinto/interplay.asm",
+		"/C/ZX/Sublime/Data/Packages/z80asm/build.bat",
+		"/C/ZX/Projects/16kb/labirinto/map.asm",
+		"/C/ZX/Projects/16kb/labirinto/code/keyListener.asm",
+		"/C/ZX/Projects/16kb/labirinto/tmp.asm",
+		"/C/ZX/Projects/16kb/labirinto/main.ROM.bin.ram",
+		"/C/ZX/Projects/16kb/labirinto/keyListener.asm",
+		"/C/ZX/Sublime/Data/Packages/z80asm/README.md",
+		"/C/ZX/Projects/16kb/labirinto/code/incl.asm",
+		"/C/ZX/Projects/sources/AAMap/mapScreen.asm",
+		"/C/ZX/Projects/sources/AAMap/main.asm",
+		"/C/ZX/Projects/sources/stack scroll/main.asm",
+		"/C/ZX/Next/Projects/Y2Next/src/defines.asm",
+		"/C/ZX/Next/Projects/Y2Next/src/macros.asm",
+		"/C/ZX/Next/Projects/Y2Next/src/tilemap/fontTiles.asm",
+		"/C/ZX/Next/Projects/Y2Next/src/tilemap/tilemap.asm",
+		"/C/ZX/Next/Projects/Y2Next/main.asm",
+		"/C/ZX/Next/sources/Sprite/main.asm",
+		"/C/ZX/Next/sources/Sprite/spriteDefines.a80",
+		"/C/ZX/Next/Projects/Sections Load/esxDos/defines.asm",
+		"/C/ZX/Next/Projects/Sections Load/esxDos/esxdos.asm",
+		"/C/ZX/Next/Projects/Sections Load/layer2/layer2.asm",
+		"/C/ZX/Next/Projects/Sections Load/sectionsLoad/sectionsLoad.asm",
+		"/C/ZX/Next/Projects/Sections Load/main.asm",
+		"/C/ZX/trash/esson2esxdosNihirash/esxdos.asm",
+		"/C/ZX/trash/esson2esxdosNihirash/main.asm",
+		"/C/ZX/trash/esson2esxdosNihirash/vtpl.asm",
+		"/C/ZX/Next/Projects/esxDos/esxDos/esxdos.asm",
+		"/C/ZX/Next/Projects/esxDos/esxDos/defines.asm",
+		"/C/ZX/Next/Projects/esxDos/layer2/layer2.asm",
+		"/C/ZX/Next/Projects/esxDos/esxDos/blockLoad.asm",
+		"/C/ZX/Next/Projects/esxDos/main.asm",
+		"/C/ZX/Next/Projects/esxDos/esxdos.asm",
+		"/C/ZX/Next/Projects/esxDos/defines.asm",
+		"/C/ZX/Next/Projects/esxDos/Exolon.wbm",
+		"/C/ZX/Addons/CSpect2_12_29/CSPECTB.bat",
+		"/C/ZX/Next/Test/docs_extra-hw_copper_COPPER-v0.1c.TXT",
+		"/C/ZX/Next/Test/Begin/src/esxdos.asm",
+		"/C/ZX/Next/Test/Begin/data/text.asm",
+		"/C/ZX/Next/Test/Begin/src/ula/ulaScreen.asm",
+		"/C/ZX/Next/Test/Begin/src/defines.asm",
+		"/C/ZX/Next/Test/Begin/src/layer2.asm",
+		"/C/ZX/Next/Test/Begin/src/nextSprite.asm",
+		"/C/ZX/Next/Test/Begin/src/macros.asm",
+		"/C/ZX/Next/Test/Begin/src/tilemap/tilemap.asm",
+		"/C/ZX/Next/Test/Begin/main.asm",
+		"/C/ZX/Next/Test/Begin/tilemap.asm",
+		"/C/ZX/Next/Test/Begin/src/copper.asm",
+		"/C/ZX/Next/Test/Begin/src/sprite.asm",
+		"/C/ZX/Next/Test/Begin/nextSprite.asm",
+		"/C/ZX/Next/Test/Begin/esxdos.asm",
+		"/E/Next/project/data/Code/Macros/Sprite.asm",
+		"/C/ZX/trash/QuestAlice.asm",
+		"/C/ZX/Projects/sources/memory banks (128k)/copyBanks.asm",
+		"/C/ZX/Projects/sources/memory banks (128k)/main.asm",
+		"/C/ZX/Projects/sources/memory banks (128k)/man.asm",
+		"/C/ZX/Projects/YangaV3.0/movingWalls.asm",
+		"/C/ZX/Projects/YangaV3.0/heroControll.asm",
+		"/C/ZX/Projects/YangaV3.0/text.asm",
+		"/C/ZX/Projects/YangaV3.0/controllers.asm",
+		"/C/ZX/Projects/YangaV3.0/windows/printText.asm",
+		"/C/ZX/Projects/YangaV3.0/windows/print.asm",
+		"/C/ZX/Projects/YangaV3.0/firstMeeting.asm",
+		"/C/ZX/Projects/YangaV3.0/mainMenu.asm",
+		"/C/ZX/Projects/YangaV3.0/screen.asm",
+		"/C/ZX/Projects/YangaV3.0/values.asm",
+		"/C/ZX/Projects/YangaV3.0/lvl.asm",
+		"/C/ZX/Projects/YangaV3.0/Yanga.asm",
+		"/C/ZX/Projects/YangaV3.0/gameMenu.asm",
+		"/C/ZX/Projects/YangaV3.0/sound/sound.asm",
+		"/C/ZX/Projects/YangaV3.0/sound.asm",
+		"/C/ZX/Projects/YangaV3.0/redefineKeys.asm",
+		"/C/ZX/Projects/YangaV3.0/prepare.asm",
+		"/C/ZX/Projects/YangaV3.0/addresses.asm",
+		"/C/ZX/Projects/YangaV3.0/passSystem.asm",
+		"/C/ZX/Projects/YangaV3.0/logic.asm",
+		"/C/ZX/Projects/YangaV3.0/storage.asm",
+		"/C/ZX/Projects/YangaV3.0/roomService.asm",
+		"/C/ZX/Projects/YangaV3.0/sound/sound.a80",
+		"/C/ZX/Projects/YangaV3.0/briefing.asm",
+		"/C/ZX/Projects/YangaV3.0/windows/window.asm",
+		"/C/ZX/Projects/YangaV3.0/windows/selectable.asm",
+		"/C/ZX/Projects/YangaV3.0/timers.asm",
+		"/C/ZX/Projects/YangaV3.0/enemies.asm",
+		"/C/ZX/Projects/YangaV3.0/runes.asm",
+		"/C/ZX/Projects/YangaV3.0/runicWalls.asm",
+		"/C/ZX/Projects/YangaV3.0/scroll.asm",
+		"/C/ZX/Projects/YangaV3.0/selectable.asm",
+		"/C/ZX/Projects/YangaV3.0/buttons.asm",
+		"/C/ZX/Projects/YangaV3.0/basic.asm"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 226.0,
+		"where_history":
+		[
+			"<open folders>",
+			"",
+			"*.asm",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"collision",
+			"checkForRemoveSide",
+			"horizontalStop",
+			"hl",
+			"ei",
+			"ei ",
+			"di ",
+			"halt",
+			"fadeAttr",
+			"ei ",
+			"herobit",
+			"clearAllMutableData",
+			".xrnd",
+			"width",
+			"ex af",
+			"ex de",
+			"exx",
+			"out",
+			"sra",
+			"out",
+			"offset",
+			"ld",
+			"ex af",
+			"hl",
+			"ix-",
+			"ROOM_DATA_SIZE",
+			"w1",
+			"endProgram",
+			"roomRectangles",
+			"16",
+			"\"\t",
+			"0",
+			"\"\n",
+			"0",
+			" \n",
+			"ldi",
+			"FF",
+			"ESX_GETSETDRV",
+			"width",
+			"Addons",
+			"virt_screen_high",
+			"64",
+			"put_spr_put",
+			"halt",
+			"L7",
+			"L8",
+			"_HIDE_DRAW_F",
+			"DRAW_LOOP1",
+			"rnd",
+			"rndLimit",
+			"ld sp",
+			"sp",
+			"lives",
+			"LIVES",
+			"pop dehalt",
+			"pop de halt",
+			"first",
+			"firstm",
+			"electro",
+			"switch",
+			"toggle",
+			"drill",
+			"firstMeeting",
+			"newpa",
+			"firstMeeting",
+			"first",
+			"toBeDestroyed",
+			"tobe",
+			"first",
+			"last",
+			"pre",
+			"cp 18",
+			"ld c,78",
+			"ld c.78",
+			"ld a,r",
+			"delay",
+			"count",
+			"final level",
+			"epilogue",
+			"final",
+			"fadeout",
+			"fade",
+			"DATA",
+			"ex af",
+			"exx",
+			"iy",
+			"ix",
+			"font",
+			"firstMeeting",
+			"set_text_delay",
+			"ix",
+			"cp ",
+			"nextLi",
+			"out (254)",
+			"out 2",
+			"textSett",
+			"..",
+			"controlledText",
+			"controlledText.length",
+			"isWindowShow",
+			"data",
+			"data+2",
+			"SHOW_",
+			"sound",
+			"runic",
+			"rune",
+			"notrune",
+			"map",
+			"id",
+			"colli",
+			"map",
+			"font",
+			"char",
+			"ix",
+			"data+3",
+			"ix+v.color",
+			"heroVal+v.color",
+			"v.color",
+			"seal",
+			"levelMap.aplib.asm",
+			"lev_01",
+			"di",
+			"di ",
+			"di",
+			"color",
+			"colors",
+			"dead",
+			"sound"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"textSettings"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2688,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1656,
+								1656
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 480.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "utils/utils.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9465,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8547,
+								8547
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11419.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "code/system.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 831,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								253,
+								83
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "code/object.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13170,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12037,
+								12037
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11939.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "code/objects/exitDoor.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 359,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								325,
+								325
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "code/objects/chupa.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2102,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								277,
+								277
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "code/control.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 692,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								679,
+								679
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 240.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "code/objects/hero.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 512,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								423,
+								423
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "code/game.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 902,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								479,
+								479
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "code/objects/bomb.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 510,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								128,
+								143
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "sprites/storage.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4762,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2087,
+								2106
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "maps/levelsData.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 536,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "code/struct.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1688,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1056,
+								1056
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "code/level.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2899,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2304,
+								2304
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2339.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 78.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 269.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 127.0
+	},
+	"pinned_build_system": "Packages/z80asm/z80asm.sublime-build",
+	"project": "rpj.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 218.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

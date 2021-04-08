@@ -1,0 +1,118 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "levels.tmx",
+    "expandedProjectPaths": [
+        ".",
+        "P:/Core/YanMapsTiled"
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "P:/Core/YanMapsTiled/map.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 152.66666666666666,
+                "y": 53.66666666666666
+            }
+        },
+        "P:/Core/YanMapsTiled/map.tmx#1467372525122782027": {
+            "scaleInEditor": 1
+        },
+        "P:/Core/YanMapsTiled/map.tmx#[Base]BaseChip_pipo": {
+            "scaleInDock": 1
+        },
+        "P:/Core/YanMapsTiled/map.tmx#main": {
+            "scaleInEditor": 1
+        },
+        "P:/Core/YanMapsTiled/map.tmx#sega": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "P:/Core/YanMapsTiled/map.tmx#yPack": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "P:/ZX/Retro Platform Jam/sprites/sprites.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level_0001.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 149.66666666666663,
+                "y": 108
+            }
+        },
+        "level_0001.tmx#sprites": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "level_0001.tmx#tiles": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "level_0001.tmx#yPack": {
+            "dynamicWrapping": false
+        },
+        "level_0002.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 553.3333333333334,
+                "y": -65.33333333333337
+            }
+        },
+        "level_0002.tmx#sprites": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "levels.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 203,
+                "y": 139.25
+            }
+        },
+        "levels.tmx#sprites": {
+            "dynamicWrapping": true,
+            "scaleInDock": 3,
+            "scaleInEditor": 1.5
+        },
+        "sprites.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "P:/ZX/Retro Platform Jam/maps",
+    "last.externalTilesetPath": "P:/ZX/Retro Platform Jam/maps",
+    "last.imagePath": "P:/ZX/Retro Platform Jam/sprites/bmp",
+    "map.height": 120,
+    "map.lastUsedExportFilter": "Tiled map files (*.tmx *.xml)",
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": null,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 160,
+    "openFiles": [
+        "levels.tmx"
+    ],
+    "project": "test.tiled-project",
+    "recentFiles": [
+        "levels.tmx",
+        "level_0001.tmx",
+        "sprites.tsx",
+        "level_0002.tmx",
+        "P:/ZX/Retro Platform Jam/sprites/sprites.tsx",
+        "P:/Core/YanMapsTiled/map.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.type": 1
+}
