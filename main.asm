@@ -18,6 +18,7 @@ elds:
 	include "code/objects/chupa.asm"
 	include "code/objects/exitDoor.asm"
 	include "code/objects/enemySkull.asm"
+	include "code/audio/soundPlayer.asm"
 	include "utils/utils.asm"
 ss:
 	include "sprites/storage.asm"
@@ -28,7 +29,7 @@ global_direction:	db DIRECTION.NONE
 textColor:		db 0,0
 //---------------------------------SPACE--------------------------------
 				align 256
-attrBufferScroll: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх
+buffer256: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх и еще чего нибудь :)
 	
 	; #00 > 	free way
 	; #01-#0A > 	object ID`s
@@ -43,11 +44,12 @@ levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 b
 		; забить данными не более 64 байта, что бы floorCells LOW = 0	
 globalSeed:			dw 0
 		; две переменных ниже должны следовать друг за другом !!!
-currentLevel:			db 1
+currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 
 floorColor:			db 0
 attrScrollAddr:			dw #0000 ; адрес рисования атрибутов информационной бегущей строки вверх 
+preAttrScrollAddr:			dw #0000 ; 
 attrBitmapColor:		db 0 	; цвет атрибутов информационной бегущей строки вверх
 delta:				db 0	; каждый кадр +1 в GAME.update
 ; title data
@@ -73,6 +75,7 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
         display "screenAddresses address: ",/A,screenAddresses
         display "getDrawData address: ",/A,getDrawData
         display "object data size: ",/A,OBJECT_DATA_SIZE
+        display "OBJECTS DATA : ",/A,objectsData
 
 
         display "LEVELS_MAP: ",/A,LEVELS_MAP
@@ -82,7 +85,7 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
 
 
         display "::::::::: ",/A,OBJECTS.setLaunchTime
-        display "::::::::: ",/A,GAME.setNextLevel
+        display "::::::::: ",/A,showGameInfo
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

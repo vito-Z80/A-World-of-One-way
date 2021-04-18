@@ -593,7 +593,7 @@ attrRect:
 	ret z
 	jr .right
 ;------------------------------------------
-attrScoreShow:
+showGameInfo:
 	; DE - bitmap
 	; C - width (in bytes)
 	; TODO save under attributes and return
@@ -601,15 +601,71 @@ attrScoreShow:
 	ld de,bitmapPlus10
 
 
+
+	ld ix,buffer256 	; buffer for save backgroud attributes
+	ld hl,(preAttrScrollAddr)
+	ld a,l
+	or h
+	jr z,.onlyPaint
+	; return background 
+	push de
+	push bc
+	ld a,c
+	rlca
+	rlca
+	rlca
+	ld d,a
+	ld a,32
+	sub d
+	ld e,a
+	ld d,0
+
+	ld b,5
+
+.restoreFull:
+	push bc
+	ld b,c
+	ld a,h
+	cp 58
+	jr c,.next
+	cp #5B
+	jr nc,.next
+.restoreLine:
+
+	ld a,1
+.restoreByte:
+	ex af,af
+	ld a,(ix)
+	ld (hl),a
+	inc ixl
+	inc l
+	ex af,af
+	rlca
+	jr nc,.restoreByte
+	djnz .restoreLine
+	jr .next + 2
+.next:
+	add ix,de
+	add hl,de
+	pop bc
+	djnz .restoreFull
+
+	pop bc
+	pop de
+.onlyPaint:
+	; paint
+	ld ixl,0
 	ld hl,(attrScrollAddr)
+	ld (preAttrScrollAddr),hl
 	ld a,h
 	cp #57
-	ret c 	; exit if scroll draw address =  -1 third
+	jp c,GAME.clearAttrScrAddr
 	push hl
 	; set top color and convert to paper
 	ld a,(attrBitmapColor)
-	inc a
-	and 7
+; 	inc a
+; 	and 7
+	call colorRotate
 	ld (attrBitmapColor),a
 	rlca
 	rlca
@@ -637,6 +693,9 @@ attrScoreShow:
 	ex af,af
 .con:
 	inc l
+	ld c,(hl)
+	ld (ix),c
+	inc ixl
 	djnz .byte
 	inc de
 	pop bc
@@ -674,6 +733,91 @@ bitmapPlus10:
 	db %11100100, %10001000
 	db %01000100, %10001000
 	db %00001110, %01110000
+;------------------------------------------
+colorRotate:
+	; rotate a (1-7) without 0
+	dec a
+	jr nz,.rc
+	dec a
+.rc:
+	and 7
+	ret
+;------------------------------------------
+convertScrToAttr:
+	; return DE - attribute address
+	ld e,(ix+oData.scrAddrL)
+	ld d,(ix+oData.scrAddrH)
+	call scrAddrToAttrAddr
+	ex de,hl
+	ret
+;------------------------------------------
+flashRedYellow:
+	call convertScrToAttr
+	ld a,(ix+oData.color)
+	xor 4
+	ld (ix+oData.color),a
+	ld a,(ix+oData.delta)
+	and 3
+	jr z,fillAttr2x2
+	ld a,#40
+	xor (ix+oData.color)
+
+
+	jr fillAttr2x2
+;------------------------------------------
+circularGradient:
+	ld a,(ix+oData.delta)
+	and 1
+	ret nz
+	call convertScrToAttr
+	ld a,(ix+oData.color)
+	push af
+	ld (hl),a
+	inc l
+	call colorRotate
+	ld (hl),a
+	ld bc,32
+	add hl,bc
+	call colorRotate
+	ld (hl),a
+	dec l
+	call colorRotate
+	ld (hl),a
+	pop af
+	dec a
+	call colorRotate
+	ld (ix+oData.color),a
+	ret
+;------------------------------------------
+fillAttr2x2:
+	; A - color
+	; HL - attribute address
+	ld (hl),a
+	inc l
+	ld (hl),a
+	ld bc,32
+	add hl,bc
+	ld (hl),a
+	dec l
+	ld (hl),a
+	ret
+;------------------------------------------
+fadeOut2x2:
+	call convertScrToAttr
+	ld a,(ix+oData.color)
+	call fillAttr2x2
+	dec a
+	ld (ix+oData.color),a
+	ret
+;------------------------------------------
+clear2x2:
+	ld l,(ix+oData.scrAddrL)
+	ld h,(ix+oData.scrAddrH)
+	push hl
+	call clear1x2
+	pop hl
+	inc l
+	jp clear1x2
 ;------------------------------------------
 ; run
 ;     ld (return+1),sp

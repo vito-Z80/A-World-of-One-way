@@ -11,7 +11,7 @@
     "fileStates": {
         "": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 5.5
         },
         "P:/Core/YanMapsTiled/map.tmx": {
             "scale": 1.5,
@@ -77,8 +77,8 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 405.5,
-                "y": 174.5
+                "x": 404.5,
+                "y": 174.25
             }
         },
         "levels.tmx#sprites": {
@@ -93,7 +93,7 @@
     },
     "last.exportedFilePath": "P:/ZX/Retro Platform Jam/maps",
     "last.externalTilesetPath": "P:/ZX/Retro Platform Jam/maps",
-    "last.imagePath": "P:/ZX/Retro Platform Jam/sprites/bmp",
+    "last.imagePath": "P:/ZX/A-World-of-One-way/sprites/bmp",
     "map.height": 120,
     "map.lastUsedExportFilter": "Tiled map files (*.tmx *.xml)",
     "map.lastUsedFormat": "tmx",

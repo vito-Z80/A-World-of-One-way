@@ -4,11 +4,13 @@
 run:
 
 
+	call SOUND_PLAYER.SET_SOUND.mute
 	xor a
 	inc a 		; remove later
 	out (254),a
-	ld sp,$
+	ld sp,#8000
 	;----------------------------test code
+
 
 	;----------------------------test code
 	ld bc,$
@@ -23,6 +25,9 @@ run:
 	inc hl
 	ld h,(hl)
 	ld l,a
+	exx
+	call SOUND_PLAYER.play
+	exx
 	BORDER 0
 	ei
 	halt

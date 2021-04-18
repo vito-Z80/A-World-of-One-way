@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="160" height="120" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
- <tileset firstgid="1" name="sprites" tilewidth="24" tileheight="16" tilecount="33" columns="0">
+ <tileset firstgid="1" name="sprites" tilewidth="24" tileheight="16" tilecount="36" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="16" height="16" source="../sprites/bmp/empty.pbm"/>
@@ -86,9 +86,6 @@
   <tile id="36">
    <image width="16" height="16" source="../sprites/bmp/exit_door.pbm"/>
   </tile>
-  <tile id="39">
-   <image width="16" height="16" source="../sprites/bmp/score.pbm"/>
-  </tile>
   <tile id="40">
    <image width="16" height="16" source="../sprites/bmp/boom_01.pbm"/>
   </tile>
@@ -100,6 +97,18 @@
   </tile>
   <tile id="43">
    <image width="16" height="16" source="../sprites/bmp/boom_04.pbm"/>
+  </tile>
+  <tile id="44">
+   <image width="16" height="16" source="../sprites/bmp/explosion_01.pbm"/>
+  </tile>
+  <tile id="45">
+   <image width="16" height="16" source="../sprites/bmp/explosion_02.pbm"/>
+  </tile>
+  <tile id="46">
+   <image width="16" height="16" source="../sprites/bmp/explosion_03.pbm"/>
+  </tile>
+  <tile id="47">
+   <image width="16" height="16" source="../sprites/bmp/explosion_04.pbm"/>
   </tile>
  </tileset>
  <layer id="1" name="walls" width="160" height="120">

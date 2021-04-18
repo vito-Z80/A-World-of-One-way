@@ -20,7 +20,7 @@ color		byte
 delta		byte
 accelerate	byte
 isMovable	byte 	; 0 - false, !=0 - true
-isDestroyed	byte	; !=0 == object destroyed
+isDestroyed	byte	; object destroyed
 exec		dw 	; The address of the procedure executed every frame for the current object. #0000 = not called.
 bit:		byte 	; bit 0-7 of X coordinate
 scrAddrL:	byte

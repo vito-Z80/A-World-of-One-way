@@ -6,9 +6,16 @@ init:
 	call LEVEL.build 	
 	; current HL for next call
 	call OBJECTS.create
+	call clearAttrScrAddr
 	xor a
 	ld (isLevelPassed),a
 	ld a,SYSTEM.GAME_UPDATE
+	ret
+;-----------------------------------------------
+clearAttrScrAddr:
+	ld hl,0
+	ld (attrScrollAddr),hl
+	ld (preAttrScrollAddr),hl
 	ret
 ;-----------------------------------------------
 update:
@@ -32,6 +39,12 @@ update:
 	BORDER 2
 	call OBJECTS.update
 	BORDER 5
+
+	push ix
+	call showGameInfo
+	pop ix
+
+	BORDER 7
 
 
 	call returnKey

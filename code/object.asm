@@ -95,6 +95,10 @@ clear:
 
 .clearRight:
 
+	; нужен фикс !!!!!!!!!!!!!!!!!!!!!!!
+	; когда объект останоавливается упираясь в препядствие, не происходит отчистки хвоста с правого края объекта !!!!!!!
+	; 
+
 	
 	; сраный костыль
 	ld a,(ix+oData.accelerate)
@@ -113,7 +117,6 @@ clear:
 	jr .clearSymbol - 2
 ;----------------------------------------------------------------
 draw:
-	; FIXME for stack... or not :)
 	ld ix,objectsData
 	ld b,MAX_OBJECTS
 .loop:
@@ -127,7 +130,7 @@ draw:
 	or e
 	jr z,.end
 	push de
-	call paint
+	call paint 			; FIXME перенести в update каждого объекьа !!!!!!!!
 	ld l,(ix+oData.sprAddrL) 	; spr addr low
 	ld h,(ix+oData.sprAddrH) 	; spr addr high
 	; FIXME draw method
@@ -151,6 +154,11 @@ draw:
 	jp printSprite3x2
 ;----------------------------------------------------------------
 paint:
+	ld a,(ix+oData.spriteId)
+	cp CHUPA_001_PBM_ID
+	jp z,circularGradient
+	cp BOOM_01_PBM_ID
+	jp z,flashRedYellow
 	ld a,(ix+oData.color) 	
 	inc a
 	ret z 	; if color == #FF > no paint
@@ -238,6 +246,9 @@ setLaunchTime:
 	ld a,(ix+oData.isMovable)
 	or a
 	jr z,.next
+	ld a,(ix+oData.isDestroyed)
+	or a
+	jr nz,.next
 	call .findDistantObject
 .next:
 	ld bc,OBJECT_DATA_SIZE
@@ -496,9 +507,7 @@ checkDown:
 	ld a,(hl)
 	or a
 	ret z 		; free way
-	push hl
 	call nz,targetCell
-	pop hl
 	ld a,(hl)
 	or a
 	ret z 		; free way
@@ -510,9 +519,7 @@ checkLeft:
 	ld a,(hl)
 	or a
 	ret z 		; free way
-	push hl
 	call nz,targetCell
-	pop hl
 	ld a,(hl)
 	or a
 	ret z 		; free way
@@ -520,17 +527,26 @@ checkLeft:
 	inc l
 zeroMotion:
 	ld c,l
+	; выровнять координаты по ячейке
 	call getCoordsByCellId
 	ld (ix+oData.x),e
-; 	ld (ix+oData.preX),e
 	ld (ix+oData.y),d
+; 	ld (ix+oData.preX),e
 ; 	ld (ix+oData.preY),d
+
+	; костыль нужен что бы не проигрывался звук SOUND_PLAYER.SET_SOUND.impact
+	; так как при уничтожении объекты имеют разные звуки.
+	ld a,(ix+oData.isDestroyed)
+	or a
+	ret nz
+
 	ld (ix+oData.cellId),l
 	ld (ix+oData.accelerate),1 	
 	ld (ix+oData.direction),0
 	ld (ix+oData.delta),0
 	ld a,(ix+oData.id)
 	ld (hl),a 	; когда объект остановлен - заносим его object ID в ячейку карты. 
+	call SOUND_PLAYER.SET_SOUND.impact
 	ret
 ;-------
 checkRight:
@@ -538,9 +554,7 @@ checkRight:
 	ld a,(hl)
 	or a
 	ret z 		; free way
-	push hl
 	call nz,targetCell
-	pop hl
 	ld a,(hl)
 	or a
 	ret z 		; free way
@@ -553,9 +567,7 @@ checkUp:
 	ld a,(hl)
 	or a
 	ret z 		; free way
-	push hl
 	call nz,targetCell
-	pop hl
 	ld a,(hl)
 	or a
 	ret z 		; free way
@@ -568,16 +580,27 @@ checkVertical:
 targetCell:
 	; HL - level cell
 	; A - object ID
-
-
-
-	; нужно перепроверить что сохранять и какие реги портит нижняя херня.
-
+	cp #FF
+	ret z 		; wall on way
+	push hl
+	push iy
+	call .targetCellExe
+	pop iy
+	pop hl
 	ret
+.targetCellExe:
+
+
+
+	display "targetCell",/A,$
 
 	ex de,hl
 	call getObjDataById  	; get IY - target object address
 	ex de,hl
+	; IX > this object
+	; IY > target object
+	; HL > level cell
+	; этими данными можно пользоваться для взаимодействия объектов.
 	ld a,(iy+oData.spriteId)
 	cp EXIT_DOOR_PBM_ID
 	jp z,EXIT_DOOR.toNextLevel
@@ -586,7 +609,11 @@ targetCell:
 
 
 	cp CHUPA_001_PBM_ID
-	jp z,CHUPA.transform
+	jp z,CHUPA.getCoin
+	ret
+; 	jp z,CHUPA.transform
+
+
 
 
 	cp BOOM_01_PBM_ID
@@ -623,6 +650,9 @@ identifyMoving:
 	ld a,(ix+oData.isMovable)
 	or a
 	jr z,.next
+	ld a,(ix+oData.isDestroyed)
+	or a
+	jr nz,.next
 	ld l,(ix+oData.cellId)
 	ld d,l 		; save cell ID to D
 	ld a,e
@@ -702,53 +732,30 @@ identifyMoving:
 	приминимо только к передвигаемым объектам - isMovable
 */
 ;----------------------------------------------------------------
-
-	; TODO разобраться что нужно обнулять, что нет !!!
-	; после прохода ДВОЙНОГО спрайта врага через бомбу, оставшийся спрайт не завершает движение и управление не доступно !!!!
 resetObjectIX:
-; 	push ix
-; 	pop hl
-; 	ld e,l
-; 	ld d,h
-; 	inc de
-; 	ld bc,OBJECT_DATA_SIZE - 1
-; 	ld (hl),0
-; 	ldir
-; 	ret
-
-	xor a
-	ld (ix+oData.scrAddrL),a
-	ld (ix+oData.scrAddrH),a
-	ld (ix+oData.sprAddrL),a
-	ld (ix+oData.sprAddrH),a
-	ld (ix+oData.exec),a
-	ld (ix+oData.exec + 1),a
-	dec a
-	; set #FF
-	ld (ix+oData.id),a
-	ld (ix+oData.spriteId),a
+	ld e,ixl
+	ld d,ixh
+	ld l,(ix+oData.cellId)
+	ld h,high levelCells
+	ld (hl),0
+	call resetObject
+	ld (ix+oData.id),#FF
+	ret
+resetObject:
+	ld h,d
+	ld l,e
+	inc de
+	ld bc,OBJECT_DATA_SIZE - 1
+	ld (hl),#00
+	ldir
 	ret
 resetObjectIY:
-; 	push iy
-; 	pop hl
-; 	ld e,l
-; 	ld d,h
-; 	inc de
-; 	ld bc,OBJECT_DATA_SIZE - 1
-; 	ld (hl),0
-; 	ldir
-; 	ret
-
-	xor a
-	ld (iy+oData.scrAddrL),a
-	ld (iy+oData.scrAddrH),a
-	ld (iy+oData.sprAddrL),a
-	ld (iy+oData.sprAddrH),a
-	ld (iy+oData.exec),a
-	ld (iy+oData.exec + 1),a
-	dec a
-	; set #FF
-	ld (iy+oData.id),a
-	ld (iy+oData.spriteId),a
+	ld e,iyl
+	ld d,iyh
+	ld l,(iy+oData.cellId)
+	ld h,high levelCells
+	ld (hl),0
+	call resetObject
+	ld (iy+oData.id),#FF
 	ret
 	endmodule

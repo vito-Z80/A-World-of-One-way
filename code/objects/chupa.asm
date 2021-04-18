@@ -18,14 +18,12 @@ init:
 	ret
 ;------------------------------------
 update:
-
+	ld a,(ix+oData.isDestroyed)
+	or a
+	jp nz,OBJECTS.resetObjectIX
 	ld a,(ix+oData.delta)
 	inc a
 	ld (ix+oData.delta),a
-	push af
-	and 3
-	call z,sequenceColor
-	pop af
 	and 7
 	or a
 	ret nz
@@ -56,16 +54,6 @@ update:
 
 	ret
 ;--------------------------------------
-sequenceColor:
-	ld a,(ix+oData.color)
-	dec a
-	jr nz,.rc
-	dec a
-.rc:
-	and 7
-	ld (ix+oData.color),a
-	ret
-;--------------------------------------
 moveUp:
 	dec (ix+oData.y) 		; move up
 	ld e,(ix+oData.x)
@@ -76,34 +64,38 @@ moveUp:
 	ld (ix+oData.color),#FF 	; reset color
 	ret
 ;--------------------------------------
-transform:
+getCoin:
 	; HL - level cell
 	; transform this object to BOMB or SCORE
 	ld a,(ix+oData.spriteId)
 	cp HERO_FACE_00_PBM_ID
-	jr z,.showScore
+	jr z,.showScore 	; coin eat by hero
 	cp ENEMY_FACE_00_PBM_ID
 	ret nz
 .showBomb:
-	; convert chupa to bomb
-	call OBJECTS.resetObjectIX
+	; coin eat by enemy
+	; convert coin to bomb
 	; установка в spriteId работает только с анимированными объектами, так как обращается к переменной для получения начального адреса анимации
 	; то есть, если спрайт состит из 1 кадра, то новый адрес спрайта нужно заносить в (sprAddrHL)
-	ld (iy+oData.spriteId),BOOM_01_PBM_ID
-	ret
+	ld (iy+oData.spriteId),BOOM_01_PBM_ID 	; the coin became a bomb
+	ld (ix+oData.isDestroyed),1 		; destroy other object
+	ld (ix+oData.color),7 			; set other object color
+	ld (iy+oData.color),2 			; set bomb color 
+	jp SOUND_PLAYER.SET_SOUND.eat
 .showScore:
-	ld (hl),0
-	ld (iy+oData.id),#FF
-	ret
+; 	ld (hl),0
+; 	ld (iy+oData.id),#FF
+; 	ret
 
 	; convert chupa to score and move
 	; set 0 to cell for free move 
 	ld (hl),0 	
-	; set score sprite for chupa sprite
-	SET_SPRITE_ADDR_IY SCORE_PBM
-	; set exec "moveUp"
-	SET_EXEC_IY CHUPA.moveUp
-	ret
+	ld (iy+oData.isDestroyed),1 	; destroy coin
+
+	ld hl,#5b08
+	ld (attrScrollAddr),hl
+
+	jp SOUND_PLAYER.SET_SOUND.coin
 destroy:
 	; destroy bomb and object
 	ld (hl),0

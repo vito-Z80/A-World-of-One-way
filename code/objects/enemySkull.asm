@@ -15,6 +15,15 @@ update:
 ; 	ld a,(ix+oData.color)
 ; 	add 4
 ; 	and 7
+	ld a,(ix+oData.id)
+	inc a
+	ret z
+
+
+	ld a,(ix+oData.isDestroyed)
+	or a
+	jr nz,destroyThis
+
 	ld a,2
 	ld (ix+oData.color),a
 
@@ -23,6 +32,13 @@ update:
 	call OBJECTS.collision
 	call getDrawData
 	ret
+;-------------------------------------------
+destroyThis:
+	call fadeOut2x2
+	or a
+	ret nz
+	call clear2x2
+	jp OBJECTS.resetObjectIX 	; object was destroyed
 ;-------------------------------------------
 target:
 	ld a,(ix+oData.spriteId)

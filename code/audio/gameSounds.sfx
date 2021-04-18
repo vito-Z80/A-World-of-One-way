@@ -1,0 +1,8 @@
+;SFXv1
+sfx 1 4 22 11 0
+impact 2 2 5 -33 0
+key 1 1 4 0 0
+explo 2 32 1 -1 0
+coin_1 1 6 32 -8 6
+coin_2 1 6 48 -12 0
+finish 1 6 22 66 0

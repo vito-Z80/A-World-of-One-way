@@ -26,6 +26,7 @@ keys:
 	in a,(c)
 	bit 1,a
 	jr nz,.keyI
+	call SOUND_PLAYER.SET_SOUND.key
 	ld l,SYSTEM.GAME_INIT
 	ret
 .keyI:
@@ -33,6 +34,7 @@ keys:
 	in a,(c)
 	bit 2,a
 	ret nz
+	call SOUND_PLAYER.SET_SOUND.key
 	ld l,SYSTEM.INFO_INIT
 	ret
 ;------------------------------------------------
