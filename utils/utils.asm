@@ -116,20 +116,20 @@ nextLine:
         ret
 ;---------------------------------------------------------
 getScrAddrByCoords:
-	ld l,(ix+oData.y)
+	; L = Y; E = X
+	; return Hl = screen address
 	ld a,high screenAddresses
 	rlc l
 	adc 0
 	ld h,a
 	res 0,l
 	ld c,l
-	ld b,h
+; 	ld b,h
 
 	ld a,(hl)
 	inc l
 	ld h,(hl)
 	ld l,a
-	ld e,(ix+oData.x)
 	ld a,e
 	rrca
 	rrca
@@ -137,18 +137,18 @@ getScrAddrByCoords:
 	and #1F
 	add a,l
 	ld l,a
-	ld (ix+oData.scrAddrL),l
-	ld (ix+oData.scrAddrH),h
-
 	ret
 ;---------------------------------------------------------
 getDrawData:
 	; screen address by coordinates
 	; sprite address
+	ld e,(ix+oData.x)
+	ld l,(ix+oData.y)
 	call getScrAddrByCoords
+	ld (ix+oData.scrAddrL),l
+	ld (ix+oData.scrAddrH),h
 	ld a,(ix+oData.spriteId)
 	call getSpriteAddr
-
 	ld a,e
 	and 7
 	ld (ix+oData.bit),a
@@ -161,6 +161,11 @@ getDrawData:
 	; hl - sprite address
 	ld (ix+oData.sprAddrL),l
 	ld (ix+oData.sprAddrH),h
+
+	; 
+
+
+
 	ret
 
 
@@ -365,7 +370,7 @@ getCoordsByCellId:
 ;------------------------------------------------------------
 getCellIDByCoords:
 	; DE - Y,X
-	; return A - cell ID
+	; return A = cell ID
 	; corrupt D
 	ld a,d
 	and #F0
@@ -670,3 +675,55 @@ bitmapPlus10:
 	db %01000100, %10001000
 	db %00001110, %01110000
 ;------------------------------------------
+; run
+;     ld (return+1),sp
+;     ld sp,fillStack
+;     ld hl,levelCells     //  start point
+;     ld de,32    //  line size
+;     jp code
+; return
+;     ld sp,0
+;     ret
+; //---------------------------------
+; code
+;     ld c,#ff    //  C = fill color
+;     ld b,(hl)   //  B = find color
+;     push hl
+; again
+;     pause
+; aga2
+;     pop hl
+;     ld a,l
+;     cp low fillStack + 1
+;     jp nc,return    //  stack is over
+;     ld a,(hl)
+;     cp c
+;     jp z,aga2   //  does not need processing
+;     ld a,b      //  find color
+;     ld (hl),c   //  fill color
+; left
+;     dec hl
+;     cp (hl)
+;     jp nz,down
+;     push hl
+; down
+;     inc hl
+;     add hl,de
+;     cp (hl)
+;     jp nz,right
+;     push hl
+; right
+;     inc hl
+;     or a
+;     sbc hl,de
+;     cp (hl)
+;     jp nz,up
+;     push hl
+; up
+;     dec hl
+;     or a
+;     sbc hl,de
+;     cp (hl)
+;     jp nz,again
+;     push hl
+;     jp again

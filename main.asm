@@ -16,7 +16,6 @@ elds:
 	include "code/object.asm"
 	include "code/objects/hero.asm"
 	include "code/objects/chupa.asm"
-	include "code/objects/startPosition.asm"
 	include "code/objects/exitDoor.asm"
 	include "code/objects/enemySkull.asm"
 	include "utils/utils.asm"
@@ -25,16 +24,26 @@ ss:
 ess
 //---------------------------------VARIABLES---------------------------------
 global_direction:	db DIRECTION.NONE
-tmp_direction:		db DIRECTION.NONE
+; tmp_direction:		db DIRECTION.NONE
 textColor:		db 0,0
 //---------------------------------SPACE--------------------------------
 				align 256
 attrBufferScroll: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх
+	
+	; #00 > 	free way
+	; #01-#0A > 	object ID`s
+	; #FF > 	wall
+	; #FE > 	breakable wall
+	; 	общее:
+	; объекты на карте со значением 0 = пустая ячейка (свободный путь)
+	; объекты на карте со значением (128-255) = не возможно пересеч (стена)
+	; объекты на карте со значением (1-127) = объекты взаимодействия
+	;
 levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
 		; забить данными не более 64 байта, что бы floorCells LOW = 0	
 globalSeed:			dw 0
 		; две переменных ниже должны следовать друг за другом !!!
-currentLevel:			db 0
+currentLevel:			db 1
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 
 floorColor:			db 0
@@ -51,6 +60,9 @@ floorCells:			block MAP_WIDTH * MAP_HEIGHT 		; floor cells for back to screen
 objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data
 				; low address byte = 0
 screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 bytes
+
+; fillStack:			; место для стека заливки пустотой внутри уровня
+; 				equ $
         savetap "main.tap", SYSTEM.run
 
 
@@ -69,10 +81,11 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
         display "SPRITE_STORAGE: ",/A,SPRITE_MAP
 
 
-        display "::::::::: ",/A,OBJECTS.stepUp
+        display "::::::::: ",/A,OBJECTS.setLaunchTime
         display "::::::::: ",/A,GAME.setNextLevel
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds
+        display "CODE SIZE = ",/A, ess - SYSTEM.run
         display "FULL SIZE = ",/A, $ - SYSTEM.run
         display "LAST ADDRESS = ",/A, $

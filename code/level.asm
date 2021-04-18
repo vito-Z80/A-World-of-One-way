@@ -28,6 +28,7 @@ clearData:
 	ret
 ;------------------------------------------------------------
 buildLevel:
+; 	call .fillFloor
 	; parse level walls
 	; level walls data = 24 bytes
 	; displayed wall cells = 192 pcs.
@@ -48,8 +49,8 @@ buildLevel:
 	; BC = offset of level addresses map
 	ld hl,LEVELS_BEGIN
 	add hl,bc
-	ld (globalSeed),hl
-	ld b,24 		; half lines size
+	ld (globalSeed),hl 	; set random seed for this level
+	ld b,24 		; 12 rows, 2 columns
 .nextHalf:
 	push bc
 	ld a,(hl)
@@ -59,7 +60,7 @@ buildLevel:
 	push bc
 	rlca
 	push af
-	jr nc,.drawFloor 	; TODO replace to floor cell
+	jr nc,.emptyCell 	; TODO replace to floor cell
 	ld (ix),255 		; fill cells for collision
 	push hl
 	ld hl,BLOCK_PBM 	; TODO render random walls by seed
@@ -79,6 +80,21 @@ buildLevel:
 	inc hl
 	pop bc
 	djnz .nextHalf
+	ret
+;----------------------------------------------
+.fillFloor:
+	; TODO get two random floor sprites ?
+; 	ld de,#4000
+	ld b,#C0
+.loop:
+	push bc
+	ld c,b
+	dec c
+	ld hl,FLOOR_0004_PBM
+	call printSpr
+	pop bc
+	djnz .loop
+
 	ret
 ;----------------------------------------------
 .drawFloor:
@@ -130,45 +146,5 @@ buildLevel:
 	add hl,bc
 	ret
 ;----------------------------------------------
-drawFloorCellIX:
-	ld e,(ix+oData.x)
-	ld d,(ix+oData.y)
-dfc:
-	push hl
-	call drawFloorCell
-	pop hl
-	ret
-drawFloorCellIY
-	ld e,(iy+oData.x)
-	ld d,(iy+oData.y)
-	jr dfc
-drawFloorCell:
-	; DE - Y,X
-	call getCellIDByCoords
-	push af
-	call getScrAddrByCoords
-	ex de,hl
-	push de
-	call scrAddrToAttrAddr
-	ex de,hl
-	; fill attribute 2x2
-	ld a,(floorColor)
-	ld c,a
-	call paint2x2
-	pop de
-	pop af
-	ld l,a
-	ld h,high floorCells
-	ld a,(hl)
-	dec a 		; потмоу что ID пола 1-4, после dec a получим 0-3
-	rrca
-	rrca
-	rrca
-	add a,low EMPTY_PBM
-	ld l,a
-	adc a,high EMPTY_PBM
-	sub l
-	ld h,a	
-	jp printSpr + 3
 
 	endmodule

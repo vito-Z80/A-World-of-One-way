@@ -4,8 +4,108 @@
 		"selected_items":
 		[
 			[
+				"this",
+				"thisThird"
+			],
+			[
+				"clr",
+				"clrScrAddrH"
+			],
+			[
+				"scrA",
+				"scrAddrL"
+			],
+			[
+				"isMo",
+				"isMoving"
+			],
+			[
+				"next",
+				"nextLine"
+			],
+			[
+				"MX",
+				"MAX_SPEED"
+			],
+			[
+				"MAX",
+				"MAX_SPEED"
+			],
+			[
+				"pre",
+				"preX"
+			],
+			[
+				"clear",
+				"clearSide"
+			],
+			[
 				"obj",
 				"objectsData"
+			],
+			[
+				"col",
+				"color"
+			],
+			[
+				"fill",
+				"fillStack"
+			],
+			[
+				"DIR",
+				"DIRECTION.LEFT"
+			],
+			[
+				"obje",
+				"objectWaitLaunch"
+			],
+			[
+				"nega",
+				"negativeLeft"
+			],
+			[
+				"posi",
+				"positiveRight"
+			],
+			[
+				"lau",
+				"launchTime"
+			],
+			[
+				"DIRE",
+				"DIRECTION.RIGHT"
+			],
+			[
+				"CONTR",
+				"CONTROL.update"
+			],
+			[
+				"find",
+				"findDistantObject"
+			],
+			[
+				"GAM",
+				"GAME"
+			],
+			[
+				"che",
+				"check"
+			],
+			[
+				"wh",
+				"whoLeft"
+			],
+			[
+				"объекта",
+				"объектам"
+			],
+			[
+				"reset",
+				"resetDirection"
+			],
+			[
+				"rese",
+				"resetDirection"
 			],
 			[
 				"checkIn",
@@ -14,10 +114,6 @@
 			[
 				"oD",
 				"oData"
-			],
-			[
-				"reset",
-				"resetObjectIX"
 			],
 			[
 				"attr",
@@ -44,16 +140,8 @@
 				"address"
 			],
 			[
-				"pre",
-				"preY"
-			],
-			[
 				"chec",
 				"checkUp"
-			],
-			[
-				"GAM",
-				"GAME.update"
 			],
 			[
 				"save",
@@ -104,16 +192,8 @@
 				"byte"
 			],
 			[
-				"MAX",
-				"MAX_OBJECTS"
-			],
-			[
 				"is",
 				"isMoving"
-			],
-			[
-				"col",
-				"collision"
 			],
 			[
 				"nex",
@@ -266,10 +346,6 @@
 			[
 				"pai",
 				"paint2x2"
-			],
-			[
-				"scrA",
-				"scrAddrToAttrAddr"
 			],
 			[
 				"EENM",
@@ -438,82 +514,6 @@
 			[
 				"UT",
 				"UTILS.rnd16"
-			],
-			[
-				"color",
-				"colorScreen"
-			],
-			[
-				"fill",
-				"fillAttributesRectangle"
-			],
-			[
-				"UTI",
-				"UTILS.fadeOut"
-			],
-			[
-				"black",
-				"blackFrame"
-			],
-			[
-				"clear",
-				"clearScreen"
-			],
-			[
-				"flash",
-				"flashHeroInMap"
-			],
-			[
-				"fla",
-				"flashTimer"
-			],
-			[
-				"li",
-				"lines"
-			],
-			[
-				"dow",
-				"downDE"
-			],
-			[
-				"dec",
-				"decE"
-			],
-			[
-				"scree",
-				"screenLines"
-			],
-			[
-				"create",
-				"createScreenLinesAddresses"
-			],
-			[
-				"i_lo",
-				"i_llop2"
-			],
-			[
-				"setAf",
-				"setAF"
-			],
-			[
-				"сме",
-				"смещения"
-			],
-			[
-				"into",
-				"intoCell"
-			],
-			[
-				"heroo",
-				"heroOffsetX"
-			],
-			[
-				"stac",
-				"stackDraw"
-			],
-			[
-				"DATA",
-				"DATA.genLines"
 			]
 		]
 	},
@@ -523,17 +523,8 @@
 			"file": "main.asm",
 			"settings":
 			{
-				"buffer_size": 2755,
+				"buffer_size": 3159,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/system.asm",
-			"settings":
-			{
-				"buffer_size": 648,
-				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
 		},
@@ -541,7 +532,7 @@
 			"file": "utils/utils.asm",
 			"settings":
 			{
-				"buffer_size": 9465,
+				"buffer_size": 10428,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -550,16 +541,16 @@
 			"file": "code/object.asm",
 			"settings":
 			{
-				"buffer_size": 8174,
-				"encoding": "Cyrillic (Windows 1251)",
+				"buffer_size": 13624,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "code/objects/enemySkull.asm",
+			"file": "code/system.asm",
 			"settings":
 			{
-				"buffer_size": 603,
+				"buffer_size": 748,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -568,25 +559,7 @@
 			"file": "code/objects/chupa.asm",
 			"settings":
 			{
-				"buffer_size": 2102,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/control.asm",
-			"settings":
-			{
-				"buffer_size": 832,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/objects/hero.asm",
-			"settings":
-			{
-				"buffer_size": 512,
+				"buffer_size": 2174,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -595,16 +568,34 @@
 			"file": "code/game.asm",
 			"settings":
 			{
-				"buffer_size": 919,
+				"buffer_size": 1171,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "code/objects/bomb.asm",
+			"file": "code/objects/enemySkull.asm",
 			"settings":
 			{
-				"buffer_size": 510,
+				"buffer_size": 638,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/objects/hero.asm",
+			"settings":
+			{
+				"buffer_size": 421,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/control.asm",
+			"settings":
+			{
+				"buffer_size": 850,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -613,7 +604,7 @@
 			"file": "sprites/storage.asm",
 			"settings":
 			{
-				"buffer_size": 4618,
+				"buffer_size": 4761,
 				"line_ending": "Unix"
 			}
 		},
@@ -629,7 +620,7 @@
 			"file": "code/struct.asm",
 			"settings":
 			{
-				"buffer_size": 1638,
+				"buffer_size": 1891,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -638,7 +629,7 @@
 			"file": "code/level.asm",
 			"settings":
 			{
-				"buffer_size": 2899,
+				"buffer_size": 2589,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -698,11 +689,16 @@
 	[
 		"/P/ZX/A-World-of-One-way",
 		"/P/ZX/A-World-of-One-way/code",
-		"/P/ZX/A-World-of-One-way/code/objects"
+		"/P/ZX/A-World-of-One-way/code/objects",
+		"/P/ZX/A-World-of-One-way/utils"
 	],
 	"file_history":
 	[
+		"/P/ZX/A-World-of-One-way/code/objects/startPosition.asm",
 		"/P/ZX/A-World-of-One-way/code/system.asm",
+		"/P/ZX/A-World-of-One-way/code/objects/bomb.asm",
+		"/P/ZX/A-World-of-One-way/code/objects/chupa.asm",
+		"/P/ZX/A-World-of-One-way/code/objects/enemySkull.asm",
 		"/P/ZX/A-World-of-One-way/code/objects/exitDoor.asm",
 		"/P/ZX/Retro Platform Jam/code/objects/enemySkull.asm",
 		"/P/ZX/Retro Platform Jam/code/control.asm",
@@ -825,11 +821,7 @@
 		"/C/ZX/Projects/YangaV3.0/windows/window.asm",
 		"/C/ZX/Projects/YangaV3.0/windows/selectable.asm",
 		"/C/ZX/Projects/YangaV3.0/timers.asm",
-		"/C/ZX/Projects/YangaV3.0/enemies.asm",
-		"/C/ZX/Projects/YangaV3.0/runes.asm",
-		"/C/ZX/Projects/YangaV3.0/runicWalls.asm",
-		"/C/ZX/Projects/YangaV3.0/scroll.asm",
-		"/C/ZX/Projects/YangaV3.0/selectable.asm"
+		"/C/ZX/Projects/YangaV3.0/enemies.asm"
 	],
 	"find":
 	{
@@ -997,7 +989,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1006,15 +998,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2755,
+						"buffer_size": 3159,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1665,
-								1666
+								1602,
+								1602
 							]
 						],
 						"settings":
@@ -1022,27 +1014,85 @@
 							"syntax": "Packages/z80asm/z80asm.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 480.0,
+						"translation.y": 429.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "code/system.asm",
+					"file": "utils/utils.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 648,
+						"buffer_size": 10428,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								87,
-								87
+								8578,
+								8592
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11736.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "code/object.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13624,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9825,
+								9825
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11309.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "code/system.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 748,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								164,
+								164
 							]
 						],
 						"settings":
@@ -1054,82 +1104,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "utils/utils.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9465,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8346,
-								8346
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 11239.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "code/object.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8174,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7153,
-								7153
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 7179.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "code/objects/enemySkull.asm",
+					"file": "code/objects/chupa.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 603,
+						"buffer_size": 2174,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								408,
-								408
+								2047,
+								2047
 							]
 						],
 						"settings":
@@ -1138,7 +1130,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 113.0,
+						"translation.y": 1680.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -1146,19 +1138,48 @@
 				},
 				{
 					"buffer": 5,
-					"file": "code/objects/chupa.asm",
+					"file": "code/game.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2102,
+						"buffer_size": 1171,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								193,
-								202
+								243,
+								243
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "code/objects/enemySkull.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 638,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								365,
+								374
 							]
 						],
 						"settings":
@@ -1174,20 +1195,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "code/control.asm",
+					"buffer": 7,
+					"file": "code/objects/hero.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 832,
+						"buffer_size": 421,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								819,
-								819
+								389,
+								400
 							]
 						],
 						"settings":
@@ -1196,106 +1217,48 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 240.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "code/control.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 850,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								294,
+								294
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "code/objects/hero.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 512,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								444,
-								444
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "code/game.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 919,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								902,
-								902
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 600.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
 					"buffer": 9,
-					"file": "code/objects/bomb.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 510,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								128,
-								143
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
 					"file": "sprites/storage.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4618,
+						"buffer_size": 4761,
 						"regions":
 						{
 						},
@@ -1314,11 +1277,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 10,
 					"file": "maps/levelsData.asm",
 					"semi_transient": false,
 					"settings":
@@ -1330,8 +1293,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								372,
+								372
 							]
 						],
 						"settings":
@@ -1342,24 +1305,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 11,
 					"file": "code/struct.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1638,
+						"buffer_size": 1891,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1065,
-								1065
+								1249,
+								1249
 							]
 						],
 						"settings":
@@ -1371,24 +1334,24 @@
 						"translation.y": 420.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 12,
 					"file": "code/level.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2899,
+						"buffer_size": 2589,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								779,
-								789
+								2577,
+								2577
 							]
 						],
 						"settings":
@@ -1397,10 +1360,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1620.0,
+						"translation.y": 2940.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]

@@ -9,13 +9,16 @@ init:
 	ld a,r
 	and 7
 	ld (ix+oData.color),a
-	ret
+	jp OBJECTS.setObjectId
 ;-------------------------------------------
 update:
-	ld a,(ix+oData.color)
-	add 4
-	and 7
+; 	ld a,(ix+oData.color)
+; 	add 4
+; 	and 7
+	ld a,2
 	ld (ix+oData.color),a
+
+
 	call OBJECTS.objMove
 	call OBJECTS.collision
 	call getDrawData

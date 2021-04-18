@@ -9,8 +9,7 @@ init:
 	ld (ix+oData.isMovable),a
 	ld (ix+oData.accelerate),a
 	ld (ix+oData.drawMethod),a 	; for 2x2 draw
-	call OBJECTS.setObjectId
-	ret
+	jp OBJECTS.setObjectId
 
 
 

@@ -12,9 +12,27 @@ init:
 	ret
 ;-----------------------------------------------
 update:
+	BORDER 6
+	call OBJECTS.clear
+	BORDER 1
 	call OBJECTS.draw
+
+	BORDER 3
+	xor a
+	ld hl,objectsData + oData.direction
+	ld b,MAX_OBJECTS
+.checkDirection:
+	or (hl)
+	ld de,OBJECT_DATA_SIZE
+	add hl,de
+	djnz .checkDirection
+	ld (global_direction),a
+	BORDER 4
 	call CONTROL.update
+	BORDER 2
 	call OBJECTS.update
+	BORDER 5
+
 
 	call returnKey
 	ld a,l

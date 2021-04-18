@@ -24,7 +24,7 @@ update:
 	ld (ix+oData.delta),a
 	push af
 	and 3
-	call z,rotateColor
+	call z,sequenceColor
 	pop af
 	and 7
 	or a
@@ -56,16 +56,23 @@ update:
 
 	ret
 ;--------------------------------------
-rotateColor:
+sequenceColor:
 	ld a,(ix+oData.color)
-	inc a
+	dec a
+	jr nz,.rc
+	dec a
+.rc:
 	and 7
 	ld (ix+oData.color),a
 	ret
 ;--------------------------------------
 moveUp:
 	dec (ix+oData.y) 		; move up
+	ld e,(ix+oData.x)
+	ld l,(ix+oData.y)
 	call getScrAddrByCoords 	; save screen address
+	ld (ix+oData.scrAddrL),l
+	ld (ix+oData.scrAddrH),h
 	ld (ix+oData.color),#FF 	; reset color
 	ret
 ;--------------------------------------
@@ -78,7 +85,6 @@ transform:
 	cp ENEMY_FACE_00_PBM_ID
 	ret nz
 .showBomb:
-	call LEVEL.drawFloorCellIX
 	; convert chupa to bomb
 	call OBJECTS.resetObjectIX
 	; установка в spriteId работает только с анимированными объектами, так как обращается к переменной для получения начального адреса анимации
@@ -86,6 +92,10 @@ transform:
 	ld (iy+oData.spriteId),BOOM_01_PBM_ID
 	ret
 .showScore:
+	ld (hl),0
+	ld (iy+oData.id),#FF
+	ret
+
 	; convert chupa to score and move
 	; set 0 to cell for free move 
 	ld (hl),0 	
@@ -97,9 +107,7 @@ transform:
 destroy:
 	; destroy bomb and object
 	ld (hl),0
-	call LEVEL.drawFloorCellIX
 	call OBJECTS.resetObjectIX
-	call LEVEL.drawFloorCellIY
 	call OBJECTS.resetObjectIY
 	ret
 

@@ -1,10 +1,16 @@
-	org #6000
+	org #5E00
 	module SYSTEM
 ;------------------------------------
 run:
+
+
 	xor a
-; 	inc a 		; remove later
+	inc a 		; remove later
 	out (254),a
+	ld sp,$
+	;----------------------------test code
+
+	;----------------------------test code
 	ld bc,$
 	; A - system ID
 	rlca
@@ -17,6 +23,7 @@ run:
 	inc hl
 	ld h,(hl)
 	ld l,a
+	BORDER 0
 	ei
 	halt
 	push bc

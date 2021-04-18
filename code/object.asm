@@ -2,6 +2,116 @@
 
 
 ;----------------------------------------------------------------
+clear:
+	ld ix,objectsData
+	ld b,MAX_OBJECTS
+	ld de,32
+.loop:
+	push bc
+
+
+	ld a,(ix+oData.clearSide)
+	or a
+	jr z,.next
+
+
+	ld l,(ix+oData.clrScrAddrL)
+	ld h,(ix+oData.clrScrAddrH)
+	rrca
+	call c,.clearLeft
+	rrca 
+	call c,.clearRight
+	rrca 
+	call c,.clearUp
+	rrca 
+	call c,.clearDown
+.next:
+	ld bc,OBJECT_DATA_SIZE
+	add ix,bc
+	pop bc
+	djnz .loop
+	ret
+.clearUp:
+	ld a,(ix+oData.y)
+	sub (ix+oData.preY)
+	jr z,.clearFlagAndSide
+	ld b,a
+	ex de,hl
+.nextLine:
+	xor a
+	ld (de),a
+	inc e
+	ld (de),a
+	dec e
+	call nextLine
+	djnz .nextLine
+	jr .clearFlagAndSide
+.clearDown:
+	ld l,(ix+oData.scrAddrL)
+	ld h,(ix+oData.scrAddrH)
+	; thanks to Sergei Smirnov (next screen line = +2 symbols)
+	ld a,l
+	add #40
+	ld l,a
+	sbc a,a
+	and #08
+	add a,h
+	ld h,a
+
+	ld a,(ix+oData.preY)
+	sub (ix+oData.y)
+	jr .nextLine - 4
+
+.clearLeft:
+
+; 	dec l
+	ld b,2
+.clearSymbol:
+	xor a
+	ld (hl),a
+	inc h
+	ld (hl),a
+	inc h
+	ld (hl),a
+	inc h
+	ld (hl),a
+	inc h
+	ld (hl),a
+	inc h
+	ld (hl),a
+	inc h
+	ld (hl),a
+	inc h
+	ld (hl),a
+	ld a,h
+	sub 7
+	ld h,a
+	add hl,de
+	djnz .clearSymbol
+.clearFlagAndSide:
+	xor a
+	ld (ix+oData.clearSide),a
+	ret
+
+.clearRight:
+
+	
+	; сраный костыль
+	ld a,(ix+oData.accelerate)
+	dec a
+	jr z,.cutIncL
+
+
+
+
+
+	inc l
+.cutIncL:
+	inc l
+
+
+	jr .clearSymbol - 2
+;----------------------------------------------------------------
 draw:
 	; FIXME for stack... or not :)
 	ld ix,objectsData
@@ -72,8 +182,6 @@ paint:
 	ret
 ;----------------------------------------------------------------
 update:
-	xor a
-	ld (tmp_direction),a
 	ld ix,objectsData
 	ld b,MAX_OBJECTS
 .loop:
@@ -82,59 +190,17 @@ update:
 	ld a,(ix+oData.exec + 1)
 	ld h,a
 	or l
-	jr z,.more
-	ld bc,.more
+	jr z,.next
+	ld bc,.next
 	push bc
 	jp (hl)
-.more:
-	ld a,(ix+oData.direction)
-	ld hl,tmp_direction
-	or (hl)
-	ld (hl),a
+.next:
 	ld de,OBJECT_DATA_SIZE
 	add ix,de 	; next object data
 	pop bc
 	djnz .loop
-	ld a,(tmp_direction)
-	or a
-	ret nz
-	ld (global_direction),a
 	ret
 ;----------------------------------------------------------------
-cellContents:
-	; HL - level cell
-	ld a,(hl)
-	or a
-	ret z
-	push hl
-	call getObjDataById
-	pop hl
-	ld a,(iy+oData.spriteId)
-	cp CHUPA_001_PBM_ID
-	jp z,CHUPA.transform
-	cp EXIT_DOOR_PBM_ID
-	jp z,GAME.setNextLevel
-	cp BOOM_01_PBM_ID
-	jp z,CHUPA.destroy
-	//.......
-	ret
-;----------------------------------------------------------------
-
-checkForRemoveSide:
-	; E - x || y
-	; D - preX || preY
-	ld a,d
-	and %11111000
-	ld d,a
-	ld a,e
-	and %11111000
-	sub d
-	jr z,.cfrs
-	ld a,(ix+oData.direction)
-.cfrs:
-	ld (ix+oData.isRemove),a
-	ret
-;------------------------------------
 accelerate:
 	ld a,(ix+oData.delta)
 	add ACCELERATE_STEP 		; ACCELERATE_STEP
@@ -146,7 +212,127 @@ accelerate:
 	ret nc
 	ld (ix+oData.accelerate),a
 	ret
+;-------------------------------------------------
+setLaunchTime:
+	; called after "identifyMoving" from CONTROL.update
+	; E = DIRECTION
+	; Установка времени до начала движения объекта осуществляется следующим образом:
+	; Вычисляется самый дайльний объект/ы по направлению движения, время на запуск для него/них будет = 0 (моментальный старт) 
+	; Остальным объектам задается время равное +1 на каждую ячейку (16х16) в противоположную сторону от дальнего объекта.
 
+
+ 	; TODO
+	; можно сделать следующее: не опрашивать объект если перед ним 100% стена, тогда отсчет времени до запуска проскочит его
+	; иначе такой объект будет стоять на дальней позиции, а более близкие объекты будут стартовать с заметным запозданием.
+
+	ld a,e
+	and DIRECTION.LEFT or DIRECTION.UP 
+	neg
+	ld d,a
+	; D = if (positive direction) #00 else #FF 
+
+	ld ix,objectsData
+	ld b,MAX_OBJECTS
+.loop:
+	push bc
+	ld a,(ix+oData.isMovable)
+	or a
+	jr z,.next
+	call .findDistantObject
+.next:
+	ld bc,OBJECT_DATA_SIZE
+	add ix,bc
+	pop bc
+	djnz .loop
+	; D = maximum coordination unit
+	xor a
+	cp d
+	ret z 		; если не было передвигаемых объектов
+	; set launch time to any movable object
+	ld ix,objectsData
+	ld b,MAX_OBJECTS
+.loop2:
+	push bc
+	ld a,(ix+oData.isMovable)
+	or a
+	jr z,.next2
+	call .setTimeToObject
+.next2:
+	ld bc,OBJECT_DATA_SIZE
+	add ix,bc
+	pop bc
+	djnz .loop2
+	ret
+;-------
+.setTimeToObject:
+	ld a,e
+	rrca
+	jr c,.timeToLeftDirObj
+	rrca
+	jr c,.timeToRightDirObj
+	rrca
+	jr c,.timeToUpDirObj
+	rrca
+	ret nc
+; time for down direction object
+	ld a,d
+	sub (ix+oData.y)
+.convToTime:
+	; convert to launch timer
+	rrca
+	rrca
+; 	rrca
+; 	rrca
+	ld (ix+oData.launchTime),a
+	ret
+.timeToLeftDirObj:
+	ld a,(ix+oData.x)
+	sub d
+	jr .convToTime
+.timeToRightDirObj:
+	ld a,d
+	sub (ix+oData.x)
+	jr .convToTime
+.timeToUpDirObj:
+	ld a,(ix+oData.y)
+	sub d
+	jr .convToTime
+
+;-------
+.findDistantObject:
+	; IX = objectsData 
+	; E = DIRECTION
+	; return D if D < A or set A to D for positive direction
+	; return D if D > A or set A to D for negative direction
+	ld a,e
+	rrca
+	jr c,.negativeLeft
+	rrca
+	jr c,.positiveRight
+	rrca 
+	jr c,.negativeUp
+	rrca
+	ret nc
+; positive down
+	ld a,(ix+oData.y)
+	jr .positiveRight + 3
+.negativeLeft:
+	ld a,(ix+oData.x)
+	cp d
+	ret nc 		; D >= A
+	; set D min (D < A)
+	ld d,a
+	ret
+.positiveRight:
+	ld a,(ix+oData.x)
+	cp d
+	ret c 		; D < A
+	; set D max (D >= A)
+	ld d,a
+	ret
+.negativeUp:
+	ld a,(ix+oData.y)
+	jr .negativeLeft + 3
 ;-------------------------------------------------
 create:
 	; HL - objects level data
@@ -166,10 +352,8 @@ create:
 	call getCoordsByCellId
 	ld (ix+oData.x),e
 	ld (ix+oData.preX),e
-	ld (ix+oData.dstX),e
 	ld (ix+oData.y),d
 	ld (ix+oData.preY),d
-	ld (ix+oData.dstY),d
 	; set screen address for draw
 	call getScreenAddrByCellId
 	ld (ix+oData.scrAddrL),e
@@ -215,10 +399,27 @@ setObjectId:
 	ld (hl),a
 	ret
 ;----------------------------------------------------------------
+copyAddrForClear:
+	; клпируем адрес экранной области рисования спрайта для последующей отчистки этой области.
+	ld a,(ix+oData.scrAddrL)
+	ld (ix+oData.clrScrAddrL),a
+	ld a,(ix+oData.scrAddrH)
+	ld (ix+oData.clrScrAddrH),a
+	ret
+;----------------------------------------------------------------
 objMove:
 	; for movable objects
-	ld a,(global_direction)
-	ld (ix+oData.direction),a
+
+
+	; wait process for launch
+	ld a,(ix+oData.launchTime)
+	or a
+	jr z,.startMove
+	dec a
+	ld (ix+oData.launchTime),a
+	ret
+.startMove:
+	ld a,(ix+oData.direction)
 	rrca
 	jr c,stepLeft
 	rrca 
@@ -234,6 +435,8 @@ stepDown:
 	ld (ix+oData.preY),a
 	add (ix+oData.accelerate)
 	ld (ix+oData.y),a
+	call copyAddrForClear
+	ld (ix+oData.clearSide),DIRECTION.UP
 	ret
 ;-------
 stepUp:
@@ -242,6 +445,8 @@ stepUp:
 	ld (ix+oData.preY),a
 	sub (ix+oData.accelerate)
 	ld (ix+oData.y),a
+	call copyAddrForClear
+	ld (ix+oData.clearSide),DIRECTION.DOWN
 	ret
 ;-------
 stepLeft:
@@ -250,6 +455,8 @@ stepLeft:
 	ld (ix+oData.preX),a
 	sub (ix+oData.accelerate)
 	ld (ix+oData.x),a
+	call copyAddrForClear
+	ld (ix+oData.clearSide),DIRECTION.RIGHT
 	ret
 ;-------
 stepRight:
@@ -258,6 +465,8 @@ stepRight:
 	ld (ix+oData.preX),a
 	add (ix+oData.accelerate)
 	ld (ix+oData.x),a
+	call copyAddrForClear
+	ld (ix+oData.clearSide),DIRECTION.LEFT
 	ret
 ;----------------------------------------------------------------
 collision:
@@ -287,7 +496,9 @@ checkDown:
 	ld a,(hl)
 	or a
 	ret z 		; free way
+	push hl
 	call nz,targetCell
+	pop hl
 	ld a,(hl)
 	or a
 	ret z 		; free way
@@ -299,22 +510,27 @@ checkLeft:
 	ld a,(hl)
 	or a
 	ret z 		; free way
+	push hl
 	call nz,targetCell
+	pop hl
 	ld a,(hl)
 	or a
 	ret z 		; free way
 	; stop
 	inc l
-setCollisionData:
+zeroMotion:
 	ld c,l
 	call getCoordsByCellId
 	ld (ix+oData.x),e
+; 	ld (ix+oData.preX),e
 	ld (ix+oData.y),d
+; 	ld (ix+oData.preY),d
 	ld (ix+oData.cellId),l
-	ld (ix+oData.accelerate),1
+	ld (ix+oData.accelerate),1 	
 	ld (ix+oData.direction),0
+	ld (ix+oData.delta),0
 	ld a,(ix+oData.id)
-	ld (hl),a 	; ����� ������ ���������� - ������� ��� object ID � ������ �����. 
+	ld (hl),a 	; когда объект остановлен - заносим его object ID в ячейку карты. 
 	ret
 ;-------
 checkRight:
@@ -322,19 +538,24 @@ checkRight:
 	ld a,(hl)
 	or a
 	ret z 		; free way
+	push hl
 	call nz,targetCell
+	pop hl
 	ld a,(hl)
 	or a
 	ret z 		; free way
 	; stop
 	dec l
-	jr setCollisionData
+; 	ld (ix+oData.clearSide),0
+	jr zeroMotion
 ;-------
 checkUp:
 	ld a,(hl)
 	or a
 	ret z 		; free way
+	push hl
 	call nz,targetCell
+	pop hl
 	ld a,(hl)
 	or a
 	ret z 		; free way
@@ -342,19 +563,32 @@ checkUp:
 	ld bc,MAP_WIDTH
 checkVertical:
 	add hl,bc
-	jr setCollisionData
+	jr zeroMotion
 ;-----------------
 targetCell:
 	; HL - level cell
 	; A - object ID
+
+
+
+	; нужно перепроверить что сохранять и какие реги портит нижняя херня.
+
+	ret
+
 	ex de,hl
 	call getObjDataById  	; get IY - target object address
 	ex de,hl
 	ld a,(iy+oData.spriteId)
-	cp CHUPA_001_PBM_ID
-	jp z,CHUPA.transform
 	cp EXIT_DOOR_PBM_ID
 	jp z,EXIT_DOOR.toNextLevel
+
+
+
+
+	cp CHUPA_001_PBM_ID
+	jp z,CHUPA.transform
+
+
 	cp BOOM_01_PBM_ID
 	jp z,CHUPA.destroy
 
@@ -363,41 +597,114 @@ targetCell:
 	//.......
 	ret
 ;----------------------------------------------------------------
-clearCellsForMovableObjects:
-	ld ix,objectsData 
+; 	Возможно ли движение в указанном направлении ?
+; 	
+; 	Получаем ячейку объекта, проверяем соседнюю ячейку по направлению движения.
+;		Движение разрешено если:
+;			соседняя ячейка содержит #00 (free way)
+;		Движение запрещено если:
+;			соседняя ячейка содержит #FF,#FE (wall, breakable wall)
+;
+;		Если ячейка содержит #01-#0A (object ID`s)
+; 			Нужно проверить следующую ячейку по тому-же направлению, пока не встретим #00,#FF,#FE
+;			#00 > 		установить всем сопутствующим объектам направление движения
+;			#FF,#FE >	обнулить всем сопутствующим объектам направление движения
+;
+;
+;
+identifyMoving:
+	; E - DIRECTION (from control)
+	ld ix,objectsData
 	ld h,high levelCells
+
 	ld b,MAX_OBJECTS
 .loop:
+	push bc
 	ld a,(ix+oData.isMovable)
 	or a
 	jr z,.next
 	ld l,(ix+oData.cellId)
-	ld (hl),0
+	ld d,l 		; save cell ID to D
+	ld a,e
+	rrca
+	call c,.whoLeft
+	rrca
+	call c,.whoRight
+	rrca
+	call c,.whoUp
+	rrca
+	call c,.whoDown
 .next:
-	ld de,OBJECT_DATA_SIZE
-	add ix,de
+	ld bc,OBJECT_DATA_SIZE
+	add ix,bc
+	pop bc
 	djnz .loop
+	ret
+.whoLeft:
+	dec l
+	ld a,(hl)
+	or a
+	jr z,.setDirection  	; (hl) == #00 > free way
+	jp p,.whoLeft 		; next cell if (hl) <= #7F
+	jr .resetDirection 	; (hl) > #7F
+.whoRight:
+	inc l
+	ld a,(hl)
+	or a
+	jr z,.setDirection  	; (hl) == #00 > free way
+	jp p,.whoRight		; next cell if (hl) <= #7F
+	jr .resetDirection
+.whoUp:
+	ld a,l
+	sub MAP_WIDTH
+	ld l,a
+	ld a,(hl)
+	or a
+	jr z,.setDirection  	; (hl) == #00 > free way
+	jp p,.whoUp		; next cell if (hl) <= #7F
+	jr .resetDirection
+.whoDown:
+	ld a,l
+	add MAP_WIDTH
+	ld l,a
+	ld a,(hl)
+	or a
+	jr z,.setDirection  	; (hl) == #00 > free way
+	jp p,.whoDown		; next cell if (hl) <= #7F
+	jr .resetDirection
+.setDirection:
+	; clear cell and set direction
+	ld l,d 		; return cell ID
+	ld (hl),0
+	ld (ix+oData.direction),e
+	ret
+.resetDirection:
+	; reset direction and set object ID to cell
+	ld l,d 		; return cell ID
+	ld a,(ix+oData.id)
+	ld (hl),a
+	ld (ix+oData.direction),0
 	ret
 ;----------------------------------------------------------------
 /*
-	����� ������ ���������� - ������� � ������ ����� �� ����� ��������� ������� object ID
+	когда объект остановлен - заносим в ячейку карты на месте остановки объекта object ID
 
-	��� ������ ������ �������� �������� - ��� ������ ��������� !!
-	����� ������� ���� ��������� ��������� ���� ��� ������ ������, � ����� �������� ��������� �� �������� � ��������� ����������� ?
-	� ������� ����� ������ 2 ����� ����� �� ����������� (�������� �����)
-		����� �� ��� ����� = ����� ���
-		������ �� ��� ����� = ��� ���������
+	как только объект начинает движение - эта ячейка очищается !!
+	перед пунктом выше требуется проверить один раз каждый объект, с целью выяснить разрешено ли движение в требуемом направлении ?
+	К примеру могут стоять 2 врага рядом по горизонтали (движение влево)
+		слева от них стена = стоят оба
+		справа от них стена = оба движутяся
 
-		��� ����� �����...... ������������.
+		тут будет косяк...... переработать.
 
 
 
-	��������� ������ � ������������� �������� - isMovable
+	приминимо только к передвигаемым объектам - isMovable
 */
 ;----------------------------------------------------------------
 
-	; TODO ����������� ��� ����� ��������, ��� ��� !!!
-	; ����� ������� �������� ������� ����� ����� �����, ���������� ������ �� ��������� �������� � ���������� �� �������� !!!!
+	; TODO разобраться что нужно обнулять, что нет !!!
+	; после прохода ДВОЙНОГО спрайта врага через бомбу, оставшийся спрайт не завершает движение и управление не доступно !!!!
 resetObjectIX:
 ; 	push ix
 ; 	pop hl

@@ -15,7 +15,7 @@ preY		byte	// 3
 cellId		byte	
 spriteId	byte	
 direction	byte	
-preDirection	byte
+launchTime	byte 	; время до начала движения объекта
 color		byte	
 delta		byte
 accelerate	byte
@@ -30,9 +30,9 @@ sprAddrH:	byte
 
 
 isRemove:	byte
-
-dstX:		byte
-dstY:		byte
+clearSide:	byte 	; сторона с которой требуется отчистка хвоста спрайта. 0 = не чистить
+clrScrAddrL:	byte 	; адрес экрана где будет происходить отчистка.
+clrScrAddrH:	byte 	; 
 
 		; ввести переменную drawOnce ? к примеру для двери выхода - это объект и нет смысла ее печатать каждый кадр
 		; достаточно при инициализации уровня.
@@ -42,7 +42,7 @@ animationId 	byte
 endToEnd	byte	; объект сквозной. То есть при коллизии этого объекта с другим - другой продолжает путь дальше. 
 			
 id		byte	; id of this object in objects map
-		block 5
+		block 4
      	ends
 
 
@@ -74,4 +74,14 @@ DOWN:
 	macro SET_SPRITE_ADDR_IY address
 	ld (iy+oData.sprAddrL),low address
 	ld (iy+oData.sprAddrH),high address
+	endm
+
+
+
+
+	; for DEBUG
+
+	macro BORDER color
+	ld a,color
+	out (254),a
 	endm
