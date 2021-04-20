@@ -159,6 +159,8 @@ paint:
 	jp z,circularGradient
 	cp BOOM_01_PBM_ID
 	jp z,flashRedYellow
+	cp EXPLOSION_01_PBM_ID
+	jp z,flashRedYellow
 	ld a,(ix+oData.color) 	
 	inc a
 	ret z 	; if color == #FF > no paint
@@ -610,14 +612,12 @@ targetCell:
 
 	cp CHUPA_001_PBM_ID
 	jp z,CHUPA.getCoin
-	ret
 ; 	jp z,CHUPA.transform
 
 
-
-
 	cp BOOM_01_PBM_ID
-	jp z,CHUPA.destroy
+	jp z,CHUPA.explosion
+	ret
 
 	cp ENEMY_FACE_00_PBM_ID
 	jp z,ENEMY_SKULL.target

@@ -6,16 +6,10 @@ init:
 	call LEVEL.build 	
 	; current HL for next call
 	call OBJECTS.create
-	call clearAttrScrAddr
+; 	call POP_UP_INFO.reset
 	xor a
 	ld (isLevelPassed),a
 	ld a,SYSTEM.GAME_UPDATE
-	ret
-;-----------------------------------------------
-clearAttrScrAddr:
-	ld hl,0
-	ld (attrScrollAddr),hl
-	ld (preAttrScrollAddr),hl
 	ret
 ;-----------------------------------------------
 update:
@@ -41,7 +35,7 @@ update:
 	BORDER 5
 
 	push ix
-	call showGameInfo
+	call POP_UP_INFO.show
 	pop ix
 
 	BORDER 7

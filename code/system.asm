@@ -4,15 +4,17 @@
 run:
 
 
+
+
 	call SOUND_PLAYER.SET_SOUND.mute
-	xor a
-	inc a 		; remove later
-	out (254),a
 	ld sp,#8000
 	;----------------------------test code
 
-
+	
 	;----------------------------test code
+	xor a
+	inc a 		; remove later
+	out (254),a
 	ld bc,$
 	; A - system ID
 	rlca

@@ -13,11 +13,13 @@ elds:
 	include "code/game.asm"
 	include "code/mainMenu.asm"
 	include "code/control.asm"
+	include "code/popUpInfo.asm"
 	include "code/object.asm"
 	include "code/objects/hero.asm"
 	include "code/objects/chupa.asm"
 	include "code/objects/exitDoor.asm"
 	include "code/objects/enemySkull.asm"
+	include "code/objects/explosion.asm"
 	include "code/audio/soundPlayer.asm"
 	include "utils/utils.asm"
 ss:
@@ -48,9 +50,13 @@ currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 
 floorColor:			db 0
-attrScrollAddr:			dw #0000 ; адрес рисования атрибутов информационной бегущей строки вверх 
-preAttrScrollAddr:			dw #0000 ; 
-attrBitmapColor:		db 0 	; цвет атрибутов информационной бегущей строки вверх
+		; pop up variables
+popupAttrAddr:			dw #0000 ; адрес рисования атрибутов информационной бегущей строки вверх 
+popupPreAttrAddr:		dw #0000 ; 
+popupBitmapAddr:		dw #0000 ; bitmap address	
+popupBitmapColor:		db 0 	; цвет атрибутов информационной бегущей строки вверх
+bitmapWidth:			db 0 	; bitmap width in bytes
+		;-----------------
 delta:				db 0	; каждый кадр +1 в GAME.update
 ; title data
 byteValue:			db 0
@@ -85,7 +91,7 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
 
 
         display "::::::::: ",/A,OBJECTS.setLaunchTime
-        display "::::::::: ",/A,showGameInfo
+        display "::::::::: ",/A,POP_UP_INFO.show
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

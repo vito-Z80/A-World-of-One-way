@@ -66,6 +66,7 @@ moveUp:
 ;--------------------------------------
 getCoin:
 	; HL - level cell
+
 	; transform this object to BOMB or SCORE
 	ld a,(ix+oData.spriteId)
 	cp HERO_FACE_00_PBM_ID
@@ -73,6 +74,8 @@ getCoin:
 	cp ENEMY_FACE_00_PBM_ID
 	ret nz
 .showBomb:
+	; IY - this object
+	; IX - other object
 	; coin eat by enemy
 	; convert coin to bomb
 	; установка в spriteId работает только с анимированными объектами, так как обращается к переменной для получения начального адреса анимации
@@ -81,27 +84,24 @@ getCoin:
 	ld (ix+oData.isDestroyed),1 		; destroy other object
 	ld (ix+oData.color),7 			; set other object color
 	ld (iy+oData.color),2 			; set bomb color 
+	call POP_UP_INFO.setFear
 	jp SOUND_PLAYER.SET_SOUND.eat
 .showScore:
-; 	ld (hl),0
-; 	ld (iy+oData.id),#FF
-; 	ret
-
+	; IY - this object
+	; IX - other object
 	; convert chupa to score and move
 	; set 0 to cell for free move 
 	ld (hl),0 	
-	ld (iy+oData.isDestroyed),1 	; destroy coin
-
-	ld hl,#5b08
-	ld (attrScrollAddr),hl
-
+	ld (iy+oData.isDestroyed),1 		; destroy this (coin)
+	call POP_UP_INFO.setPlus10
 	jp SOUND_PLAYER.SET_SOUND.coin
-destroy:
-	; destroy bomb and object
-	ld (hl),0
-	call OBJECTS.resetObjectIX
-	call OBJECTS.resetObjectIY
-	ret
+explosion:
+	; IY - this object
+	; IX - other object
+	ld (ix+oData.isDestroyed),1 		; destroy other object
+	call POP_UP_INFO.setExplosion
+	call EXPLOSION.init
+	jp SOUND_PLAYER.SET_SOUND.explosion
 
 
 	endmodule

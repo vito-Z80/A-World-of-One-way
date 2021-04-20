@@ -20,6 +20,9 @@ update:
 
 toNextLevel:
 	; TODO  сначала анимацю прохода в дверь
+; 	push hl
+	call POP_UP_INFO.setDone
+; 	pop hl
 	jp GAME.setNextLevel
 
 	endmodule
