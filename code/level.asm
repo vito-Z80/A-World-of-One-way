@@ -21,14 +21,9 @@ clearData:
 	ldir
 	; set direction NONE
 	ld (global_direction),a
-	ld a,(currentLevel)
-	and 1
-	inc a
-	ld (floorColor),a
 	ret
 ;------------------------------------------------------------
 buildLevel:
-; 	call .fillFloor
 	; parse level walls
 	; level walls data = 24 bytes
 	; displayed wall cells = 192 pcs.
@@ -80,71 +75,100 @@ buildLevel:
 	inc hl
 	pop bc
 	djnz .nextHalf
-	ret
-;----------------------------------------------
-.fillFloor:
-	; TODO get two random floor sprites ?
-; 	ld de,#4000
-	ld b,#C0
-.loop:
-	push bc
-	ld c,b
-	dec c
-	ld hl,FLOOR_0004_PBM
-	call printSpr
-	pop bc
-	djnz .loop
-
-	ret
-;----------------------------------------------
-.drawFloor:
-	; TODO сохранять идентификатор пола в карте пола (начало с первой картинки пола = это пустота)
 	push hl
-	exa
-	ld c,a
+;----------------------------------------------
+	ld b,7
+.paint:
 	push bc
-	exa
-	call getScreenAddrByCellId
-	push de
-	call scrAddrToAttrAddr
-	ex de,hl
-	; fill attribute 2x2
-	ld a,(floorColor)
-	ld c,a
-	call paint2x2
+	ld de,ATTR_ADDR
+	ld hl,levelCells
 
-	call .getFloorSprite
-	ld a,e 		; floor sprite ID
-	pop de
-	pop bc
-	ld b,high floorCells
-	ld (bc),a 	; save floor sprite ID to floorCells
-	call printSpr + 3	
+
+	ld b,12
+.rows:
+	push bc
+	push de
+
+
+	ld b,16
+.columns:
+	push bc
+	push de
+	push hl
+
+	ld a,(hl)
+	inc a
+	call z,.paintWall
 	pop hl
-	jr .emptyCell
-.getFloorSprite:
-	; получение спрайта пола (16х16) или пустоты, все они должны быть расположены по порядку
+	inc l
+	pop de
+	inc e
+	inc e
+
+	pop bc
+	djnz .columns
+
+	pop de
+	ex de,hl
+	ld bc,64
+	add hl,bc
+	ex de,hl
+	pop bc
+	djnz .rows
+	ei
+	halt
+	halt
+	pop bc
+	djnz .paint
+
+	pop hl
+	ret
+
+.paintWall:
+	push de
 	call rnd16
-	ld e,1 		; floor sprite id from first EMPTY_PBM
+	pop hl
+	and 7
+	rlca
+	rlca
+	add a,low wallColors
+	ld e,a
+	adc a,high wallColors
+	sub e
+	ld d,a
+	ld b,2
+.pw:
+	push bc
+	ld a,(de)
+; 	dec a
+	cp (hl)
+	jr c,.ns1
+	inc (hl)
+.ns1:
+	inc de
+	inc hl
+	ld a,(de)
+; 	dec a
+	cp (hl)
+	jr c,.ns2
+	inc (hl)
+.ns2
+	dec hl
+	inc de
 	ld bc,32
-	ld hl,EMPTY_PBM
-	cp 200
-	ret c
-	inc e
 	add hl,bc
-	cp 220
-	ret c
-	inc e
-	add hl,bc
-	cp 240
-	ret c
-	inc e
-	add hl,bc
-	cp 250
-	ret c
-	inc e
-	add hl,bc
+	pop bc
+	djnz .pw
 	ret
 ;----------------------------------------------
+wallColors:
+	db 3,1,3,3
+	db 6,4,6,6
+	db 2,2,1,2
+	db 4,4,4,6
 
+	db 1,2,1,1
+	db 5,3,5,5
+	db 3,3,5,3
+	db 1,2,3,4
 	endmodule

@@ -95,13 +95,133 @@ getCoin:
 	ld (iy+oData.isDestroyed),1 		; destroy this (coin)
 	call POP_UP_INFO.setPlus10
 	jp SOUND_PLAYER.SET_SOUND.coin
+
 explosion:
 	; IY - this object
 	; IX - other object
 	ld (ix+oData.isDestroyed),1 		; destroy other object
 	call POP_UP_INFO.setExplosion
-	call EXPLOSION.init
+
+; 	ld (iy+oData.spriteId),EXPLOSION_01_PBM_ID
+	SET_EXEC_IY .showExplosion
+	ld (iy+oData.animationId),0
+	ld (iy+oData.delta),0
 	jp SOUND_PLAYER.SET_SOUND.explosion
+
+.showExplosion: 	; replaces update
+	; IX - this object
+	ld a,(ix+oData.isDestroyed)
+	or a
+	jp nz,OBJECTS.resetObjectIX
+
+	ld c,(ix+oData.color)
+	ld a,(ix+oData.delta)
+	inc a
+	cp 32
+	jr nc,.destroy
+	ld (ix+oData.delta),a
+	and 3
+	jr nz,.cont
+
+	ld a,c
+	call colorRotate
+	ld c,a
+	ld (ix+oData.color),a
+.cont:
+	ld c,a
+	rlc c
+	rlc c
+	rlc c
+	or c
+	; A` - color
+.begin:
+	ex af,af
+	ld h,high levelCells
+	ld l,(ix+oData.cellId)
+	; HL - cell ID
+	ld e,(ix+oData.scrAddrL)
+	ld d,(ix+oData.scrAddrH)
+	call scrAddrToAttrAddr
+	; DE - attribute address
+	push de
+	push de
+	push de
+	push de
+	call .setColor
+	pop de
+	; left
+	dec e
+	dec e
+	dec l
+	ld a,(hl)
+	inc a
+	call .setColor
+	pop de
+	; top
+	ld a,l
+	sub 15
+	ld l,a
+	ex de,hl
+	ld bc,#10000 - 64
+	add hl,bc
+	ex de,hl
+	ld a,(hl)
+	inc a
+	call .setColor
+	pop de
+	; right
+	ld a,l
+	add 17
+	ld l,a
+	ex de,hl
+	inc l
+	inc l
+	ex de,hl
+	ld a,(hl)
+	inc a
+	call .setColor
+	pop de
+	; bottom
+	ld a,l
+	add 15
+	ld l,a
+	ex de,hl
+	ld bc,64
+	add hl,bc
+	ex de,hl
+.setColor:
+	ld a,(hl)
+	inc a 		; #FF = WALL; inc a = #00
+	ret z
+	call .resetWithoutThis
+	ex af,af
+	ex de,hl
+	call fillAttr2x2 	; required: HL - attribute address
+	ex de,hl
+	ex af,af
+	ret
+.destroy:
+	ld (ix+oData.isDestroyed),1
+	xor a
+	call .begin
+	ret
+.resetWithoutThis:
+	; set "isDestroyed" for all objects without this object (bomb)
+ 	push hl
+ 	ld a,(hl)
+ 	call getObjDataById
+ 	ld a,(iy+oData.spriteId)
+ 	cp BOOM_01_PBM_ID
+ 	jr z,$+6
+ 	ld (iy+oData.isDestroyed),1
+ 	pop hl
+	ret
+
+; explosion:
+; 	ld (ix+oData.isDestroyed),1 		; destroy other object
+; 	call POP_UP_INFO.setExplosion
+; 	call EXPLOSION.init
+; 	jp SOUND_PLAYER.SET_SOUND.explosion
 
 
 	endmodule

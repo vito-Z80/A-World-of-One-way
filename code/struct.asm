@@ -6,7 +6,7 @@ MAX_SPEED:			equ 6
 OBJECT_DATA_SIZE:		equ oData
 FONT:				equ #3D00
 TEXT_END:			equ 0
-
+ATTR_ADDR:			equ #5800
      	struct oData
 x		byte	// 0
 y		byte	// 1

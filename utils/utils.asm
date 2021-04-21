@@ -114,6 +114,19 @@ nextLine:
         sub 8
         ld  d,a
         ret
+;------------------------------------------
+nextLine16:
+	; HL - screen address
+	; return HL = screen address + 16 lines (2 symblos)
+	; thanks to Sergei Smirnov
+	ld a,l
+	add #40
+	ld l,a
+	sbc a,a
+	and #08
+	add a,h
+	ld h,a
+	ret
 ;---------------------------------------------------------
 getScrAddrByCoords:
 	; L = Y; E = X
@@ -548,7 +561,6 @@ rnd16:
 	ld h,a
 	ld (globalSeed),hl
 	pop hl
-; 	out (254),a
  	ret	
 ;------------------------------------------
 attrRect:
@@ -603,7 +615,7 @@ colorRotate:
 	ret
 ;------------------------------------------
 convertScrToAttr:
-	; return DE - attribute address
+	; return HL - attribute address
 	ld e,(ix+oData.scrAddrL)
 	ld d,(ix+oData.scrAddrH)
 	call scrAddrToAttrAddr
@@ -678,6 +690,7 @@ clear2x2:
 	inc l
 	jp clear1x2
 ;------------------------------------------
+
 ; run
 ;     ld (return+1),sp
 ;     ld sp,fillStack

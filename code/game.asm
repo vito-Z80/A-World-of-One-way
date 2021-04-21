@@ -1,7 +1,7 @@
 	module GAME
 init:
 	call clearScreen
-	ld a,7
+	xor a
 	call clearAttributes
 	call LEVEL.build 	
 	; current HL for next call

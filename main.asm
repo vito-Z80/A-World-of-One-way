@@ -19,7 +19,7 @@ elds:
 	include "code/objects/chupa.asm"
 	include "code/objects/exitDoor.asm"
 	include "code/objects/enemySkull.asm"
-	include "code/objects/explosion.asm"
+	include "code/objects/brokenBlock.asm"
 	include "code/audio/soundPlayer.asm"
 	include "utils/utils.asm"
 ss:
@@ -48,8 +48,6 @@ globalSeed:			dw 0
 		; две переменных ниже должны следовать друг за другом !!!
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
-
-floorColor:			db 0
 		; pop up variables
 popupAttrAddr:			dw #0000 ; адрес рисования атрибутов информационной бегущей строки вверх 
 popupPreAttrAddr:		dw #0000 ; 
@@ -91,7 +89,7 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
 
 
         display "::::::::: ",/A,OBJECTS.setLaunchTime
-        display "::::::::: ",/A,POP_UP_INFO.show
+        display "::::::::: ",/A,LEVEL.build
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

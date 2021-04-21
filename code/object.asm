@@ -49,15 +49,7 @@ clear:
 .clearDown:
 	ld l,(ix+oData.scrAddrL)
 	ld h,(ix+oData.scrAddrH)
-	; thanks to Sergei Smirnov (next screen line = +2 symbols)
-	ld a,l
-	add #40
-	ld l,a
-	sbc a,a
-	and #08
-	add a,h
-	ld h,a
-
+	call nextLine16
 	ld a,(ix+oData.preY)
 	sub (ix+oData.y)
 	jr .nextLine - 4
@@ -158,8 +150,6 @@ paint:
 	cp CHUPA_001_PBM_ID
 	jp z,circularGradient
 	cp BOOM_01_PBM_ID
-	jp z,flashRedYellow
-	cp EXPLOSION_01_PBM_ID
 	jp z,flashRedYellow
 	ld a,(ix+oData.color) 	
 	inc a
@@ -401,8 +391,10 @@ findObj:
 	jp z,EXIT_DOOR.init
 
 
-	ret
 
+	cp BROKEN_BLOCK_PBM_ID
+	jp z,BROKEN_BLOCK.init
+	ret
 ;----------------------------------------------------------------
 setObjectId:
 	; object ID to level cell
@@ -548,7 +540,7 @@ zeroMotion:
 	ld (ix+oData.delta),0
 	ld a,(ix+oData.id)
 	ld (hl),a 	; когда объект остановлен - заносим его object ID в ячейку карты. 
-	call SOUND_PLAYER.SET_SOUND.impact
+	call SOUND_PLAYER.SET_SOUND.key
 	ret
 ;-------
 checkRight:
@@ -733,6 +725,7 @@ identifyMoving:
 */
 ;----------------------------------------------------------------
 resetObjectIX:
+	call clear2x2
 	ld e,ixl
 	ld d,ixh
 	ld l,(ix+oData.cellId)
