@@ -44,7 +44,7 @@ buildLevel:
 	; BC = offset of level addresses map
 	ld hl,LEVELS_BEGIN
 	add hl,bc
-	ld (globalSeed),hl 	; set random seed for this level
+	ld (globalSeedTmp),hl 	; set random seed for this level
 	ld b,24 		; 12 rows, 2 columns
 .nextHalf:
 	push bc
@@ -80,6 +80,8 @@ buildLevel:
 	ld b,7
 .paint:
 	push bc
+	ld hl,(globalSeedTmp)
+	ld (globalSeed),hl
 	ld de,ATTR_ADDR
 	ld hl,levelCells
 
@@ -118,6 +120,8 @@ buildLevel:
 	ei
 	halt
 	halt
+	halt
+	halt
 	pop bc
 	djnz .paint
 
@@ -140,7 +144,7 @@ buildLevel:
 .pw:
 	push bc
 	ld a,(de)
-; 	dec a
+	dec a
 	cp (hl)
 	jr c,.ns1
 	inc (hl)
@@ -148,7 +152,7 @@ buildLevel:
 	inc de
 	inc hl
 	ld a,(de)
-; 	dec a
+	dec a
 	cp (hl)
 	jr c,.ns2
 	inc (hl)
@@ -162,13 +166,13 @@ buildLevel:
 	ret
 ;----------------------------------------------
 wallColors:
-	db 3,1,3,3
-	db 6,4,6,6
-	db 2,2,1,2
-	db 4,4,4,6
+	db 5,3,3,3
+	db 3,2,2,2
+	db 5,4,4,4
+	db 2,3,3,3
 
-	db 1,2,1,1
-	db 5,3,5,5
-	db 3,3,5,3
-	db 1,2,3,4
+	db 6,6,6,6
+	db 5,5,5,5
+	db 4,4,4,4
+	db 1,1,1,1
 	endmodule

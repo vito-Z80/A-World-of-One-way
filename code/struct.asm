@@ -16,7 +16,9 @@ cellId		byte
 spriteId	byte	
 direction	byte	
 launchTime	byte 	; время до начала движения объекта
-color		byte	
+color		byte	; color (8 bit)
+colorDataL:	byte 	; color sequence address (if want to)
+colorDataH:	byte 	; ------//-------
 delta		byte
 accelerate	byte
 isMovable	byte 	; 0 - false, !=0 - true
@@ -39,10 +41,9 @@ clrScrAddrH:	byte 	;
 
 drawMethod:	byte 	; !=0 = 3x2, ==0 = 2x2
 animationId 	byte
-spriteCounter	byte	; Используется для взрыва, отрисовывается 5 спрайтов (каждый за 1 кадр) начиная с центрального 
 			
 id		byte	; id of this object in objects map
-		block 4
+		block 3
      	ends
 
 
@@ -55,6 +56,30 @@ UP:	block 4
 DOWN:	
 	ends
 
+	//-------------------------------------------------------------
+	module INK
+BLACK	equ 0
+BLUE	equ 1
+RED	equ 2
+PURPLE	equ 3
+GREEN	equ 4
+CYAN	equ 5
+YELLOW 	equ 6
+WHITE	equ 7
+	endmodule
+
+	module PAPER
+BLACK	equ INK.BLACK << 3
+BLUE	equ INK.BLUE << 3
+RED	equ INK.RED << 3
+PURPLE	equ INK.PURPLE << 3
+GREEN	equ INK.GREEN << 3
+CYAN	equ INK.CYAN << 3
+YELLOW 	equ INK.YELLOW << 3
+WHITE	equ INK.WHITE << 3
+	endmodule
+BRIGHTNESS equ %01000000
+	//-------------------------------------------------------------
 
 	; macros for set update procedure of object
 	macro SET_EXEC_IX address

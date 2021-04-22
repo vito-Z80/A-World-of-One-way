@@ -9,6 +9,7 @@ init:
 ; 	call POP_UP_INFO.reset
 	xor a
 	ld (isLevelPassed),a
+	ld (rebuildLevel),a
 	ld a,SYSTEM.GAME_UPDATE
 	ret
 ;-----------------------------------------------
@@ -45,6 +46,11 @@ update:
 	ld a,l
 	or a
 	ret nz 		; to main menu
+
+
+	ld a,(rebuildLevel)
+	cp SYSTEM.GAME_INIT
+	ret z
 
 	; check level passed
 	ld a,(isLevelPassed)

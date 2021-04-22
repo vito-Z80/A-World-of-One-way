@@ -24,6 +24,11 @@ setPlus10:
 	ld de,POP_UP_INFO.bitmapPlus10
 	ld bc,2 * 256 + %00100100
 	jr set
+setWasted:
+	ld hl,#5b04
+	ld de,POP_UP_INFO.bitmapWasted
+	ld bc,3 * 256 + %01010010
+	jr set
 setFear:
 	ld hl,#5b04
 	ld de,POP_UP_INFO.bitmapFear
@@ -196,6 +201,14 @@ bitmapExplosion:
 	db %11110010, %00101000, %10101010
 	db %10001010, %00101000, %10100010
 	db %11110001, %11000111, %00100010
+bitmapWasted:
+	db %10001001, %00011011, %10110110
+	db %10001010, %10100001, %00100101
+	db %10101011, %10010001, %00110101
+	db %10101010, %10001001, %00100101
+	db %01010010, %10110001, %00110110
+
+
 ;------------------------------------------
 
 

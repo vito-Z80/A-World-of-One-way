@@ -5,13 +5,13 @@
     },
     "activeFile": "levels.tmx",
     "expandedProjectPaths": [
-        "P:/Core/YanMapsTiled",
-        "."
+        ".",
+        "P:/Core/YanMapsTiled"
     ],
     "fileStates": {
         "": {
             "scaleInDock": 1,
-            "scaleInEditor": 5.5
+            "scaleInEditor": 1.5
         },
         "P:/Core/YanMapsTiled/map.tmx": {
             "scale": 1.5,
@@ -77,8 +77,8 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 404,
-                "y": 173.75
+                "x": 375,
+                "y": 172.75
             }
         },
         "levels.tmx#sprites": {

@@ -20,6 +20,8 @@ elds:
 	include "code/objects/exitDoor.asm"
 	include "code/objects/enemySkull.asm"
 	include "code/objects/brokenBlock.asm"
+	include "code/objects/iceHole.asm"
+	include "code/objects/split.asm"
 	include "code/audio/soundPlayer.asm"
 	include "utils/utils.asm"
 ss:
@@ -36,8 +38,7 @@ buffer256: 		block 256, 0 	; буфер восстановления аттиб�
 	; #00 > 	free way
 	; #01-#0A > 	object ID`s
 	; #FF > 	wall
-	; #FE > 	breakable wall
-	; 	общее:
+	; 	общее: 
 	; объекты на карте со значением 0 = пустая ячейка (свободный путь)
 	; объекты на карте со значением (128-255) = не возможно пересеч (стена)
 	; объекты на карте со значением (1-127) = объекты взаимодействия
@@ -45,9 +46,11 @@ buffer256: 		block 256, 0 	; буфер восстановления аттиб�
 levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
 		; забить данными не более 64 байта, что бы floorCells LOW = 0	
 globalSeed:			dw 0
+globalSeedTmp:			dw 0
 		; две переменных ниже должны следовать друг за другом !!!
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
+rebuildLevel:			db 0
 		; pop up variables
 popupAttrAddr:			dw #0000 ; адрес рисования атрибутов информационной бегущей строки вверх 
 popupPreAttrAddr:		dw #0000 ; 
@@ -90,6 +93,7 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
 
         display "::::::::: ",/A,OBJECTS.setLaunchTime
         display "::::::::: ",/A,LEVEL.build
+        display "::::::::: ",/A,LEVEL.wallColors
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

@@ -622,6 +622,12 @@ convertScrToAttr:
 	ex de,hl
 	ret
 ;------------------------------------------
+blinkBrightness:
+	ld a,(ix+oData.color)
+	xor BRIGHTNESS
+	ld (ix+oData.color),a
+	ret
+;------------------------------------------
 flashRedYellow:
 	call convertScrToAttr
 	ld a,(ix+oData.color)

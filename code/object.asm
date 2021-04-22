@@ -389,8 +389,10 @@ findObj:
 	jp z,CHUPA.init
 	cp EXIT_DOOR_PBM_ID
 	jp z,EXIT_DOOR.init
-
-
+	cp ICEHOLE_PBM_ID
+	jp z,ICE_HOLE.init
+	cp SPLIT_PBM_ID
+	jp z,SPLIT.init
 
 	cp BROKEN_BLOCK_PBM_ID
 	jp z,BROKEN_BLOCK.init
@@ -604,7 +606,10 @@ targetCell:
 
 	cp CHUPA_001_PBM_ID
 	jp z,CHUPA.getCoin
-; 	jp z,CHUPA.transform
+
+
+	cp ICEHOLE_PBM_ID
+	jp z,ICE_HOLE.targetDestroy
 
 
 	cp BOOM_01_PBM_ID
@@ -613,6 +618,11 @@ targetCell:
 
 	cp ENEMY_FACE_00_PBM_ID
 	jp z,ENEMY_SKULL.target
+
+
+
+
+
 	//.......
 	ret
 ;----------------------------------------------------------------
