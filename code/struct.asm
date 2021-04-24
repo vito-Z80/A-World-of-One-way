@@ -22,6 +22,7 @@ colorDataH:	byte 	; ------//-------
 delta		byte
 accelerate	byte
 isMovable	byte 	; 0 - false, !=0 - true
+isLeave:	byte 	; 
 isDestroyed	byte	; object destroyed
 exec		dw 	; The address of the procedure executed every frame for the current object. #0000 = not called.
 bit:		byte 	; bit 0-7 of X coordinate
@@ -31,7 +32,6 @@ sprAddrL:	byte
 sprAddrH:	byte
 
 
-isRemove:	byte
 clearSide:	byte 	; сторона с которой требуется отчистка хвоста спрайта. 0 = не чистить
 clrScrAddrL:	byte 	; адрес экрана где будет происходить отчистка.
 clrScrAddrH:	byte 	; 
@@ -40,10 +40,10 @@ clrScrAddrH:	byte 	;
 		; достаточно при инициализации уровня.
 
 drawMethod:	byte 	; !=0 = 3x2, ==0 = 2x2
-animationId 	byte
-			
-id		byte	; id of this object in objects map
-		block 3
+animationId: 	byte
+n1:		byte 	; for any		
+id:		byte	; id of this object in objects map
+		block 2
      	ends
 
 

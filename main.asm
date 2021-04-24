@@ -63,7 +63,7 @@ delta:				db 0	; каждый кадр +1 в GAME.update
 byteValue:			db 0
 pathAddress:			dw 0
 
-strips:				block MAX_OBJECTS + MAX_OBJECTS / 2, 0 
+; strips:				block MAX_OBJECTS + MAX_OBJECTS / 2, 0 
 				align 256
 floorCells:			block MAP_WIDTH * MAP_HEIGHT 		; floor cells for back to screen
 objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data
@@ -91,9 +91,9 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
         display "SPRITE_STORAGE: ",/A,SPRITE_MAP
 
 
-        display "::::::::: ",/A,OBJECTS.setLaunchTime
+        display "::::::::: ",/A,OBJECTS.targetCell
         display "::::::::: ",/A,LEVEL.build
-        display "::::::::: ",/A,LEVEL.wallColors
+        display "::::::::: ",/A,SPLIT.init
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

@@ -113,9 +113,9 @@ draw:
 	ld b,MAX_OBJECTS
 .loop:
 	push bc
-	ld a,(ix+oData.id)
-	inc a
-	jr z,.end 			; #FF = empty object
+; 	ld a,(ix+oData.id)
+; 	inc a
+; 	jr z,.end 			; #FF = empty object
 	ld e,(ix+oData.scrAddrL) 	; scr addr low
 	ld d,(ix+oData.scrAddrH) 	; scr addr high
 	ld a,d
@@ -542,7 +542,7 @@ zeroMotion:
 	ld (ix+oData.delta),0
 	ld a,(ix+oData.id)
 	ld (hl),a 	; когда объект остановлен - заносим его object ID в ячейку карты. 
-	call SOUND_PLAYER.SET_SOUND.key
+; 	call SOUND_PLAYER.SET_SOUND.key
 	ret
 ;-------
 checkRight:
@@ -586,23 +586,20 @@ targetCell:
 	ret
 .targetCellExe:
 
-
-
-	display "targetCell",/A,$
-
 	ex de,hl
 	call getObjDataById  	; get IY - target object address
 	ex de,hl
-	; IX > this object
+	; IX > current object
 	; IY > target object
 	; HL > level cell
 	; этими данными можно пользоваться для взаимодействия объектов.
 	ld a,(iy+oData.spriteId)
 	cp EXIT_DOOR_PBM_ID
-	jp z,EXIT_DOOR.toNextLevel
+	jp z,GAME.setNextLevel
 
 
-
+	cp HERO_FACE_00_PBM_ID
+	jp z,HERO.destroy
 
 	cp CHUPA_001_PBM_ID
 	jp z,CHUPA.getCoin
@@ -614,11 +611,15 @@ targetCell:
 
 	cp BOOM_01_PBM_ID
 	jp z,CHUPA.explosion
-	ret
+
+
+	cp SPLIT_PBM_ID
+	jp z,SPLIT.splitObject
+
+
 
 	cp ENEMY_FACE_00_PBM_ID
 	jp z,ENEMY_SKULL.target
-
 
 
 
@@ -742,7 +743,7 @@ resetObjectIX:
 	ld h,high levelCells
 	ld (hl),0
 	call resetObject
-	ld (ix+oData.id),#FF
+; 	ld (ix+oData.id),#FF
 	ret
 resetObject:
 	ld h,d
@@ -759,6 +760,6 @@ resetObjectIY:
 	ld h,high levelCells
 	ld (hl),0
 	call resetObject
-	ld (iy+oData.id),#FF
+; 	ld (iy+oData.id),#FF
 	ret
 	endmodule

@@ -28,8 +28,9 @@ update:
 targetDestroy:
 	; IX - target object data
 	; IY - this object data
+	ld (ix+oData.color),7
 	ld (ix+oData.isDestroyed),1
-	ret
+	jp SOUND_PLAYER.SET_SOUND.ice
 colorData:
 	db PAPER.BLACK or INK.CYAN
 	db PAPER.BLACK or INK.BLUE or BRIGHTNESS

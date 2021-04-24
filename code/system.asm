@@ -10,6 +10,7 @@ run:
 	ld sp,#8000
 	;----------------------------test code
 
+
 	
 	;----------------------------test code
 	xor a
@@ -52,5 +53,8 @@ INFO_INIT:		equ 5
 			dw 0
 INFO_UPDATE:		equ 6
 			dw 0
+			; fade out and next system ID
+FADE_OUT:		equ 7
+			dw fadeOutFull
 ;------------------------------------
 	endmodule

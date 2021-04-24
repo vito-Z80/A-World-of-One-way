@@ -45,7 +45,15 @@ eat:
 key:
 	ld hl,SOUND_PLAYER.DATA.key
 	jr SOUND_PLAYER.init
-
+ice:
+        ld hl,SOUND_PLAYER.DATA.ice
+        jr SOUND_PLAYER.init
+done:
+        ld hl,SOUND_PLAYER.DATA.done
+        jr SOUND_PLAYER.init
+dead:
+        ld hl,SOUND_PLAYER.DATA.dead
+        jr SOUND_PLAYER.init
         endmodule
 
 init:
@@ -197,6 +205,12 @@ eat:
 	db 1,8,33,78,0
 key:
 	db 1,1,4,0,0
+ice:
+        db 2,6,22,66,0
+done:
+        db 1,32,99,-3,0
+dead:
+        db 1,32,1,-64,0
         endmodule
 
         endmodule

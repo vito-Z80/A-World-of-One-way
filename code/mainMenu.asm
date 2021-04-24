@@ -9,6 +9,8 @@ init:
 	ld hl,infoText
 	ld de,#4848
 	call printText2x1
+	ld a,7
+	call clearAttributes
 	ld a,SYSTEM.MAIN_MENU_UPDATE
 	ret
 ;------------------------------------------------

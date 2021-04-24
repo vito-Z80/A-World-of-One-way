@@ -12,13 +12,6 @@ init:
 	jp OBJECTS.setObjectId
 ;-------------------------------------------
 update:
-; 	ld a,(ix+oData.color)
-; 	add 4
-; 	and 7
-	ld a,(ix+oData.id)
-	inc a
-	ret z
-
 
 	ld a,(ix+oData.isDestroyed)
 	or a
@@ -35,20 +28,19 @@ update:
 ;-------------------------------------------
 destroyThis:
 	call fadeOut2x2
-	or a
+; 	or a
 	ret nz
 	call clear2x2
 	jp OBJECTS.resetObjectIX 	; object was destroyed
 ;-------------------------------------------
 target:
+	; IY - this object
+	; IX - other object
 	ld a,(ix+oData.spriteId)
 	cp HERO_FACE_00_PBM_ID
-	jr z,killHero
-
-	ret
-;-------
-killHero:
-	call OBJECTS.resetObjectIX
+	ret nz
+	ld (ix+oData.isDestroyed),1
+	call SOUND_PLAYER.SET_SOUND.dead
 	ret
 
 

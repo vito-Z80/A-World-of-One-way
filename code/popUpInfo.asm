@@ -9,6 +9,12 @@ reset:
 	ldir
 	ret
 ;------------------------------------------
+isFinish:
+	; return 0 = finish; !0 = continue
+	ld a,(popupAttrAddr)
+	or a
+	ret
+;------------------------------------------
 setExplosion:
 	ld hl,#5b04
 	ld de,POP_UP_INFO.bitmapExplosion
@@ -29,6 +35,12 @@ setWasted:
 	ld de,POP_UP_INFO.bitmapWasted
 	ld bc,3 * 256 + %01010010
 	jr set
+setMore:
+	ld hl,#5b04
+	ld de,POP_UP_INFO.bitmapMore
+	ld bc,3 * 256 + %01100100
+	jr set
+
 setFear:
 	ld hl,#5b04
 	ld de,POP_UP_INFO.bitmapFear
@@ -207,7 +219,12 @@ bitmapWasted:
 	db %10101011, %10010001, %00110101
 	db %10101010, %10001001, %00100101
 	db %01010010, %10110001, %00110110
-
+bitmapMore:
+	db %01000100, %11100111, %10011110
+	db %01101101, %00010100, %01010000
+	db %01010101, %00010111, %10011000
+	db %01000101, %00010100, %01010000
+	db %01000100, %11100100, %01011110
 
 ;------------------------------------------
 

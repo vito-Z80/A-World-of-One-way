@@ -183,99 +183,6 @@ getDrawData:
 
 
 
-
-
-	ld a,(ix+oData.drawMethod)
-	ret z  		; рисование 2х2 не требует стирания и сдвига адресов спрайтов
-
-
-	;----------------
-	ld a,(ix+oData.isRemove)
-	or a
-	jr z,.notRemove
-; 	ld a,(oData.direction)
-	rrca
-	jr nc,.checkRightRemove
-	; move left, erase right
-	ld a,(ix+oData.direction)
-	or a
-	jr z,$ + 3
-	inc l
-	inc l
-	inc l
-	call clear1x2	
-	jr .notRemove
-.checkRightRemove:
-	rrca
-	jr nc,.checkUpRemove
-	; move right, erase left
-	dec l
-	call clear1x2
-	jr .notRemove
-
-
-.checkUpRemove:
-	rrca 
-	jr nc,.checkDownRemove
-	; move up, erase down
-	ld a,c
-	and %11110000
-	ld l,a
-	ld h,b
-	ld bc,16
-.vert:
-	ld a,(ix+oData.direction)
-	or a
-	jr z,.cur
-	add hl,bc
-.cur:
-	add hl,bc
-	add hl,bc
-	ld a,(hl)
-	inc l
-	ld h,(hl)
-	ld l,a
-	ld a,(ix+oData.x)
-	rrca
-	rrca
-	rrca
-	and #1F
-	add a,l
-	ld l,a
-	call clear2x1
-	jr .notRemove
-
-
-.checkDownRemove:
-	rrca
-	jr nc,.notRemove
-	ld a,c
-	and %11110000
-	ld l,a
-	ld h,b
-	ld bc,#10000 - 16
-	jr .cur + 1
-
-
-.notRemove:
-	
-	ld (ix+oData.isRemove),0
-	ld a,(ix+oData.spriteId)
-	call getSpriteAddr
-
-	ld a,e
-	and 7
-	ld (ix+oData.bit),a
-	or a
-	jr z,.end
-	; A * 48 = BC
-	call mul48
-	add hl,bc
-.end:
-	; hl - sprite address
-	ld (ix+oData.sprAddrL),l
-	ld (ix+oData.sprAddrH),h
-	ret
 ;---------------------------------------------------------
 clear1x2: 	; width = 1 symbol, height = 2 symbols
 	xor a
@@ -677,6 +584,28 @@ fillAttr2x2:
 	ld (hl),a
 	dec l
 	ld (hl),a
+	ret
+;------------------------------------------
+fadeOutFull:
+	; D - system ID after fade out
+	ld hl,#5800
+	ld e,d
+.loop:
+	ld a,(hl)
+	res 6,a
+	or a
+	jr z,.next
+	dec a
+	ld e,SYSTEM.FADE_OUT
+.next:
+	ld (hl),a
+	inc hl
+	ld a,h
+	cp #5B
+	jr c,.loop
+	halt
+	halt
+	ld a,e
 	ret
 ;------------------------------------------
 fadeOut2x2:

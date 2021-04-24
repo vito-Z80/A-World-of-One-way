@@ -12,6 +12,10 @@ init:
 update:
 	; IX = this object data address
 
+	ld a,(ix+oData.isLeave)
+	or a
+	jr nz,.toExit
+
 	ld a,(ix+oData.isDestroyed)
 	or a
 	jr nz,.lifeLost
@@ -20,18 +24,24 @@ update:
 	call OBJECTS.collision
 	call getDrawData
 	ret
+
 .lifeLost:
-	call SOUND_PLAYER.SET_SOUND.explosion
-	call POP_UP_INFO.setWasted
-
-
-	; FIX сначало уничтожить объект, затем вывести надпись wasted, и только потом ребуилт левел. 
+	cp 1
+	set 1,(ix+oData.isDestroyed)
+	call z,POP_UP_INFO.setWasted
 	ld a,SYSTEM.GAME_INIT
 	ld (rebuildLevel),a
-
-
-
-	jp OBJECTS.resetObjectIX
-
+.toExit:
+	jp ENEMY_SKULL.destroyThis
+;----------------------------------------------------
+destroy:
+	; IY - this object
+	; IX - other object
+	ld a,(ix+oData.spriteId)
+	cp ENEMY_FACE_00_PBM_ID
+	ret nz
+	ld (iy+oData.isDestroyed),1
+	call SOUND_PLAYER.SET_SOUND.dead
+	ret
 
 	endmodule
