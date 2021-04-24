@@ -625,56 +625,54 @@ clear2x2:
 	inc l
 	jp clear1x2
 ;------------------------------------------
+fillInsideLevel:
+    ld (return+1),sp
+    ld sp,buffer256
 
-; run
-;     ld (return+1),sp
-;     ld sp,fillStack
-;     ld hl,levelCells     //  start point
-;     ld de,32    //  line size
-;     jp code
-; return
-;     ld sp,0
-;     ret
-; //---------------------------------
-; code
-;     ld c,#ff    //  C = fill color
-;     ld b,(hl)   //  B = find color
-;     push hl
-; again
-;     pause
-; aga2
-;     pop hl
-;     ld a,l
-;     cp low fillStack + 1
-;     jp nc,return    //  stack is over
-;     ld a,(hl)
-;     cp c
-;     jp z,aga2   //  does not need processing
-;     ld a,b      //  find color
-;     ld (hl),c   //  fill color
-; left
-;     dec hl
-;     cp (hl)
-;     jp nz,down
-;     push hl
-; down
-;     inc hl
-;     add hl,de
-;     cp (hl)
-;     jp nz,right
-;     push hl
-; right
-;     inc hl
-;     or a
-;     sbc hl,de
-;     cp (hl)
-;     jp nz,up
-;     push hl
-; up
-;     dec hl
-;     or a
-;     sbc hl,de
-;     cp (hl)
-;     jp nz,again
-;     push hl
-;     jp again
+    ld hl,levelCells     	//  start point
+    ld de,MAP_WIDTH    		//  line size
+    jr code
+return
+    ld sp,0
+    ret
+//---------------------------------
+code
+    ld c,#f0    //  C = fill ID
+    ld b,(hl)   //  B = find ID
+    push hl
+again
+    pop hl
+    ld a,l
+    cp low buffer256
+    jr nc,return    //  stack is over
+    ld a,(hl)
+    cp c
+    jp z,again   //  does not need processing
+    ld a,b      //  find ID
+    ld (hl),c   //  fill ID
+left
+    dec hl
+    cp (hl)
+    jp nz,down
+    push hl
+down
+    inc hl
+    add hl,de
+    cp (hl)
+    jp nz,right
+    push hl
+right
+    inc hl
+    or a
+    sbc hl,de
+    cp (hl)
+    jp nz,up
+    push hl
+up
+    dec hl
+    or a
+    sbc hl,de
+    cp (hl)
+    jp nz,again
+    push hl
+    jp again

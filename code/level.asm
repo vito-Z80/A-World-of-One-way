@@ -1,6 +1,7 @@
 	module LEVEL
 ;------------------------------------------------------------
 build:
+	call fillWalls
 	call clearData
 	call buildLevel
 	ret
@@ -98,9 +99,10 @@ buildLevel:
 	push de
 	push hl
 
-	ld a,(hl)
-	inc a
-	call z,.paintWall
+; 	ld a,(hl)
+; 	inc a
+; 	call z,.paintWall
+	call .paintWall
 	pop hl
 	inc l
 	pop de
@@ -124,11 +126,35 @@ buildLevel:
 	halt
 	pop bc
 	djnz .paint
+	pop hl
+	push hl
+	; find exit door cell id
+	; the exit door must exist !!!  ...otherwise BUG
+.nextObject:
+	ld c,(hl)
+	inc hl
+	ld a,(hl)
+	inc hl
+	cp EXIT_DOOR_PBM_ID
+	jr nz,.nextObject
+.done:
+	ld l,a
+	ld h,high levelCells
+	ld (hl),#FF
 
 	pop hl
 	ret
 
 .paintWall:
+
+	ld a,(hl)
+	inc a
+	jr z,.pwn
+	push de
+	pop hl
+	ld de,red
+	jr .pw-2
+.pwn:
 	push de
 	call rnd16
 	pop hl
@@ -165,6 +191,22 @@ buildLevel:
 	djnz .pw
 	ret
 ;----------------------------------------------
+fillWalls:
+
+	ld c,#C0
+.loop:
+	push bc
+	ld hl,FLOOR_0003_PBM 
+	dec c
+	call printSpr
+
+	pop bc
+	dec c
+	jr nz,.loop
+
+	ret
+
+;----------------------------------------------
 wallColors:
 	db 5,3,3,3
 	db 3,2,2,2
@@ -175,4 +217,6 @@ wallColors:
 	db 5,5,5,5
 	db 4,4,4,4
 	db 1,1,1,1
+red: 
+	db 2,2,2,2
 	endmodule

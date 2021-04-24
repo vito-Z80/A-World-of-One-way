@@ -44,7 +44,7 @@ buffer256: 		block 256, 0 	; буфер восстановления аттиб�
 	; объекты на карте со значением (1-127) = объекты взаимодействия
 	;
 levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
-		; забить данными не более 64 байта, что бы floorCells LOW = 0	
+		; забить данными не более 64 байта, что бы screenAddresses LOW = 0	
 globalSeed:			dw 0
 globalSeedTmp:			dw 0
 		; две переменных ниже должны следовать друг за другом !!!
@@ -65,10 +65,9 @@ pathAddress:			dw 0
 
 ; strips:				block MAX_OBJECTS + MAX_OBJECTS / 2, 0 
 				align 256
-floorCells:			block MAP_WIDTH * MAP_HEIGHT 		; floor cells for back to screen
-objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data
 				; low address byte = 0
 screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 bytes
+objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data
 
 ; fillStack:			; место для стека заливки пустотой внутри уровня
 ; 				equ $
@@ -78,7 +77,6 @@ screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 
 
 
         display "level CELLS address: ",/A,levelCells
-        display "floor CELLS address: ",/A,floorCells
         display "screenAddresses address: ",/A,screenAddresses
         display "getDrawData address: ",/A,getDrawData
         display "object data size: ",/A,OBJECT_DATA_SIZE
