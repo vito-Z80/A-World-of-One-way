@@ -15,6 +15,8 @@ elds:
 	include "code/control.asm"
 	include "code/popUpInfo.asm"
 	include "code/object.asm"
+	include "code/pass.asm"
+	include "code/shop.asm"
 	include "code/objects/hero.asm"
 	include "code/objects/chupa.asm"
 	include "code/objects/exitDoor.asm"
@@ -29,8 +31,8 @@ ss:
 ess
 //---------------------------------VARIABLES---------------------------------
 global_direction:	db DIRECTION.NONE
-; tmp_direction:		db DIRECTION.NONE
 textColor:		db 0,0
+lastKeyPresed:		db 0
 //---------------------------------SPACE--------------------------------
 				align 256
 buffer256: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх и еще чего нибудь :)

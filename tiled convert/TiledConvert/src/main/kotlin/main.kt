@@ -10,6 +10,13 @@ fun main(args: Array<String>) {
         "../maps/levelsData.asm"
     )
     conversion.exec()
+
+
+
+
+
+
+
     val time = System.currentTimeMillis()
     val f = File("complete_$time.txt")
     f.writeText(time.toString())

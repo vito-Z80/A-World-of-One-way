@@ -35,5 +35,38 @@ set:
 	ld (hl),e 	; set direction to "global_direction"
 	call OBJECTS.identifyMoving
 	; reg E does not deteriorate from the call above, and is passed on to the call below.
-	jp OBJECTS.setLaunchTime 	
+	jp OBJECTS.setLaunchTime 
+;-------------------------------------------
+enter:
+	ld bc,#BFFE
+	jr caps + 3
+;-------------------------------------------
+caps:
+	ld bc,#FEFE
+	in a,(c)
+	bit 0,a
+	ret
+;-------------------------------------------
+data:	db "1234509876",0
+digListener:
+	; return DE = address of digital char [(DE) == 0 = not pressed]
+	ld hl,#0505
+	ld de,data
+	ld bc,#F7FE 	; 1-5
+.pass:
+	in a,(c)
+	cpl
+.half
+	rrca
+	ret c
+	inc de
+	dec l
+	jr nz,.half
+	rlc b 		; BC = #EFFE ; 0-6
+; 	xor a
+	cp h
+	ret z
+	ld l,h
+	ld h,a
+	jr .pass
 	endmodule

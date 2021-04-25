@@ -1,3 +1,4 @@
+PASS_LENGTH:			equ 16
 MAP_WIDTH:			equ 16
 MAP_HEIGHT:			equ 12
 MAX_OBJECTS: 			equ 10

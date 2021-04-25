@@ -9,10 +9,17 @@ run:
 	call SOUND_PLAYER.SET_SOUND.mute
 	ld sp,#8000
 	;----------------------------test code
-	ld hl,0
-	ld bc,100
-	ld a,#18
-	cpir
+
+; 	call PASS.input
+
+	ld a,78
+	and  15
+	add  a,#90
+	daa
+	adc  a,#40
+	daa
+
+
 
 	
 	;----------------------------test code
@@ -59,5 +66,7 @@ INFO_UPDATE:		equ 6
 			; fade out and next system ID
 FADE_OUT:		equ 7
 			dw fadeOutFull
+PASS_UPDATE: 		equ 8
+			dw PASS.update
 ;------------------------------------
 	endmodule
