@@ -42,12 +42,12 @@ buffer256: 		block 256, 0 	; буфер восстановления аттиб�
 	; объекты на карте со значением 0 = пустая ячейка (свободный путь)
 	; объекты на карте со значением (128-255) = не возможно пересеч (стена)
 	; объекты на карте со значением (1-127) = объекты взаимодействия
-	;
+				; low address byte = 0
 levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
 		; забить данными не более 64 байта, что бы screenAddresses LOW = 0	
 globalSeed:			dw 0
 globalSeedTmp:			dw 0
-		; две переменных ниже должны следовать друг за другом !!!
+		; переменные ниже должны следовать друг за другом !!!
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 rebuildLevel:			db 0
@@ -60,10 +60,13 @@ bitmapWidth:			db 0 	; bitmap width in bytes
 		;-----------------
 delta:				db 0	; каждый кадр +1 в GAME.update
 ; title data
-byteValue:			db 0
-pathAddress:			dw 0
+byteValue:			db 0 	; used for title (after title used for fill inside level start address > 2 bytes) 
+pathAddress:			dw 0 	;  --//--
+		;------------------
+fillStack: 			dw 0 	; stack any cell for fill
+tmpStack: 			dw 0 	;  ----//-----
+		;------------------
 
-; strips:				block MAX_OBJECTS + MAX_OBJECTS / 2, 0 
 				align 256
 				; low address byte = 0
 screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 bytes
@@ -91,7 +94,7 @@ objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data
 
         display "::::::::: ",/A,OBJECTS.targetCell
         display "::::::::: ",/A,LEVEL.build
-        display "::::::::: ",/A,SPLIT.init
+        display "::::::::: ",/A,fillInsideLevel
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

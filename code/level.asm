@@ -1,6 +1,7 @@
 	module LEVEL
 ;------------------------------------------------------------
 build:
+	call POP_UP_INFO.reset
 	call fillWalls
 	call clearData
 	call buildLevel
@@ -18,6 +19,7 @@ clearData:
 	ld hl,levelCells
 	ld de,levelCells + 1
 	ld bc,MAP_WIDTH * MAP_HEIGHT - 1
+	inc a
 	ld (hl),a
 	ldir
 	; set direction NONE
@@ -78,6 +80,25 @@ buildLevel:
 	djnz .nextHalf
 	push hl
 ;----------------------------------------------
+
+	push hl
+	; заливка требуется что бы визуально очистить ячейки внутри уровня.
+	; find exit door cell id
+	; the exit door must exist !!!  ...otherwise &!@^@#$!()
+	ld a,EXIT_DOOR_PBM_ID
+	call findCellIdBySpriteId
+	ld (hl),#FF 	; делаем заглушку для двери, иначе заливка выйдет за пределы уровня
+	ld (byteValue),hl ; save "exit door" cell for replace to 0
+
+	pop hl
+	ld a,HERO_FACE_00_PBM_ID
+	call findCellIdBySpriteId
+	; HL come from call above
+	call fillInsideLevel
+	ld hl,(byteValue)
+	ld (hl),0
+
+
 	ld b,7
 .paint:
 	push bc
@@ -127,24 +148,7 @@ buildLevel:
 	pop bc
 	djnz .paint
 	pop hl
-	push hl
-	; find exit door cell id
-	; the exit door must exist !!!  ...otherwise BUG
-.nextObject:
-	ld c,(hl)
-	inc hl
-	ld a,(hl)
-	inc hl
-	cp EXIT_DOOR_PBM_ID
-	jr nz,.nextObject
-.done:
-	ld l,a
-	ld h,high levelCells
-	ld (hl),#FF
-
-	pop hl
 	ret
-
 .paintWall:
 
 	ld a,(hl)

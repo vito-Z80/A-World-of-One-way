@@ -625,54 +625,77 @@ clear2x2:
 	inc l
 	jp clear1x2
 ;------------------------------------------
+findCellIdBySpriteId:
+	; find first sprite ID in level data after walls data
+	; A - sprite ID
+	; HL - Level objects data (after walls data)
+	; return HL > level cell by sprite ID
+	ld bc,#C0
+	cpir
+	dec l
+	dec l
+	; > (HL) cell id 
+	ld l,(hl)
+	ld h,high levelCells
+	ret
+;------------------------------------------
+; my paste Fill algorithm: https://pastebin.com/4X4C8e62
 fillInsideLevel:
-    ld (return+1),sp
-    ld sp,buffer256
-
-    ld hl,levelCells     	//  start point
-    ld de,MAP_WIDTH    		//  line size
-    jr code
+	; HL strart cell for begin fill
+	ld (fillStack),sp
+	ld sp,buffer256 + 254
+	ld de,MAP_WIDTH    	//  line size
+	jr code
 return
-    ld sp,0
-    ret
+	ld sp,(fillStack)
+	ret
 //---------------------------------
 code
-    ld c,#f0    //  C = fill ID
-    ld b,(hl)   //  B = find ID
-    push hl
+	ld c,0 
+	ld b,(hl)   //  B = find ID
+	push hl
 again
-    pop hl
-    ld a,l
-    cp low buffer256
-    jr nc,return    //  stack is over
-    ld a,(hl)
-    cp c
-    jp z,again   //  does not need processing
-    ld a,b      //  find ID
-    ld (hl),c   //  fill ID
+	ld (tmpStack),sp
+	ld a,(tmpStack)
+	cp low buffer256 + 254
+    	jr z,return    //  stack is over
+	pop hl
+	ld a,(hl)
+	cp b
+	jp nz,again   	//  does not need processing
+	ld a,b      	//  find ID
+	ld (hl),c
+	ex af,af
+	ld a,l
+	exx 
+	ld c,a
+	ld hl,EMPTY_PBM
+	call printSpr
+	exx
+	ex af,af
 left
-    dec hl
-    cp (hl)
-    jp nz,down
-    push hl
+	dec l
+	cp (hl)
+	jp nz,down
+	push hl
 down
-    inc hl
-    add hl,de
-    cp (hl)
-    jp nz,right
-    push hl
+	inc l
+	add hl,de
+	cp (hl)
+	jp nz,right
+	push hl
 right
-    inc hl
-    or a
-    sbc hl,de
-    cp (hl)
-    jp nz,up
-    push hl
+	inc l
+	or a
+	sbc hl,de
+	cp (hl)
+	jp nz,up
+	push hl
 up
-    dec hl
-    or a
-    sbc hl,de
-    cp (hl)
-    jp nz,again
-    push hl
-    jp again
+	dec l
+	or a
+	sbc hl,de
+	cp (hl)
+	jp nz,again
+	push hl
+	jp again

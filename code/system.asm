@@ -9,7 +9,10 @@ run:
 	call SOUND_PLAYER.SET_SOUND.mute
 	ld sp,#8000
 	;----------------------------test code
-
+	ld hl,0
+	ld bc,100
+	ld a,#18
+	cpir
 
 	
 	;----------------------------test code
