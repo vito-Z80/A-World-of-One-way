@@ -1,4 +1,5 @@
 	module PASS
+; 	get passwords from ROM
 ;--------------------------------------------------
 ; testPass:
 ; 	ld hl,0
@@ -38,7 +39,7 @@ data:
 ;--------------------------------------------------
 checkPass:
 	ld de,0
-	ld c,0
+	ld c,e
 	ld b,(LEVELS_BEGIN - LEVELS_MAP) / 2 	; number of levels
 .nextPass:
 	ld hl,data
@@ -77,6 +78,9 @@ checkPass:
 	ret
 ;--------------------------------------------------
 update:
+
+	; TODO когда будет добавлен счет монет, в пароли уровней нужно будет добавить кол-во монет !!!!
+
 	call input
 	call checkPass
 	ld a,c

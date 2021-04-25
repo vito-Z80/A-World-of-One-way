@@ -9,8 +9,7 @@ run:
 	call SOUND_PLAYER.SET_SOUND.mute
 	ld sp,#8000
 	;----------------------------test code
-
-; 	call PASS.input
+	
 
 	ld a,78
 	and  15
@@ -68,5 +67,10 @@ FADE_OUT:		equ 7
 			dw fadeOutFull
 PASS_UPDATE: 		equ 8
 			dw PASS.update
+
+SHOP_INIT: 		equ 9
+			dw SHOP.init
+SHOP_UPDATE: 		equ 10
+			dw SHOP.update
 ;------------------------------------
 	endmodule

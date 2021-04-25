@@ -72,7 +72,7 @@ rebuildLvl:
 	jr nextLevel + 3
 nextLevel:
 	ld a,(isLevelPassed)
-	cp SYSTEM.GAME_INIT
+	cp SYSTEM.SHOP_INIT
 	ret nz
 	ld d,a
 	call POP_UP_INFO.isFinish
@@ -107,7 +107,7 @@ setNextLevel:
 	ld hl,currentLevel
 	inc (hl)
 	inc hl 	; isLevelPassed label
-	ld (hl),SYSTEM.GAME_INIT
+	ld (hl),SYSTEM.SHOP_INIT
 	call POP_UP_INFO.setDone
 	call SOUND_PLAYER.SET_SOUND.done
 	pop hl
