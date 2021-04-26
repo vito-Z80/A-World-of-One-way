@@ -109,22 +109,25 @@ checkPass:
 
 	ret
 ;--------------------------------------------------
+init:
+	call fadeOutFull
+	call clearData
+	call clearScreen
+	ld a,SYSTEM.PASS_UPDATE
+	ret
+;--------------------------------------------------
 update:
 
-	; TODO когда будет добавлен счет монет, в пароли уровней нужно будет добавить кол-во монет !!!!
 
 	call input
 	call checkPass
 	ld a,c
 	cp #FF
-	jr z,.mainMenu
+	ld a,SYSTEM.MAIN_MENU_INIT
+	ret z
+	ld a,c
 	ld (currentLevel),a
-	ld a,SYSTEM.FADE_OUT
-	ld d,SYSTEM.GAME_INIT
-	ret
-.mainMenu:
-	ld a,SYSTEM.FADE_OUT
-	ld d,SYSTEM.MAIN_MENU_INIT
+	ld a,SYSTEM.SHOP_INIT
 	ret
 
 

@@ -1,4 +1,5 @@
 	module SHOP
+levelText:		db "Level:         ",TEXT_END
 userCoins:		db "Coins:         ",TEXT_END
 userLives:		db "Lives:         ",TEXT_END
 continuations: 		db "1 - Life:             50",TEXT_END
@@ -8,17 +9,19 @@ currentLevelPassword:	db "2 - Password:        150",TEXT_END
 complete:		db "fire to complete",TEXT_END
 notMoney:		db "not enough money",TEXT_END
 successfulPurchase:	db "successful  purchase",TEXT_END	
-;	магазин появляется после прохождения очередного уровня.
-; 	можно купить:
-; 		пароль на текущий уровень
-; 		пропустить текущий уровень
-; 		неуязвимость на одно столкновение с врагом или бомбой
-; 		continue
-;
-
 ;---------------------------------------------
+	; FIXME защита от дурака не работает если купить пароль, далее играть и умереть, после смерти в магазине можно опять купить тот-же пароль.
+	; 
+	;
+	;
+	;
+
+
+
+
 init:
 	call PASS.clearData
+	call fadeOutFull
 	call clearScreen
 	call displayShop
 	ld a,SYSTEM.SHOP_UPDATE
@@ -62,8 +65,7 @@ update:
 	cp '5'
 	ld a,SYSTEM.SHOP_UPDATE
 	ret nz
-	ld a,SYSTEM.FADE_OUT
-	ld d,SYSTEM.GAME_INIT
+	ld a,SYSTEM.GAME_INIT
 	ret
 ;---------------------------------------------
 hideMessage:
@@ -96,15 +98,12 @@ addLife:
 	ld de,50
 	or a
 	sbc hl,de
-	jr c,nm
+	jr c,notMoneyShow
 	ld (coins),hl
 	ld hl,(lives)
 	inc hl
 	ld (lives),hl
 	call sucPurchaseShow
-	ret
-nm:
-	call notMoneyShow
 	ret
 ;---------------------------------------------
 showPassword:
@@ -115,7 +114,7 @@ showPassword:
 	ld de,150
 	or a
 	sbc hl,de
-	jr c,nm
+	jr c,notMoneyShow
 	ld (coins),hl
 	call sucPurchaseShow
 	ld a,(currentLevel)
@@ -130,6 +129,11 @@ displayShop:
 
 	ld hl,#4507
 	ld (textColor),hl
+
+	ld hl,levelText
+	ld de,#4006
+	call printText2x1
+
 	ld hl,userLives
 	ld de,#4046
 	call printText2x1
@@ -159,8 +163,17 @@ showCoinsLives:
 	ld hl,(lives)
 	ld de,livesText
 	call asciiConvert
+	ld a,(currentLevel)
+	inc a
+	ld l,a
+	ld h,0
+	ld de,levelNumberText
+	call asciiConvert
 	ld hl,#4445
 	ld (textColor),hl
+	ld hl,levelNumberText
+	ld de,#4006+20-5
+	call printText2x1
 	ld hl,livesText
 	ld de,#4046+20-5
 	call printText2x1

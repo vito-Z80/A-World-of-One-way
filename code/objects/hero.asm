@@ -29,9 +29,19 @@ update:
 	cp 1
 	set 1,(ix+oData.isDestroyed)
 	call z,POP_UP_INFO.setWasted
+	call POP_UP_INFO.isFinish
+	ret nz
+	ld hl,lives
+	dec (hl)
+	ld a,SYSTEM.SHOP_INIT
+	ld (rebuildLevel),a
+	jp OBJECTS.resetObjectIX
+; 	jp ENEMY_SKULL.destroyThis
+.toExit:
+	call POP_UP_INFO.isFinish
+	ret nz
 	ld a,SYSTEM.GAME_INIT
 	ld (rebuildLevel),a
-.toExit:
 	jp ENEMY_SKULL.destroyThis
 ;----------------------------------------------------
 destroy:

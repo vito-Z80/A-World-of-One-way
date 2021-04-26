@@ -630,25 +630,29 @@ fillAttr2x2:
 	ret
 ;------------------------------------------
 fadeOutFull:
-	; D - system ID after fade out
+	; A - system ID after fade out
+	push af
+	call SOUND_PLAYER.SET_SOUND.mute
+.again:
 	ld hl,#5800
-	ld e,d
+	ld e,l
 .loop:
 	ld a,(hl)
-	res 6,a
-	or a
+	and %00000111
 	jr z,.next
+	ld e,1
 	dec a
-	ld e,SYSTEM.FADE_OUT
-.next:
 	ld (hl),a
+.next
 	inc hl
 	ld a,h
 	cp #5B
 	jr c,.loop
 	halt
 	halt
-	ld a,e
+	rrc e
+	jr c,.again
+	pop af
 	ret
 ;------------------------------------------
 fadeOut2x2:

@@ -61,9 +61,8 @@ INFO_INIT:		equ 5
 			dw 0
 INFO_UPDATE:		equ 6
 			dw 0
-			; fade out and next system ID
-FADE_OUT:		equ 7
-			dw fadeOutFull
+PASS_INIT: 		equ 7
+			dw PASS.init
 PASS_UPDATE: 		equ 8
 			dw PASS.update
 

@@ -1,12 +1,10 @@
 	module GAME
 init:
+	call fadeOutFull
 	call clearScreen
-	xor a
-	call clearAttributes
 	call LEVEL.build 	
 	; current HL for next call
 	call OBJECTS.create
-; 	call POP_UP_INFO.reset
 	xor a
 	ld (isLevelPassed),a
 	ld (rebuildLevel),a
@@ -55,8 +53,7 @@ update:
 
 	call rebuildLvl
 	ret z 		; rebuild level
-
-	; check level passed
+; 	; check level passed
 	call nextLevel
 	ret z 		; next level
 
@@ -68,18 +65,28 @@ update:
 	ret
 ;-----------------------------------------------
 rebuildLvl:
-	ld a,(rebuildLevel)
-	jr nextLevel + 3
+	ld hl,rebuildLevel
+	ld a,(hl)
+	cp SYSTEM.SHOP_INIT
+	ret nz
+	ld (hl),0
+	ld d,a
+	ld a,(lives)
+	or a
+	ld a,SYSTEM.MAIN_MENU_INIT
+	ret z
+	ld a,d
+	cp d
+	ret
+; 	jr nextLevel + 3
 nextLevel:
 	ld a,(isLevelPassed)
 	cp SYSTEM.SHOP_INIT
 	ret nz
-	ld d,a
+	ld c,a
 	call POP_UP_INFO.isFinish
-	jr z,.next 
-	ret
-.next:
-	ld a,SYSTEM.FADE_OUT
+	cpl 
+	ld a,c
 	ret
 ;-----------------------------------------------
 returnKey:		
@@ -88,8 +95,7 @@ returnKey:
 	in a,(c)
 	bit 0,a 	; 0 = exit to main menu
 	ret nz
-	ld l,SYSTEM.FADE_OUT
-	ld d,SYSTEM.MAIN_MENU_INIT
+	ld l,SYSTEM.MAIN_MENU_INIT
 	ret
 ;-----------------------------------------------
 setNextLevel:

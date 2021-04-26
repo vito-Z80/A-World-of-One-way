@@ -1,5 +1,6 @@
 	module MAIN_MENU
 init:
+	call fadeOutFull
 	call clearScreen
 	call clearAttributesBlack
 	call createYAdressess
@@ -32,8 +33,9 @@ keys:
 	bit 1,a
 	jr nz,.keyI
 	call SOUND_PLAYER.SET_SOUND.key
-	ld hl,0
+	ld hl,34532
 	ld (coins),hl
+	inc l
 	inc l
 	ld (lives),hl
 	xor a
@@ -52,8 +54,7 @@ keys:
 	bit 0,a
 	ret nz
 	call SOUND_PLAYER.SET_SOUND.key
-	ld l,SYSTEM.FADE_OUT
-	ld d,SYSTEM.PASS_UPDATE
+	ld l,SYSTEM.PASS_INIT
 	ret
 ;------------------------------------------------
 

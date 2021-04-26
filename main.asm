@@ -37,7 +37,8 @@ lives:			dw #0000
 livesText:		db "00000",TEXT_END
 coins:			dw #0000	
 coinsText:		db "00000",TEXT_END
-passData:			block PASS_LENGTH + 1,0
+levelNumberText:	db "00000",TEXT_END
+passData:		block PASS_LENGTH + 1,0
 //---------------------------------SPACE--------------------------------
 				align 256
 buffer256: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх и еще чего нибудь :)
@@ -102,7 +103,7 @@ objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data
 
         display "::::::::: ",/A,OBJECTS.targetCell
         display "::::::::: ",/A,lastKeyPresed
-        display "::::::::: ",/A,buffer256
+        display "::::::::: ",/A,GAME.rebuildLvl
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds
