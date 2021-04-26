@@ -11,13 +11,12 @@ run:
 	;----------------------------test code
 	
 
-	ld a,78
+	ld a,9
 	and  15
 	add  a,#90
 	daa
 	adc  a,#40
 	daa
-
 
 
 	

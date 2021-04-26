@@ -33,6 +33,11 @@ ess
 global_direction:	db DIRECTION.NONE
 textColor:		db 0,0
 lastKeyPresed:		db 0
+lives:			dw #0000
+livesText:		db "00000",TEXT_END
+coins:			dw #0000	
+coinsText:		db "00000",TEXT_END
+passData:			block PASS_LENGTH + 1,0
 //---------------------------------SPACE--------------------------------
 				align 256
 buffer256: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх и еще чего нибудь :)
@@ -61,6 +66,7 @@ popupBitmapColor:		db 0 	; цвет атрибутов информационн�
 bitmapWidth:			db 0 	; bitmap width in bytes
 		;-----------------
 delta:				db 0	; каждый кадр +1 в GAME.update
+delta2: 			db 0
 ; title data
 byteValue:			db 0 	; used for title (after title used for fill inside level start address > 2 bytes) 
 pathAddress:			dw 0 	;  --//--
@@ -95,8 +101,8 @@ objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data
 
 
         display "::::::::: ",/A,OBJECTS.targetCell
-        display "::::::::: ",/A,LEVEL.build
-        display "::::::::: ",/A,fillInsideLevel
+        display "::::::::: ",/A,lastKeyPresed
+        display "::::::::: ",/A,buffer256
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

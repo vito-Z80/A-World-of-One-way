@@ -573,6 +573,49 @@ circularGradient:
 	ld (ix+oData.color),a
 	ret
 ;------------------------------------------
+resetDelta2:
+	xor a
+	ld (delta2),a
+	ret
+;------------------------------------------
+clearArea:
+
+
+;------------------------------------------
+blinkArea:
+	; DE - Y, X
+	; BC - height, wifth
+	ld a,(byteValue)
+	call colorRotate
+	ld (byteValue),a
+fillArea:
+	; A - color
+	; DE - Y, X
+	; BC - height, wifth
+	ld l,d
+	ld h,0
+	add hl,hl
+	add hl,hl
+	add hl,hl
+	add hl,hl
+	add hl,hl
+	ld d,#58
+	add hl,de
+	ld de,#20
+.line:
+	push bc
+	push hl
+.symbol:
+	ld (hl),a
+	inc hl
+	dec c
+	jr nz,.symbol
+	pop hl
+	add hl,de
+	pop bc
+	djnz .line
+	ret
+;------------------------------------------
 fillAttr2x2:
 	; A - color
 	; HL - attribute address
@@ -625,8 +668,35 @@ clear2x2:
 	inc l
 	jp clear1x2
 ;------------------------------------------
+	; http://map.grauw.nl/sources/external/z80bits.html#5.1
+	; 16-bit Integer to ASCII (decimal)
+ 	; Input: HL = number to convert, DE = location of ASCII string
+	; Output: ASCII string at (DE)
+convertCoin:
+	ld hl,(coins)
+	ld de,coinsText
+asciiConvert:
+Num2Dec	
+	ld	bc,-10000
+	call	Num1
+	ld	bc,-1000
+	call	Num1
+	ld	bc,-100
+	call	Num1
+	ld	c,-10
+	call	Num1
+	ld	c,b
+Num1	ld	a,'0'-1
+Num2	inc	a
+	add	hl,bc
+	jr	c,Num2
+	sbc	hl,bc
+	ld	(de),a
+	inc	de
+	ret
+;------------------------------------------
 findCellIdBySpriteId:
-	; find first sprite ID in level data after walls data
+	; find first sprite ID in level data (after walls data)
 	; A - sprite ID
 	; HL - Level objects data (after walls data)
 	; return HL > level cell by sprite ID

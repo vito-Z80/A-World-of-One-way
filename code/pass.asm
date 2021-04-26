@@ -34,15 +34,47 @@
 ; 	call #203c
 ; 	pop hl
 ; 	ret
-data:
-	block PASS_LENGTH + 1,0
+
+;--------------------------------------------------
+clearData:
+	ld hl,passData
+	ld de,passData + 1
+	ld bc,PASS_LENGTH
+	ld (hl),0
+	ldir
+	ret
+;--------------------------------------------------
+setLevPass:
+	; A - level number
+	ld b,PASS_LENGTH
+	ld de,passData
+	ld l,a
+	ld h,0
+	add hl,hl
+	add hl,hl
+	add hl,hl
+	add hl,hl
+.loop:
+	ld a,(hl)
+	xor l
+	and 15
+	cp #0A
+	jr c,.next
+	sub 6
+.next:
+	add #30
+	ld (de),a
+	inc hl
+	inc de
+	djnz .loop
+	ret	
 ;--------------------------------------------------
 checkPass:
 	ld de,0
 	ld c,e
 	ld b,(LEVELS_BEGIN - LEVELS_MAP) / 2 	; number of levels
 .nextPass:
-	ld hl,data
+	ld hl,passData
 	push bc
 	push de
 
@@ -101,7 +133,7 @@ inputEnd:
 	pop de
 	pop hl
 	ret
-	ld hl,data
+	ld hl,passData
 	ld bc,PASS_LENGTH
 	xor a
 	cpir
@@ -110,11 +142,7 @@ inputEnd:
 	ret nz
 	call SOUND_PLAYER.SET_SOUND.dead
 input:
-	ld hl,data
-	ld de,data + 1
-	ld bc,PASS_LENGTH
-	ld (hl),0
-	ldir
+	call clearData
 	call clearScreen
 	ld hl,#0141
 	ld (textColor),hl
@@ -124,7 +152,7 @@ input:
 	ld hl,#0405
 	ld (textColor),hl
 	ld de,#4808
-	ld hl,data
+	ld hl,passData
 .loop:
 	push hl
 	push de

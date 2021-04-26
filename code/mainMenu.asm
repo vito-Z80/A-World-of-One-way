@@ -32,6 +32,10 @@ keys:
 	bit 1,a
 	jr nz,.keyI
 	call SOUND_PLAYER.SET_SOUND.key
+	ld hl,0
+	ld (coins),hl
+	inc l
+	ld (lives),hl
 	xor a
 	ld (currentLevel),a
 	ld l,SYSTEM.GAME_INIT

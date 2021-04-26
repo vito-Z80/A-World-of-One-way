@@ -94,6 +94,10 @@ getCoin:
 	ld (hl),0 	
 	ld (iy+oData.isDestroyed),1 		; destroy this (coin)
 	call POP_UP_INFO.setPlus10
+	ld hl,(coins)
+	ld bc,10
+	add hl,bc
+	ld (coins),hl
 	jp SOUND_PLAYER.SET_SOUND.coin
 
 explosion:
