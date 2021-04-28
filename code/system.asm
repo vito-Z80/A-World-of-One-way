@@ -1,10 +1,6 @@
-	org #5E00
 	module SYSTEM
 ;------------------------------------
 run:
-
-
-
 
 	call SOUND_PLAYER.SET_SOUND.mute
 	ld sp,#8000

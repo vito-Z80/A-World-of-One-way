@@ -719,12 +719,12 @@ fillInsideLevel:
 	ld (fillStack),sp
 	ld sp,buffer256 + 254
 	ld de,MAP_WIDTH    	//  line size
-	jr code
+	jr fillProced
 return
 	ld sp,(fillStack)
 	ret
 //---------------------------------
-code
+fillProced
 	ld c,0 
 	ld b,(hl)   //  B = find ID
 	push hl
