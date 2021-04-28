@@ -5,7 +5,12 @@ MAX_OBJECTS: 			equ 10
 ACCELERATE_STEP:		equ 13
 MAX_SPEED:			equ 6
 OBJECT_DATA_SIZE:		equ oData
-FONT:				equ #3D00
+; FONT:	if MACHINE == 48		
+; 		equ #3D00
+; 	endif
+; 	if MACHINE == 48		
+; 		equ cartrigeFont - 256
+; 	endif
 TEXT_END:			equ 0
 ATTR_ADDR:			equ #5800
      	struct oData

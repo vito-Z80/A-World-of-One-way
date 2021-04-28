@@ -1,7 +1,7 @@
         device zxspectrum48
 
-MACHINE = 48 	
-; MACHINE = 16
+; MACHINE = 48 	
+MACHINE = 16
 //--------------------------------------------------------------------------
 	include "code/struct.asm"
 
@@ -28,7 +28,7 @@ MACHINE = 48
 
         display "::::::::: ",/A,OBJECTS.targetCell
         display "::::::::: ",/A,lastKeyPresed
-        display "::::::::: ",/A,GAME.rebuildLvl
+        display "::::::::: ",/A,MAIN_MENU.init
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

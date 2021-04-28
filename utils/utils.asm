@@ -69,7 +69,12 @@ charAddr:
         ; calc address of char in font
         ld l,a,h,0      ; a=char
         add hl,hl,hl,hl,hl,hl
-        ld bc,FONT-256
+        if MACHINE == 48
+		ld bc,#3D00 - 256
+	endif
+        if MACHINE == 16
+		ld bc,cartrigeFont - 256
+	endif
         add hl,bc       ; hl=address in font
         ret
 ;--------------------------------------------------------------------

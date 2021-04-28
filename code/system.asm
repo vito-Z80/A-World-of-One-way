@@ -2,8 +2,8 @@
 ;------------------------------------
 run:
 
-	call SOUND_PLAYER.SET_SOUND.mute
 	ld sp,#8000
+	call SOUND_PLAYER.SET_SOUND.mute
 	;----------------------------test code
 	
 
