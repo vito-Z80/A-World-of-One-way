@@ -24,6 +24,8 @@
 ; .globl beeper_play
 
 
+        ; TODO need test on real computer. On XPECCY emulator beeper is absent !
+
         module SOUND_PLAYER
 
         module SET_SOUND
@@ -140,6 +142,7 @@ tone:
 
 tone_loop:
         ; FIXME: border ?
+        and 0x10
         out (0xfe), a
         xor 0x10
 

@@ -69,7 +69,7 @@ charAddr:
         ; calc address of char in font
         ld l,a,h,0      ; a=char
         add hl,hl,hl,hl,hl,hl
-        if MACHINE == 48
+        if MACHINE == 48 || MACHINE == 9
 		ld bc,#3D00 - 256
 	endif
         if MACHINE == 16
@@ -583,10 +583,6 @@ resetDelta2:
 	ld (delta2),a
 	ret
 ;------------------------------------------
-clearArea:
-
-
-;------------------------------------------
 blinkArea:
 	; DE - Y, X
 	; BC - height, wifth
@@ -677,6 +673,24 @@ clear2x2:
 	inc l
 	jp clear1x2
 ;------------------------------------------
+showCollectedCoins:
+	; показать спрайтами сколько монет было собрано за уровень из возможных.
+	; кол-во не собранных монет рисуется с наложением маски через точку.
+	; по результатам очки уровня умножаются на N монет собранных на уровне:
+	; 	1 монета: Х 1
+	; 	2 монеты: Х 2
+	; 	3 монеты: Х 3
+
+	; реализовать завтра !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	; ДОБАВЛЕНА переменная (pointsPerLevel) очков текущего уровня отдельно от общего кол-ва монет. 
+
+	; монеты и очки за монет именуются coins - будет путаница - исправить !!!
+
+
+
+	ret
+;------------------------------------------
 	; http://map.grauw.nl/sources/external/z80bits.html#5.1
 	; 16-bit Integer to ASCII (decimal)
  	; Input: HL = number to convert, DE = location of ASCII string
@@ -703,6 +717,43 @@ Num2	inc	a
 	ld	(de),a
 	inc	de
 	ret
+;------------------------------------------
+getCurrentLevelNumber:
+	; return HL = level data address (walls)
+	ld a,(currentLevel)
+	rlca
+	add a,low LEVELS_MAP
+	ld l,a
+	adc a,high LEVELS_MAP
+	sub l
+	ld h,a
+	ld c,(hl)
+	inc hl
+	ld b,(hl)
+	; BC = offset of level addresses map
+	ld hl,LEVELS_BEGIN
+	add hl,bc
+	ret
+; ;------------------------------------------
+; numberObjectsType
+; 	; A - sprite ID
+; 	; return: E - number of coins on level
+; 	; HL - level data
+; 	ld bc,24 + 1
+; 	ld e,b
+; 	add hl,bc
+; .loop:
+; 	ld d,(hl)
+; 	cp d
+; 	jr nz,.next
+; 	inc e
+; .next
+; 	inc hl
+; 	ld d,(hl)
+; 	inc d
+; 	ret z 	; finish
+; 	inc hl
+; 	jr .loop
 ;------------------------------------------
 findCellIdBySpriteId:
 	; find first sprite ID in level data (after walls data)

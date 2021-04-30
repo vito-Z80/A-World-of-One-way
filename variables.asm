@@ -1,23 +1,26 @@
-		; ïåğåìåííûå íèæå äîëæíû ñëåäîâàòü äğóã çà äğóãîì !!!
+		; Ğ¿ĞµÑ€ĞµĞ¼ĞµĞ½Ğ½Ñ‹Ğµ Ğ½Ğ¸Ğ¶Ğµ Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ ÑĞ»ĞµĞ´Ğ¾Ğ²Ğ°Ñ‚ÑŒ Ğ´Ñ€ÑƒĞ³ Ğ·Ğ° Ğ´Ñ€ÑƒĞ³Ğ¾Ğ¼ !!!
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 rebuildLevel:			db 0
-        display "Òåêóùèé ìëàäøèé áàéò äî ALIGN 256 = ",/A, low $
+coinsInLevelVar:		db 0 	; VAR, VAL. in that order
+coinsInLevelVal:		db 0
+pointsPerLevel:			dw #0000 	; Ğ¾Ñ‡ĞºĞ¸ Ğ·Ğ°Ñ€Ğ°Ğ±Ğ¾Ñ‚Ğ°Ğ½Ğ½Ñ‹Ğµ Ğ·Ğ° ÑƒÑ€Ğ¾Ğ²ĞµĞ½ÑŒ - ÑĞ±Ğ¾Ñ€Ğ¾Ğ¼ Ğ¼Ğ¾Ğ½ĞµÑ‚.
+        display "Current low byte address (for ALIGN 256) = ",/A, low $, " | full address = ",/A, $
 			align 256
-
-buffer256: 		block 256, 0 	; áóôåğ âîññòàíîâëåíèÿ àòòèáóğòîâ äëÿ èíôîğìàöèîííîé áåãóùåé ñòğîêè ââåğõ è åùå ÷åãî íèáóäü :)
+	display "buffer256 address: ",/A,$
+buffer256: 		block 256, 0 	; Ğ±ÑƒÑ„ĞµÑ€ Ğ²Ğ¾ÑÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ñ Ğ°Ñ‚Ñ‚Ğ¸Ğ±ÑƒÑ€Ñ‚Ğ¾Ğ² Ğ´Ğ»Ñ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¾Ğ½Ğ½Ğ¾Ğ¹ Ğ±ĞµĞ³ÑƒÑ‰ĞµĞ¹ ÑÑ‚Ñ€Ğ¾ĞºĞ¸ Ğ²Ğ²ĞµÑ€Ñ… Ğ¸ ĞµÑ‰Ğµ Ñ‡ĞµĞ³Ğ¾ Ğ½Ğ¸Ğ±ÑƒĞ´ÑŒ :)
 	
 	; #00 > 	free way
 	; #01-#0A > 	object ID`s
 	; #FF > 	wall
-	; 	îáùåå: 
-	; îáúåêòû íà êàğòå ñî çíà÷åíèåì 0 = ïóñòàÿ ÿ÷åéêà (ñâîáîäíûé ïóòü)
-	; îáúåêòû íà êàğòå ñî çíà÷åíèåì (128-255) = íå âîçìîæíî ïåğåñå÷ (ñòåíà)
-	; îáúåêòû íà êàğòå ñî çíà÷åíèåì (1-127) = îáúåêòû âçàèìîäåéñòâèÿ
+	; 	Ğ¾Ğ±Ñ‰ĞµĞµ: 
+	; Ğ¾Ğ±ÑŠĞµĞºÑ‚Ñ‹ Ğ½Ğ° ĞºĞ°Ñ€Ñ‚Ğµ ÑĞ¾ Ğ·Ğ½Ğ°Ñ‡ĞµĞ½Ğ¸ĞµĞ¼ 0 = Ğ¿ÑƒÑÑ‚Ğ°Ñ ÑÑ‡ĞµĞ¹ĞºĞ° (ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ñ‹Ğ¹ Ğ¿ÑƒÑ‚ÑŒ)
+	; Ğ¾Ğ±ÑŠĞµĞºÑ‚Ñ‹ Ğ½Ğ° ĞºĞ°Ñ€Ñ‚Ğµ ÑĞ¾ Ğ·Ğ½Ğ°Ñ‡ĞµĞ½Ğ¸ĞµĞ¼ (128-255) = Ğ½Ğµ Ğ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ Ğ¿ĞµÑ€ĞµÑĞµÑ‡ (ÑÑ‚ĞµĞ½Ğ°)
+	; Ğ¾Ğ±ÑŠĞµĞºÑ‚Ñ‹ Ğ½Ğ° ĞºĞ°Ñ€Ñ‚Ğµ ÑĞ¾ Ğ·Ğ½Ğ°Ñ‡ĞµĞ½Ğ¸ĞµĞ¼ (1-127) = Ğ¾Ğ±ÑŠĞµĞºÑ‚Ñ‹ Ğ²Ğ·Ğ°Ğ¸Ğ¼Ğ¾Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ñ
 				; low address byte = 0
 levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
-		; íèæå çàáèòü 64 áàéòà ïåğåìåííûõ ÷òî áû screenAddresses LOW = 0
-		; áîëüøå ñşäà íå äîáàâëÿòü ïåğåìåííûõ. Ëèáî âûøå âåğõíåãî align èëè ïîñëå objectsData 
+		; Ğ½Ğ¸Ğ¶Ğµ Ğ·Ğ°Ğ±Ğ¸Ñ‚ÑŒ 64 Ğ±Ğ°Ğ¹Ñ‚Ğ° Ğ¿ĞµÑ€ĞµĞ¼ĞµĞ½Ğ½Ñ‹Ñ… Ñ‡Ñ‚Ğ¾ Ğ±Ñ‹ screenAddresses LOW = 0
+		; Ğ±Ğ¾Ğ»ÑŒÑˆĞµ ÑÑĞ´Ğ° Ğ½Ğµ Ğ´Ğ¾Ğ±Ğ°Ğ²Ğ»ÑÑ‚ÑŒ Ğ¿ĞµÑ€ĞµĞ¼ĞµĞ½Ğ½Ñ‹Ñ…. Ğ›Ğ¸Ğ±Ğ¾ Ğ²Ñ‹ÑˆĞµ Ğ²ĞµÑ€Ñ…Ğ½ĞµĞ³Ğ¾ align Ğ¸Ğ»Ğ¸ Ğ¿Ğ¾ÑĞ»Ğµ objectsData 
 varsStart:
 global_direction:		db DIRECTION.NONE
 textColor:			db 0,0
@@ -32,13 +35,13 @@ passData:			block PASS_LENGTH + 1,0
 globalSeed:			dw 0
 globalSeedTmp:			dw 0
 		; pop up variables
-popupAttrAddr:			dw #0000 ; àäğåñ ğèñîâàíèÿ àòğèáóòîâ èíôîğìàöèîííîé áåãóùåé ñòğîêè ââåğõ 
+popupAttrAddr:			dw #0000 ; Ğ°Ğ´Ñ€ĞµÑ Ñ€Ğ¸ÑĞ¾Ğ²Ğ°Ğ½Ğ¸Ñ Ğ°Ñ‚Ñ€Ğ¸Ğ±ÑƒÑ‚Ğ¾Ğ² Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¾Ğ½Ğ½Ğ¾Ğ¹ Ğ±ĞµĞ³ÑƒÑ‰ĞµĞ¹ ÑÑ‚Ñ€Ğ¾ĞºĞ¸ Ğ²Ğ²ĞµÑ€Ñ… 
 popupPreAttrAddr:		dw #0000 ; 
 popupBitmapAddr:		dw #0000 ; bitmap address	
-popupBitmapColor:		db 0 	; öâåò àòğèáóòîâ èíôîğìàöèîííîé áåãóùåé ñòğîêè ââåğõ
+popupBitmapColor:		db 0 	; Ñ†Ğ²ĞµÑ‚ Ğ°Ñ‚Ñ€Ğ¸Ğ±ÑƒÑ‚Ğ¾Ğ² Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¾Ğ½Ğ½Ğ¾Ğ¹ Ğ±ĞµĞ³ÑƒÑ‰ĞµĞ¹ ÑÑ‚Ñ€Ğ¾ĞºĞ¸ Ğ²Ğ²ĞµÑ€Ñ…
 bitmapWidth:			db 0 	; bitmap width in bytes
 		;-----------------
-delta:				db 0	; êàæäûé êàäğ +1 â GAME.update
+delta:				db 0	; ĞºĞ°Ğ¶Ğ´Ñ‹Ğ¹ ĞºĞ°Ğ´Ñ€ +1 Ğ² GAME.update
 delta2: 			db 0
 ; title data
 byteValue:			db 0 	; used for title (after title used for fill inside level start address > 2 bytes) 

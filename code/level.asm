@@ -34,19 +34,8 @@ buildLevel:
 	exa
 	ld ix,levelCells
 
-	ld a,(currentLevel)
-	rlca
-	add a,low LEVELS_MAP
-	ld l,a
-	adc a,high LEVELS_MAP
-	sub l
-	ld h,a
-	ld c,(hl)
-	inc hl
-	ld b,(hl)
-	; BC = offset of level addresses map
-	ld hl,LEVELS_BEGIN
-	add hl,bc
+	call getCurrentLevelNumber
+
 	ld (globalSeedTmp),hl 	; set random seed for this level
 	ld b,24 		; 12 rows, 2 columns
 .nextHalf:

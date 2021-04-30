@@ -5,7 +5,17 @@
 	module CHUPA
 init:
 	SET_EXEC_IX update
+; 	call getCurrentLevelNumber
+; 	ld a,CHUPA_001_PBM_ID
+; 	call numberObjectsType
 	xor a
+; 	ld hl,coinsInLevelVar
+; 	ld (hl),a
+; 	inc hl
+; 	ld (hl),e
+; 	ld h,a
+; 	ld l,a
+; 	ld (pointsPerLevel),hl
 	ld (ix+oData.isMovable),a
 	ld (ix+oData.drawMethod),a 	; for 2x2 draw
 	ld (ix+oData.accelerate),1
@@ -94,8 +104,17 @@ getCoin:
 	ld (hl),0 	
 	ld (iy+oData.isDestroyed),1 		; destroy this (coin)
 	call POP_UP_INFO.setPlus10
-	ld hl,(coins)
+	ld hl,coinsInLevelVar
+	inc (hl)
+
 	ld bc,10
+
+	
+; 	ld hl,(pointsPerLevel)
+; 	add hl,bc
+; 	ld (pointsPerLevel),hl
+
+	ld hl,(coins)
 	add hl,bc
 	ld (coins),hl
 	jp SOUND_PLAYER.SET_SOUND.coin

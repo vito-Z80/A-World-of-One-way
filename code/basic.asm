@@ -4,13 +4,14 @@ basic:
 startLine:
 	db #F9,#C0 		; RANDOMIZE USR
 	db '23774'		; ADDR
-	db #3A,#EA,#0E 		; : REM
-	db #00,#00
+	db #3A,#EA 		; : REM
+	db #0E,#00,#00
 	; ADDR value
 	dw code
 	db #00
-code:
+code: 	; 23774
         include "includes.asm"
+vars:
         include "variables.asm"
         db #0D
         display "Launch address: ",/A,code

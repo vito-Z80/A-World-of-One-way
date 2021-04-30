@@ -739,7 +739,6 @@ resetObjectIX:
 	ld h,high levelCells
 	ld (hl),0
 	call resetObject
-; 	ld (ix+oData.id),#FF
 	ret
 resetObject:
 	ld h,d
@@ -756,6 +755,175 @@ resetObjectIY:
 	ld h,high levelCells
 	ld (hl),0
 	call resetObject
-; 	ld (iy+oData.id),#FF
 	ret
 	endmodule
+
+;------------------------------------ LOGIC ----------------------------
+tableX:
+	db 0,0,0,0 	; FIXME move to RAM
+/*
+	хочу переделать систему столкновений.
+	Любой движимый объект имеет рандомное ускорение.
+	Если этот объект догоняет другой с меньшим ускорением, то этот объект прилегает к другому
+	и передает ему часть своей текущей скорости, теряя при этом часть своей текущей скорости равную переданной.
+	Ускорение остается у всех какое и было.
+	Таким образом хочу добиться эффекта пинка для впереди идущего.
+
+
+
+	младштй байт адреса ячейки является его ID в objectsData (and 15), а содержимое = координате Х
+	Y
+
+X	0 0 0 0 0 123 0 0 0 11
+
+
+*/
+;-----------------------------------------------------------------------
+clrarTableX:
+	; FIXME to [ld (hl),a;inc l] if required
+	ld hl,tableX
+	ld de,tableX + 1
+	ld bc,MAP_WIDTH * MAP_HEIGHT
+	ld (hl),l
+	ldir
+	ret 
+;-----------------------------------------------------------------------
+fillTableX:
+
+	ld d,high tableX
+	ld hl,objectsData + oData.y
+
+	ld a,MAX_OBJECTS
+.loop:
+	ex af,af
+	ld a,(hl)
+	and %11110000
+	dec l
+	add (hl) 	; oData.x
+	ld e,a
+	; DE = tableX cell
+	ld bc,oData.id - oData.x
+	add hl,bc
+	ld a,(hl)
+	ld (de),a
+	ld c,OBJECT_DATA_SIZE - 1 - oData.id
+	add hl,bc
+	ex af,af
+	dec a
+	ret z
+	jr .loop
+;-----------------------------------------------------------------------
+
+	; получили адерс ячейки данного объекта в таблице tableX. Так же юзается при вертикальной проверки на столкновения (add/sub 16 [adjacent cell]) 
+	ld a,(ix+oData.y)
+	and %11110000
+	add (ix+oData.x)
+	ld l,a
+	ld h,high tableX
+
+
+	; для получения из таблицы адреса строки на которой находится объект
+	ld a,(ix+oData.y)
+	and %11110000
+	ld l,a
+	ld h,high tableX
+
+
+
+;-----------------------------------------------------------------------
+aabb:
+	; IX - this objectsData address
+
+
+
+	ld hl,tableX
+	ld b,MAX_OBJECTS
+.nextObj:
+	push bc
+	ld a,(ix+oData.id)
+	cp l 		; object ID 
+	jr z,.continue
+	ld a,(hl) 	; other object X
+	or a
+	jr z,.continue
+
+	ex af,af
+	ld a,(ix+oData.direction)
+	rrca 
+	call c,.leftMove 	; after call reset flag C
+
+	;......
+.continue
+	inc l 		; next object ID
+	pop bc
+	djnz .nextObj
+	ret
+;---------------
+speedUp:
+	ld a,(ix+oData.delta)
+	add (ix+oData.step)
+; 	inc (ix+oData.step) 	; need cp max N
+	ld (ix+oData.delta),a
+	ret nc
+	ld a,(ix+oData.accelerate)
+	cp MAX_SPEED
+	ret nc
+	inc a
+	ld (ix+oData.accelerate),a
+	ret
+;---------------
+wallsCollision:
+	call getCellIDByCoords
+	ld l,a
+	ld h,high levelCells
+	ld a,(hl)
+	inc a
+	ret nz
+	; STOP - hit the wall
+
+	ret
+;---------------
+.leftMove:
+	call speedUp
+	call wallsCollision
+	; TODO check walls on way. If wall = stop (correct coordinates)
+	ex af,af
+	; A - other X
+	push af
+	; abs
+	sub (ix+oData.x)
+	jr nc,.noCArry
+	neg
+.noCArry
+	cp 16 		; sprite width
+	jr c,.transferAcceleration
+	; move on
+
+	pop af
+	xor a
+	ret
+
+
+.transferAcceleration:
+	ld a,l 		; other object ID
+	call getObjDataById 	; IY = other object data
+
+	; TODO с кем пересеклись ?
+
+	pop af 		; other X
+	add 16 		; other X + this sprite width. for print on right of other. (correct coordinates)
+	; сохраняем текущему объекту новый Х спарва от другого объекта.
+	ld (ix+oData.x),a
+
+	; берем ускорение текущего объекта / 2, сохраняем в текущий, приводим скорость в начальное состояние
+	; результат ускорения прибавляем к ускорению другого объекта и сохраняем в другой объект.
+	ld a,(ix+oData.step)
+	sra a 	; divide by two
+	ld (ix+oData.step),a
+	ld (ix+oData.accelerate),1
+	ld (ix+oData.delta),0
+	add (iy+oData.step)
+	ld (iy+oData.step),a
+	xor a
+	ret
+;------------------------------------ LOGIC ----------------------------

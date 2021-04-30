@@ -25,8 +25,9 @@ launchTime	byte 	; время до начала движения объекта
 color		byte	; color (8 bit)
 colorDataL:	byte 	; color sequence address (if want to)
 colorDataH:	byte 	; ------//-------
-delta		byte
-accelerate	byte
+delta		byte 	; delta for velocity
+accelerate	byte 	; velocity for object (FIXME rename to velocity)
+step:		byte 	; step for delta
 isMovable	byte 	; 0 - false, !=0 - true
 isLeave:	byte 	; 
 isDestroyed	byte	; object destroyed
@@ -49,7 +50,7 @@ drawMethod:	byte 	; !=0 = 3x2, ==0 = 2x2
 animationId: 	byte
 n1:		byte 	; for any		
 id:		byte	; id of this object in objects map
-		block 2
+		block 1
      	ends
 
 
