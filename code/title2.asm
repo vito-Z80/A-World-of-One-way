@@ -157,4 +157,8 @@ path:
 	db 0 	; end of path
 text:
 	db "Concurso juegos ASM 2021",TEXT_END
+
+	display "TITLE code may used after start program !!!"
+	display "TITLE start address: ",/A,run
+	display "TITLE code length: ",/A,$ - run
 	endmodule

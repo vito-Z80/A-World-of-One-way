@@ -8,22 +8,24 @@ build:
 	ret
 ;------------------------------------------------------------
 clearData:
-	; objects data
+	; clear objects data
 	xor a
 	ld hl,objectsData
 	ld de,objectsData + 1
 	ld bc,(OBJECT_DATA_SIZE * MAX_OBJECTS) - 1
 	ld (hl),a
 	ldir
-	; levelCells data
+	; clear level cells data
 	ld hl,levelCells
 	ld de,levelCells + 1
-	ld bc,MAP_WIDTH * MAP_HEIGHT - 1
+	ld bc,(MAP_WIDTH * MAP_HEIGHT) - 1
 	inc a
 	ld (hl),a
 	ldir
-	; set direction NONE
-	ld (global_direction),a
+	dec a
+	ld (isLevelPassed),a
+	ld (rebuildLevel),a
+	ld (global_direction),a 	; set direction NONE
 	ret
 ;------------------------------------------------------------
 buildLevel:
@@ -34,7 +36,8 @@ buildLevel:
 	exa
 	ld ix,levelCells
 
-	call getCurrentLevelNumber
+	call getCurrentLevelAddress  	; HL = level data address (walls)
+	ld (levelAddr),hl
 
 	ld (globalSeedTmp),hl 	; set random seed for this level
 	ld b,24 		; 12 rows, 2 columns
@@ -47,7 +50,7 @@ buildLevel:
 	push bc
 	rlca
 	push af
-	jr nc,.emptyCell 	; TODO replace to floor cell
+	jr nc,.emptyCell 	
 	ld (ix),255 		; fill cells for collision
 	push hl
 	ld hl,BLOCK_PBM 	; TODO render random walls by seed
@@ -68,26 +71,8 @@ buildLevel:
 	pop bc
 	djnz .nextHalf
 	push hl
-;----------------------------------------------
-
-	push hl
-	; заливка требуется что бы визуально очистить ячейки внутри уровня.
-	; find exit door cell id
-	; the exit door must exist !!!  ...otherwise &!@^@#$!()
-	ld a,EXIT_DOOR_PBM_ID
-	call findCellIdBySpriteId
-	ld (hl),#FF 	; делаем заглушку для двери, иначе заливка выйдет за пределы уровня
-	ld (byteValue),hl ; save "exit door" cell for replace to 0
-
-	pop hl
-	ld a,HERO_FACE_00_PBM_ID
-	call findCellIdBySpriteId
-	; HL come from call above
-	call fillInsideLevel
-	ld hl,(byteValue)
-	ld (hl),0
-
-
+	
+	call cutInsideRooms
 	ld b,7
 .paint:
 	push bc
@@ -95,23 +80,15 @@ buildLevel:
 	ld (globalSeed),hl
 	ld de,ATTR_ADDR
 	ld hl,levelCells
-
-
 	ld b,12
 .rows:
 	push bc
 	push de
-
-
 	ld b,16
 .columns:
 	push bc
 	push de
 	push hl
-
-; 	ld a,(hl)
-; 	inc a
-; 	call z,.paintWall
 	call .paintWall
 	pop hl
 	inc l
@@ -143,10 +120,19 @@ buildLevel:
 	ld a,(hl)
 	inc a
 	jr z,.pwn
-	push de
-	pop hl
-	ld de,red
-	jr .pw-2
+	dec a
+	cp 1
+	jr z,.setRedColor
+	xor a
+.pwb:
+	ex de,hl
+	jp fillAttr2x2
+.setRedColor:
+	ld a,(globalSeedTmp)
+	rrca
+	and 3
+	inc a
+	jr .pwb
 .pwn:
 	push de
 	call rnd16
@@ -159,6 +145,7 @@ buildLevel:
 	adc a,high wallColors
 	sub e
 	ld d,a
+.pw2:
 	ld b,2
 .pw:
 	push bc
@@ -184,6 +171,61 @@ buildLevel:
 	djnz .pw
 	ret
 ;----------------------------------------------
+cutInsideRooms:
+	; поставить заглушки на все двери, что бы заливка не вышла за пределы уровня
+	; поставить заглушки на всех героев, как точки начала заливки
+	; по заглушкам всех героев произвести заливку
+	push hl
+	push hl
+	; устанавливаем на карту заглушки дверей.
+	ld c,#FD
+	ld e,EXIT_DOOR_PBM_ID
+	call .blockDoors
+	pop hl
+	; внесение на карту всех чаров под установленным значением.
+	ld c,#FE
+	ld e,HERO_FACE_00_PBM_ID
+	call .blockDoors
+	call .fill
+	pop hl
+	ret
+.fill:
+	; ищем значение, заменяем его на 1 и заливаем область нулями от найденного значения, пока на карте не кончатся искомые значения.
+	ld hl,levelCells
+	ld a,#FE
+	ld bc,#C0
+	cpir
+	xor a
+	cp c
+	ret z
+	dec l
+	ld (hl),1
+	call fillInsideLevel
+	jr .fill
+	ret
+.blockDoors:	
+	; C > значение заглушки/подмены
+	; E > id искомого спрайта
+	; HL > objects (after 24 level bytes)
+.nextDoor:
+	ld a,(hl)
+	cp #FF
+	ret z
+	inc hl
+	ld a,(hl) 	; first byte = cell id, second byte = sprite id
+	inc hl
+	cp e
+	jr nz,.nextDoor
+	push hl
+	dec hl
+	dec hl
+	ld l,(hl)
+	ld h,high levelCells
+	ld (hl),c 
+	pop hl
+	jr .nextDoor
+
+;----------------------------------------------
 fillWalls:
 
 	ld c,#C0
@@ -201,17 +243,15 @@ fillWalls:
 
 ;----------------------------------------------
 wallColors:
-	db 5,3,3,3
-	db 3,2,2,2
+	db 4,6,6,6
+	db 6,4,4,4
 	db 5,4,4,4
-	db 2,3,3,3
+	db 4,5,5,5
 
 	db 6,6,6,6
 	db 5,5,5,5
 	db 4,4,4,4
-	db 1,1,1,1
-red: 
-	db 2,2,2,2
+	db 3,3,3,3
 ;----------------------------------------------
 
 ;----------------------------------------------

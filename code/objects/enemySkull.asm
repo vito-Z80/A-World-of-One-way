@@ -6,9 +6,7 @@ init:
 	ld (ix+oData.isMovable),a
 	ld (ix+oData.accelerate),a
 	ld (ix+oData.drawMethod),a
-	ld a,r
-	and 7
-	ld (ix+oData.color),a
+	ld (ix+oData.color),2
 	jp OBJECTS.setObjectId
 ;-------------------------------------------
 update:
@@ -16,32 +14,56 @@ update:
 	ld a,(ix+oData.isDestroyed)
 	or a
 	jr nz,destroyThis
-
-	ld a,2
-	ld (ix+oData.color),a
-
-
-	call OBJECTS.objMove
+	
 	call OBJECTS.collision
 	call getDrawData
-	ret
-;-------------------------------------------
-destroyThis:
-	call fadeOut2x2
-; 	or a
-	ret nz
-	call clear2x2
-	jp OBJECTS.resetObjectIX 	; object was destroyed
-;-------------------------------------------
-target:
-	; IY - this object
-	; IX - other object
-	ld a,(ix+oData.spriteId)
+
+	xor a
+	cp iyh
+	ret z
+	; IX - this object
+	; IY - target object
+
+	call OBJECTS.isSameObject
+	jp z,OBJECTS.alignToCell
+
+	cp CHUPA_001_PBM_ID
+	jr z,convertToBomb
+
+	cp BOOM_01_PBM_ID
+	jp z,CHUPA.setExplosion
+
 	cp HERO_FACE_00_PBM_ID
-	ret nz
-	ld (ix+oData.isDestroyed),1
-	call SOUND_PLAYER.SET_SOUND.dead
+	jr z,killHero
+	
+
 	ret
+;-------------------------------------------
+killHero:
+; 	ld (iy+oData.isDestroyed),1
+; 	ret
+	ld a,iyl
+	ld ixl,a
+	ld a,iyh
+	ld ixh,a
+	jp HERO.dead
+	ld (ix+oData.isDestroyed),1
+	ld hl,SOUND_PLAYER.DATA.dead
+	ld bc,POP_UP_INFO.setWasted
+	jp OBJECTS.disableIXObject
+
+
+
+convertToBomb:
+	ld (ix+oData.isDestroyed),a
+	call OBJECTS.alignToCell
+	jp CHUPA.setBobm
+
+destroyThis:
+	ld hl,SOUND_PLAYER.DATA.eat
+	ld bc,POP_UP_INFO.setFear
+	jp OBJECTS.disableIXObject
+;-------------------------------------------
 
 
 ;-------------------------------------------

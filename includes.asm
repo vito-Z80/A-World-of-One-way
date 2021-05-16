@@ -1,6 +1,6 @@
 	
 	include "code/system.asm" 	; любые подгрузки после, так как тут запуск приложения
-	include "code/debug.asm" 	; remove before release!!!
+; 	include "code/debug.asm" 	; remove before release!!!
 lds:
 	include "maps/levelsData.asm"
 elds:

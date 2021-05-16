@@ -25,7 +25,7 @@ update:
 	ld (ix+oData.colorDataL),l
 	ld (ix+oData.colorDataH),h
 	ret
-targetDestroy:
+drown:
 	; IX - target object data
 	; IY - this object data
 	ld (ix+oData.color),7

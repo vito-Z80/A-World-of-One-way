@@ -32,11 +32,13 @@ isMovable	byte 	; 0 - false, !=0 - true
 isLeave:	byte 	; 
 isDestroyed	byte	; object destroyed
 exec		dw 	; The address of the procedure executed every frame for the current object. #0000 = not called.
-bit:		byte 	; bit 0-7 of X coordinate
-scrAddrL:	byte
+		; порядок следующих 6ти байт нельзя менять !!!
+scrAddrL:	byte 
 scrAddrH:	byte
 sprAddrL:	byte
 sprAddrH:	byte
+drawMethod:	byte 	; !=0 = 3x2, ==0 = 2x2
+bit:		byte 	; bit 0-7 of X coordinate
 
 
 clearSide:	byte 	; сторона с которой требуется отчистка хвоста спрайта. 0 = не чистить
@@ -46,11 +48,10 @@ clrScrAddrH:	byte 	;
 		; ввести переменную drawOnce ? к примеру для двери выхода - это объект, но нет смысла ее печатать каждый кадр
 		; достаточно при инициализации уровня.
 
-drawMethod:	byte 	; !=0 = 3x2, ==0 = 2x2
 animationId: 	byte
-n1:		byte 	; for any		
+n1:		byte 	; --//--	
+isFinalClean:	byte 	; нужно чистить хвост спрайта или нет при остановке спрайта
 id:		byte	; id of this object in objects map
-		block 1
      	ends
 
 
@@ -93,20 +94,20 @@ BRIGHTNESS equ %01000000
 	ld (ix+oData.exec),low address
 	ld (ix+oData.exec + 1),high address
 	endm
-	macro SET_EXEC_IY address
-	ld (iy+oData.exec),low address
-	ld (iy+oData.exec + 1),high address
-	endm
+; 	macro SET_EXEC_IY address
+; 	ld (iy+oData.exec),low address
+; 	ld (iy+oData.exec + 1),high address
+; 	endm
 
 	macro SET_SPRITE_ADDR_IX address
 	ld (ix+oData.sprAddrL),low address
 	ld (ix+oData.sprAddrH),high address
 	endm
 
-	macro SET_SPRITE_ADDR_IY address
-	ld (iy+oData.sprAddrL),low address
-	ld (iy+oData.sprAddrH),high address
-	endm
+; 	macro SET_SPRITE_ADDR_IY address
+; 	ld (iy+oData.sprAddrL),low address
+; 	ld (iy+oData.sprAddrH),high address
+; 	endm
 
 
 
@@ -114,6 +115,8 @@ BRIGHTNESS equ %01000000
 	; for DEBUG
 
 	macro BORDER color
+	if DEBUG
 	ld a,color
 	out (254),a
+	endif
 	endm

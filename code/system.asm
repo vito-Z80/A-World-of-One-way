@@ -5,14 +5,15 @@ run:
 	ld sp,#8000
 	call SOUND_PLAYER.SET_SOUND.mute
 	;----------------------------test code
-	
 
-	ld a,9
-	and  15
-	add  a,#90
-	daa
-	adc  a,#40
-	daa
+
+
+; 	ld a,9
+; 	and  15
+; 	add  a,#90
+; 	daa
+; 	adc  a,#40
+; 	daa
 
 
 	
@@ -36,6 +37,7 @@ run:
 	call SOUND_PLAYER.play
 	exx
 	BORDER 0
+	ld iy,#5C3A
 	ei
 	halt
 	push bc

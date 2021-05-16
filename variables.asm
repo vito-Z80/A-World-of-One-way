@@ -2,14 +2,17 @@
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 rebuildLevel:			db 0
+
+levelAddr: 			dw #0000 	; адрес карты
+
 coinsInLevelVar:		db 0 	; VAR, VAL. in that order
 coinsInLevelVal:		db 0
 pointsPerLevel:			dw #0000 	; очки заработанные за уровень - сбором монет.
+preDir: 			db 0
         display "Current low byte address (for ALIGN 256) = ",/A, low $, " | full address = ",/A, $
 			align 256
 	display "buffer256 address: ",/A,$
 buffer256: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх и еще чего нибудь :)
-	
 	; #00 > 	free way
 	; #01-#0A > 	object ID`s
 	; #FF > 	wall
@@ -54,4 +57,10 @@ varsEnd:
 ; 				align 256
 				; low address byte = 0
 screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 bytes
-objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data
+objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data 320 bytes
+
+testS: 				block MAX_OBJECTS,0
+				db #FF,#FF
+renderData:			block MAX_OBJECTS * 2,0
+				db #FF
+endRenderData: 			equ $

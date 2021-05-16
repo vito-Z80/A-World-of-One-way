@@ -9,60 +9,47 @@ init:
 	ld hl,startGameText
 	ld de,#4808
 	call printText2x1
-	ld hl,infoText
+	ld hl,continueText
 	ld de,#4848
 	call printText2x1
-	ld hl,continueText
-	ld de,#4888
+	ld hl,info
+	ld de,#50d4
 	call printText2x1
 	ld a,SYSTEM.MAIN_MENU_UPDATE
 	ret
 ;------------------------------------------------
 update:
-	call keys
-	ld a,l
+	call CONTROL.digListener
+	ld a,(de)
 	or a
-	ret nz
-	ld a,SYSTEM.MAIN_MENU_UPDATE
-	ret
-;------------------------------------------------
-keys:		
-	ld l,0
-	ld bc,#FDFE
-	in a,(c)
-	bit 1,a
-	jr nz,.keyI
+	jr z,.endUpd
+	cp '1'
+	jr nz,.continue
 	call SOUND_PLAYER.SET_SOUND.key
-	ld hl,34532
-	ld (coins),hl
-	inc l
-	inc l
+	ld hl,1
 	ld (lives),hl
+	dec l
+	ld (coins),hl
+	; start level number
 	xor a
 	ld (currentLevel),a
-	ld l,SYSTEM.GAME_INIT
+	ld a,SYSTEM.GAME_INIT
 	ret
-.keyI:
-	ld b,#DF
-	in a,(c)
-	bit 2,a
-	jr nz,.keyP
+.continue:
+	cp '2'
+	jr nz,.endUpd
 	call SOUND_PLAYER.SET_SOUND.key
-	ld l,SYSTEM.INFO_INIT
+	ld a,SYSTEM.PASS_INIT
 	ret
-.keyP:
-	bit 0,a
-	ret nz
-	call SOUND_PLAYER.SET_SOUND.key
-	ld l,SYSTEM.PASS_INIT
+.endUpd:
+	ld a,SYSTEM.MAIN_MENU_UPDATE
 	ret
 ;------------------------------------------------
 
 startGameText:
-	db "Start",TEXT_END
-infoText
-	db "Info",TEXT_END
+	db "1 - Start",TEXT_END
 continueText:
-	db "Continue",TEXT_END
-
+	db "2 - Continue",TEXT_END
+info:
+	db "Serdjuk 2021",TEXT_END
 	endmodule

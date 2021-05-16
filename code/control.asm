@@ -9,10 +9,16 @@
 ; CS...V	65278	FEFE	11111110 11111110
 	module CONTROL
 update:
-	xor a
-	ld hl,global_direction
-	or (hl)
+	ld hl,objectsData + oData.direction
+	ld b,MAX_OBJECTS
+	ld de,OBJECT_DATA_SIZE
+.checkDirection:
+	ld a,(hl)
+	or a
 	ret nz
+	add hl,de
+	djnz .checkDirection
+	ld hl,global_direction
 	ld e,DIRECTION.LEFT
 	ld bc,#DFFE
 	in a,(c)
@@ -32,10 +38,17 @@ update:
 	bit 0,a
 	ret nz
 set:
-	ld (hl),e 	; set direction to "global_direction"
-	call OBJECTS.identifyMoving
-	; reg E does not deteriorate from the call above, and is passed on to the call below.
-	jp OBJECTS.setLaunchTime 
+	; E > direction
+; 	ld a,(preDir)
+; 	or a
+; 	jr z,.set
+; 	cp e
+; 	ret z
+; .set:
+	ld a,e
+	ld (hl),a 	; set direction to "global_direction"
+	ld (preDir),a
+	jp OBJECTS.identifyMovingObjects
 ;-------------------------------------------
 enter:
 	ld bc,#BFFE
@@ -47,11 +60,11 @@ caps:
 	bit 0,a
 	ret
 ;-------------------------------------------
-data:	db "1234509876",0
+numbers:	db "1234509876",0
 digListener:
 	; return DE = address of digital char [(DE) == 0 = not pressed]
 	ld hl,#0505
-	ld de,data
+	ld de,numbers
 	ld bc,#F7FE 	; 1-5
 .pass:
 	in a,(c)
@@ -63,7 +76,6 @@ digListener:
 	dec l
 	jr nz,.half
 	rlc b 		; BC = #EFFE ; 0-6
-; 	xor a
 	cp h
 	ret z
 	ld l,h

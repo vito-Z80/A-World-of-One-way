@@ -122,7 +122,7 @@ nextLine:
 ;------------------------------------------
 nextLine16:
 	; HL - screen address
-	; return HL = screen address + 16 lines (2 symblos)
+	; return HL = screen address + 16 lines (2 symbols)
 	; thanks to Sergei Smirnov
 	ld a,l
 	add #40
@@ -130,6 +130,18 @@ nextLine16:
 	sbc a,a
 	and #08
 	add a,h
+	ld h,a
+	ret
+;---------------------------------------------------------
+preLine24:
+	; HL - screen address
+	; return HL = screen address - 24 lines
+	ld a,l
+	sub #60
+	ld l,a
+	ret nc
+	ld a,h
+	sub #08
 	ld h,a
 	ret
 ;---------------------------------------------------------
@@ -157,9 +169,41 @@ getScrAddrByCoords:
 	ld l,a
 	ret
 ;---------------------------------------------------------
+
+sortObjectIds:
+	; сортировка 10ти байт по возрастанию ~ 3500t (byte value range 0..254)
+	ld b,MAX_OBJECTS
+	ld hl,testS
+.main:
+	push bc
+	push hl
+	; B - counter
+	; HL - buffer address
+	ld c,#FF
+.nB:
+	ld a,(hl)
+	cp c
+	jr nc,.next
+	ld c,a
+	ld e,l
+.next:	
+	inc hl
+	djnz .nB
+	; C > value; E > low buffer address 
+	pop hl
+	ld a,(hl)
+	ld d,h
+	ld (de),a
+	ld (hl),c
+	inc hl
+	pop bc
+	djnz .main
+	ret
+;---------------------------------------------------------
 getDrawData:
 	; screen address by coordinates
 	; sprite address
+	call setRemoveSides
 	ld e,(ix+oData.x)
 	ld l,(ix+oData.y)
 	call getScrAddrByCoords
@@ -179,15 +223,49 @@ getDrawData:
 	; hl - sprite address
 	ld (ix+oData.sprAddrL),l
 	ld (ix+oData.sprAddrH),h
-
-	; 
-
-
-
 	ret
+setRemoveSides:
+; 	ld a,(ix+oData.direction)
+; 	or a
+; 	ret z
+	ld a,(ix+oData.clearSide)
+	ld l,(ix+oData.scrAddrL)
+	ld h,(ix+oData.scrAddrH)
+	rrca 
+	jr c,.clearRight
+	rrca
+	jr c,.clearLeft
+	rrca
+	jr c,.clearDown
+	rrca
+	jr c,.clearUp
+	ret
+.clearDown:
+	ld a,h
+	and #F8
+	ld h,a
+	ld a,l
+	add 64
+	ld l,a
+	jr nc,.clearLeft
+	ld a,h
+	add 8
+	ld h,a
 
+	jr .clearLeft
 
-
+.clearUp:
+	ld a,h
+	and #F8
+	ld h,a
+.clearLeft:
+	ld (ix+oData.clrScrAddrL),l
+	ld (ix+oData.clrScrAddrH),h
+	ret
+.clearRight:
+	inc l
+	inc l
+	jr .clearLeft
 ;---------------------------------------------------------
 clear1x2: 	; width = 1 symbol, height = 2 symbols
 	xor a
@@ -243,20 +321,21 @@ getAttrAddrByCellId:
 	rlca
 	rlca
 	or #58
-	ld d,a
-	ld a,c
-	and #F0
-	sla a
-	sla a
-	ld e,a
-	ld a,c
-	and #0f
-	add a
-	add e
-	ld e,a
-	ret
+	jr gsbc
+; 	ld d,a
+; 	ld a,c
+; 	and #F0
+; 	sla a
+; 	sla a
+; 	ld e,a
+; 	ld a,c
+; 	and #0f
+; 	add a
+; 	add e
+; 	ld e,a
+; 	ret
 ;---------------------------------------------------------
-getScreenAddrByCellId:
+getScrAddrByCellId:
 	; C = cell ID (cells 16x16)
 	; return DE = screen address
 	ld a,c
@@ -264,7 +343,8 @@ getScreenAddrByCellId:
 	rrca
 	rrca
 	rrca
-	or #40 		
+	or #40 	
+gsbc:	
 	ld d,a
 	ld a,c
 	and #F0
@@ -321,25 +401,12 @@ scrAddrToAttrAddr:
 	ld d,a
 	ret
 ;------------------------------------------------------------
-paint2x2:
-	; only static cell
-	; C - color
-	; HL - attributes address
-	ld (hl),c
-	inc l
-	ld (hl),c
-	ld a,l
-	add 32
-	ld l,a
-	ld (hl),c
-	dec l
-	ld (hl),c
-	ret
-;------------------------------------------------------------
 getObjDataById:
 	; A - object ID
 	; return IY = object data address by ID
 	dec a
+	push hl
+	push bc
 	ld h,0
 	ld l,a
 	ld bc,objectsData 		; 16,32,64.... bytes for 1 object
@@ -360,12 +427,14 @@ getObjDataById:
 	add hl,bc
 	push hl
 	pop iy
+	pop bc
+	pop hl
 	ret
 ;------------------------------------------------------------
 printSpr:
 	; HL - sprite address
 	; C - cell ID
-	call getScreenAddrByCellId
+	call getScrAddrByCellId
 	ld b,16
 sprLine:
 	push bc
@@ -455,7 +524,6 @@ getSpriteAddr:
 ; 6, 7, 13; 7, 9, 13; 9, 7, 13.
 rnd16:
 	push hl
-.xrnd:
 	ld hl,(globalSeed)       ; seed must not be 0
 	ld a,h
 	rra
@@ -660,7 +728,8 @@ fadeOut2x2:
 	call convertScrToAttr
 	ld a,(ix+oData.color)
 	call fillAttr2x2
-	dec a
+	sub 1
+	ret c
 	ld (ix+oData.color),a
 	ret
 ;------------------------------------------
@@ -673,24 +742,29 @@ clear2x2:
 	inc l
 	jp clear1x2
 ;------------------------------------------
-showCollectedCoins:
-	; показать спрайтами сколько монет было собрано за уровень из возможных.
-	; кол-во не собранных монет рисуется с наложением маски через точку.
-	; по результатам очки уровня умножаются на N монет собранных на уровне:
-	; 	1 монета: Х 1
-	; 	2 монеты: Х 2
-	; 	3 монеты: Х 3
-
-	; реализовать завтра !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-	; ДОБАВЛЕНА переменная (pointsPerLevel) очков текущего уровня отдельно от общего кол-ва монет. 
-
-	; монеты и очки за монет именуются coins - будет путаница - исправить !!!
-
-
-
+animation2x2:
+	; for sprites 2x2
+	; C - total frames
+	; HL - addresses of first animation sprite
+	ld a,(ix+oData.animationId)
+	inc a
+	cp c
+	jr c,.nextFrame
+	xor a
+.nextFrame:
+	ld (ix+oData.animationId),a
+	rrca
+	rrca
+	rrca
+	add a,l
+	ld l,a
+	adc a,h
+	sub l
+	ld h,a	
+	ld (ix+oData.sprAddrL),l
+	ld (ix+oData.sprAddrH),h
 	ret
-;------------------------------------------
+;--------------------------------------
 	; http://map.grauw.nl/sources/external/z80bits.html#5.1
 	; 16-bit Integer to ASCII (decimal)
  	; Input: HL = number to convert, DE = location of ASCII string
@@ -718,7 +792,7 @@ Num2	inc	a
 	inc	de
 	ret
 ;------------------------------------------
-getCurrentLevelNumber:
+getCurrentLevelAddress:
 	; return HL = level data address (walls)
 	ld a,(currentLevel)
 	rlca

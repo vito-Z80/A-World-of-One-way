@@ -15,6 +15,7 @@ vars:
         include "variables.asm"
         db #0D
         display "Launch address: ",/A,code
+        display "vars address: ",/A,vars
 endB:
 	EMPTYTAP Wow.tap
 	SAVETAP "Wow.tap", BASIC,"Wow", basic, endB-basic, 0

@@ -135,8 +135,6 @@ update:
 	ld (currentLevel),a
 	ld a,SYSTEM.SHOP_INIT
 	ret
-
-
 ;--------------------------------------------------
 inputEnd:
 	pop de

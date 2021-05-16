@@ -76,7 +76,7 @@ hideMessage:
 ;---------------------------------------------
 sucPurchaseShow:
 	call resetDelta2
-	call SOUND_PLAYER.SET_SOUND.key
+	call SOUND_PLAYER.SET_SOUND.coin
 	ld hl,#4404
 	ld (textColor),hl
 	ld hl,successfulPurchase
@@ -120,7 +120,7 @@ showPassword:
 	ld a,(currentLevel)
 	call PASS.setLevPass
 .show:	
-	call SOUND_PLAYER.SET_SOUND.key
+; 	call SOUND_PLAYER.SET_SOUND.key
 	ld hl,passData
 	ld de,#48c8
 	jp printText2x1
