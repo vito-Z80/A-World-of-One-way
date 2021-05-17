@@ -46,6 +46,9 @@ setFear:
 	ld de,POP_UP_INFO.bitmapFear
 	ld bc,3 * 256 + %00010010
 set:
+	; пока один мессадж не заверщен, другой вызывать нельзя (не подчищается предыдущий мессадж на атрибутах, можно исправить)
+	call isFinish 	
+	ret nz
 	; HL - start attributes address (outside the scope of attributes)
 	; DE - bitmap address
 	; B - bitmap width

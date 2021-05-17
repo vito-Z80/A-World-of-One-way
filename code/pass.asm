@@ -164,7 +164,7 @@ input:
 	push hl
 	push de
 .listen:
-	halt
+	call SYSTEM.int
 	exx
 	call SOUND_PLAYER.play
 	exx

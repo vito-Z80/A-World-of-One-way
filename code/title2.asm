@@ -1,3 +1,4 @@
+objectsData: 	; перенесено из variables так как данная часть проги юзается всего 1 раз при старте !!! занимает 344 байта, требуется 320 !
 ;	Concurso juegos ASM 2021
 	module TITLE_2
 run:

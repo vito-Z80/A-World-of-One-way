@@ -2,7 +2,6 @@
 ;------------------------------------------------------------
 build:
 	call POP_UP_INFO.reset
-	call fillWalls
 	call clearData
 	call buildLevel
 	ret
@@ -38,8 +37,12 @@ buildLevel:
 
 	call getCurrentLevelAddress  	; HL = level data address (walls)
 	ld (levelAddr),hl
-
 	ld (globalSeedTmp),hl 	; set random seed for this level
+	ld (globalSeed),hl
+	push hl
+	call fillWalls
+	pop hl
+
 	ld b,24 		; 12 rows, 2 columns
 .nextHalf:
 	push bc
@@ -53,10 +56,15 @@ buildLevel:
 	jr nc,.emptyCell 	
 	ld (ix),255 		; fill cells for collision
 	push hl
-	ld hl,BLOCK_PBM 	; TODO render random walls by seed
 	exa
 	ld c,a
 	exa
+	ld hl,BLOCK_PBM 	; TODO render random walls by seed
+	call rnd16
+	and 3
+	jr nz,.notBlockD
+	ld hl,BLOCK_D_PBM
+.notBlockD:
 	call printSpr
 	pop hl
 .emptyCell:
@@ -77,7 +85,6 @@ buildLevel:
 .paint:
 	push bc
 	ld hl,(globalSeedTmp)
-	ld (globalSeed),hl
 	ld de,ATTR_ADDR
 	ld hl,levelCells
 	ld b,12
@@ -122,15 +129,16 @@ buildLevel:
 	jr z,.pwn
 	dec a
 	cp 1
-	jr z,.setRedColor
+	jr z,.setColor
 	xor a
 .pwb:
 	ex de,hl
 	jp fillAttr2x2
-.setRedColor:
+.setColor:
 	ld a,(globalSeedTmp)
 	rrca
 	and 3
+	jr nz,.pwb
 	inc a
 	jr .pwb
 .pwn:
@@ -229,15 +237,39 @@ cutInsideRooms:
 fillWalls:
 
 	ld c,#C0
+	call getFloorSprite
 .loop:
 	push bc
-	ld hl,FLOOR_0003_PBM 
+	push hl
 	dec c
 	call printSpr
-
+	pop hl
 	pop bc
 	dec c
 	jr nz,.loop
+	ld a,l
+	cp low FLOOR_0004_PBM
+	ret nz
+
+	ld b,24
+.loop2:
+	push bc
+	call rnd16
+	and #BF
+	ld c,a
+	call rnd16
+	and 1
+	rrca
+	rrca
+	rrca
+	add a,low FLOOR_0001_PBM
+	ld l,a
+	adc a,high FLOOR_0001_PBM
+	sub l
+	ld h,a	
+	call printSpr
+	pop bc
+	djnz .loop2
 
 	ret
 
@@ -253,6 +285,14 @@ wallColors:
 	db 4,4,4,4
 	db 3,3,3,3
 ;----------------------------------------------
+getFloorSprite:
+	; A - number 0-3
+	ld hl,FLOOR_0003_PBM
+	call rnd16
+	rrca
+	ret c
+	ld hl,FLOOR_0004_PBM
+	ret
 
 ;----------------------------------------------
 

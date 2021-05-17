@@ -24,114 +24,75 @@ init:
 	ld a,r
 	and 3
 	ld (ix+oData.animationId),a
+	ld c,(ix+oData.cellId)
+	call getAttrAddrByCellId
+	ld (ix+oData.clrScrAddrL),e
+	ld (ix+oData.clrScrAddrH),d
 	call OBJECTS.setObjectId
 	ret
 ;------------------------------------
 update:
-	ld a,(ix+oData.isDestroyed)
-	or a
-	jp nz,explosion
-
-	ld a,(ix+oData.spriteId)
-	cp CHUPA_001_PBM_ID
-	call z,paintCoin
-	cp BOOM_01_PBM_ID
-	call z,paintBomb
-
-	ld a,(ix+oData.delta)
-	inc a
-	and 7
-	ld (ix+oData.delta),a
-	or a
+	ld c,%00000011
+	call BOMB.blink
+	call delta7
 	ret nz
-upd:
-	ld a,(ix+oData.spriteId)
-	cp CHUPA_001_PBM_ID
-	jr z,showCoin
-	cp BOOM_01_PBM_ID
-	jr z,showBomb
-	ret
-;--------------------------------------
-data:	db #00,#01,#FF,#10,#F0
-explosion:
-	cp 1
-	jr nz,.execute
-	call POP_UP_INFO.setExplosion
-	ld (ix+oData.color),100
-	rrc (ix+oData.isDestroyed)
-.execute:	
-	ld hl,data
-	ld b,5
-.loop:	
-	push bc
-	ld a,(ix+oData.cellId)
-	add (hl)
-	ld c,a
-	ld e,a
-	ld d,high levelCells
-	push hl
-	ld a,(de)
-	inc a
-	jr z,.noPaint
-
-	call getAttrAddrByCellId
-	ld a,(ix+oData.color)
-	ex de,hl
-	call fillAttr2x2
-.noPaint:
-	pop hl
-	inc hl
-	pop bc
-	djnz .loop
-	ld a,(ix+oData.color)
-	dec a
-	jp z,OBJECTS.resetObjectIX
-	ld (ix+oData.color),a
-	jr upd
-;--------------------------------------
-paintCoin:
-	call getAttrDE
-	ld a,(ix+oData.color)
-	xor %00000011
-	ld (ix+oData.color),a
-	call fillAttr2x2 
-	xor a
-	ret
-showCoin:
 	ld hl,CHUPA_001_PBM
 	ld c,4
-	call animation2x2
-	ret
-getAttrDE:
-	ld e,(ix+oData.scrAddrL)
-	ld d,(ix+oData.scrAddrH)
-	call scrAddrToAttrAddr
-	ex de,hl
-	ret
-showBomb:
-	ld hl,BOOM_01_PBM
-	ld c,4
-	call animation2x2
-	ret
-paintBomb:
-	call getAttrDE
-	ld a,(ix+oData.color)
-	xor %00000110
-	ld (ix+oData.color),a
-	call fillAttr2x2 
-	xor a
-	ret
-setBobm:
-	ld (iy+oData.spriteId),BOOM_01_PBM_ID 	; the coin became a bomb
-	ld (iy+oData.color),2 			; set bomb color 
-	ret
-setExplosion:
+	jp animation2x2
+;--------------------------------------
+; cellOffset:	db #00,#01,#FF,#10,#F0
+; explosion:
+; 	cp 1
+; 	jr nz,.execute
+; 	call POP_UP_INFO.setExplosion
+; 	ld (ix+oData.color),#40
+; 	rrc (ix+oData.isDestroyed)
+; .execute:	
+; 	ld hl,cellOffset
+; 	ld b,5
+; .loop:	
+; 	push bc
+; 	ld a,(ix+oData.cellId)
+; 	add (hl)
+; 	ld c,a
+; 	ld e,a
+; 	ld d,high levelCells
+; 	push hl
+; 	ld a,(de)
+; 	inc a
+; 	jr z,.noPaint
+; 	push af
+; 	dec a
+; 	cp BROKEN_BLOCK_PBM_ID
+; 	jr nz,.notBrockenBlock
+; 	push iy
+; 	call getObjDataById	
+; 	ld (iy+oData.isDestroyed),1
+; 	pop iy
+; .notBrockenBlock:
+; 	pop af
+; 	call getAttrAddrByCellId
+; 	ld a,(ix+oData.color)
+; 	ex de,hl
+; 	call fillAttr2x2
+; .noPaint:
+; 	pop hl
+; 	inc hl
+; 	pop bc
+; 	djnz .loop
+; 	ld a,(ix+oData.color)
+; 	dec a
+; 	jp z,OBJECTS.resetObjectIX
+; 	ld (ix+oData.color),a
+; 	jr upd
+; ;--------------------------------------
+; setExplosion:
+; ; 	ld hl,SOUND_PLAYER.DATA.explosion
+; ; 	call OBJECTS.preDestructionThis
 ; 	ld hl,SOUND_PLAYER.DATA.explosion
-; 	call OBJECTS.preDestructionThis
-	ld hl,SOUND_PLAYER.DATA.explosion
-	call OBJECTS.preDestructionOther
+; 	call OBJECTS.preDestructionOther
 		
-	ret
+; 	ret
 
 
 ; getCoin:

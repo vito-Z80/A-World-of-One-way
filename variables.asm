@@ -8,8 +8,8 @@ levelAddr: 			dw #0000 	; адрес карты
 coinsInLevelVar:		db 0 	; VAR, VAL. in that order
 coinsInLevelVal:		db 0
 pointsPerLevel:			dw #0000 	; очки заработанные за уровень - сбором монет.
-preDir: 			db 0
-        display "Current low byte address (for ALIGN 256) = ",/A, low $, " | full address = ",/A, $
+preDir: 			db 0 		; previous direction
+        display "Current low byte address (for ALIGN 256) = ",/A, low $, " | address = ",/A, $
 			align 256
 	display "buffer256 address: ",/A,$
 buffer256: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх и еще чего нибудь :)
@@ -54,10 +54,9 @@ fillStack: 			dw 0 	; stack any cell for fill
 tmpStack: 			dw 0 	;  ----//-----
 		;------------------
 varsEnd:
-; 				align 256
-				; low address byte = 0
-screenAddresses:		block 192 * 2, 0 			; table of left side screen addresses 384 bytes
-objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data 320 bytes
+
+	; objectsData перенесено в TITLE_2, так как оно юзается только при старте программы и потом свободно более 320 байт, что хватит на 10 объектов
+; objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data 320 bytes
 
 testS: 				block MAX_OBJECTS,0
 				db #FF,#FF

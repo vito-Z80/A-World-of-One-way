@@ -147,29 +147,32 @@ preLine24:
 ;---------------------------------------------------------
 getScrAddrByCoords:
 	; L = Y; E = X
-	; return Hl = screen address
-	ld a,high screenAddresses
-	rlc l
-	adc 0
+	; return HL > screen address
+	ld a,l
+	and 7
 	ld h,a
-	res 0,l
-	ld c,l
-; 	ld b,h
-
-	ld a,(hl)
-	inc l
-	ld h,(hl)
+	ld a,l
+	rrca
+	rrca
+	rrca
+	and %00011000
+	or #40
+	add h
+	ld h,a
+	ld a,l
+	rlca
+	rlca
+	and %11100000
 	ld l,a
 	ld a,e
 	rrca
 	rrca
 	rrca
 	and #1F
-	add a,l
+	add l
 	ld l,a
 	ret
 ;---------------------------------------------------------
-
 sortObjectIds:
 	; сортировка 10ти байт по возрастанию ~ 3500t (byte value range 0..254)
 	ld b,MAX_OBJECTS
@@ -298,6 +301,18 @@ clear2x1: 	; width = 2 symbols, height = 1 symbol
 	edup
 	ret
 ;---------------------------------------------------------
+setIYtoIX:
+	ld a,iyl
+	ld ixl,a
+	ld a,iyh
+	ld ixh,a
+	ret
+delta7:
+	ld a,(ix+oData.delta)
+	inc a
+	ld (ix+oData.delta),a
+	and 7
+	ret
 mul48:
 	; A = multiplier
 	; return BC = A * 48 (9 bit)
@@ -476,20 +491,6 @@ printSprite3x2as2x2:
 	djnz .sprLine
 	ret
 ;-------------------------------------------------
-; left side of screen
-createYAdressess:
-	ld de,#4000
-	ld hl,screenAddresses
-	ld b,192
-.position:
-	ld (hl),e
-	inc hl
-	ld (hl),d
-	inc hl
-	call nextLine
-	djnz .position
-	ret
-;-------------------------------------------------
 getSpriteAddr:
 	; A - sprite ID
 	; return HL = sprite address
@@ -543,47 +544,47 @@ rnd16:
 	pop hl
  	ret	
 ;------------------------------------------
-attrRect:
-	; HL - attribute address
-	; E - radius 	(1 - 7)
-	; D - color
-	ld d,#FF ; color
-	ld a,e
-	rrca
-	rrca
-	rrca
-	add e
-	ld c,a
-	ld b,0
-	add hl,bc
-	rlc e
-	ld bc,#10000 - 32
-	ld a,e
-.up:
-	ld (hl),d
-	add hl,bc
-	dec a
-	jr nz,.up
-	ld a,e
-.left:
-	ld (hl),d
-	dec l
-	dec a
-	jr nz,.left
-	ld bc,32
-	ld a,e
-.down:
-	ld (hl),d
-	add hl,bc
-	dec a
-	jr nz,.down
-	ld a,e
-.right:
-	ld (hl),d
-	inc l
-	dec a
-	ret z
-	jr .right
+; attrRect:
+; 	; HL - attribute address
+; 	; E - radius 	(1 - 7)
+; 	; D - color
+; 	ld d,#FF ; color
+; 	ld a,e
+; 	rrca
+; 	rrca
+; 	rrca
+; 	add e
+; 	ld c,a
+; 	ld b,0
+; 	add hl,bc
+; 	rlc e
+; 	ld bc,#10000 - 32
+; 	ld a,e
+; .up:
+; 	ld (hl),d
+; 	add hl,bc
+; 	dec a
+; 	jr nz,.up
+; 	ld a,e
+; .left:
+; 	ld (hl),d
+; 	dec l
+; 	dec a
+; 	jr nz,.left
+; 	ld bc,32
+; 	ld a,e
+; .down:
+; 	ld (hl),d
+; 	add hl,bc
+; 	dec a
+; 	jr nz,.down
+; 	ld a,e
+; .right:
+; 	ld (hl),d
+; 	inc l
+; 	dec a
+; 	ret z
+; 	jr .right
 ;------------------------------------------
 colorRotate:
 	; rotate 'A' (1-7) without 0
@@ -594,57 +595,11 @@ colorRotate:
 	and 7
 	ret
 ;------------------------------------------
-convertScrToAttr:
-	; return HL - attribute address
-	ld e,(ix+oData.scrAddrL)
-	ld d,(ix+oData.scrAddrH)
-	call scrAddrToAttrAddr
-	ex de,hl
-	ret
-;------------------------------------------
-blinkBrightness:
-	ld a,(ix+oData.color)
-	xor BRIGHTNESS
-	ld (ix+oData.color),a
-	ret
-;------------------------------------------
-flashRedYellow:
-	call convertScrToAttr
-	ld a,(ix+oData.color)
-	xor 4
-	ld (ix+oData.color),a
-	ld a,(ix+oData.delta)
-	and 3
-	jr z,fillAttr2x2
-	ld a,#40
-	xor (ix+oData.color)
-
-
-	jr fillAttr2x2
-;------------------------------------------
-circularGradient:
-	ld a,(ix+oData.delta)
-	and 1
-	ret nz
-	call convertScrToAttr
-	ld a,(ix+oData.color)
-	push af
-	ld (hl),a
-	inc l
-	call colorRotate
-	ld (hl),a
-	ld bc,32
-	add hl,bc
-	call colorRotate
-	ld (hl),a
-	dec l
-	call colorRotate
-	ld (hl),a
-	pop af
-	dec a
-	call colorRotate
-	ld (ix+oData.color),a
-	ret
+; blinkBrixghtness:
+; 	ld a,(ix+oData.color)
+; 	xor BRIGHTNESS
+; 	ld (ix+oData.color),a
+; 	ret
 ;------------------------------------------
 resetDelta2:
 	xor a
@@ -724,15 +679,6 @@ fadeOutFull:
 	pop af
 	ret
 ;------------------------------------------
-fadeOut2x2:
-	call convertScrToAttr
-	ld a,(ix+oData.color)
-	call fillAttr2x2
-	sub 1
-	ret c
-	ld (ix+oData.color),a
-	ret
-;------------------------------------------
 clear2x2:
 	ld l,(ix+oData.scrAddrL)
 	ld h,(ix+oData.scrAddrH)
@@ -808,39 +754,22 @@ getCurrentLevelAddress:
 	ld hl,LEVELS_BEGIN
 	add hl,bc
 	ret
-; ;------------------------------------------
-; numberObjectsType
-; 	; A - sprite ID
-; 	; return: E - number of coins on level
-; 	; HL - level data
-; 	ld bc,24 + 1
-; 	ld e,b
-; 	add hl,bc
-; .loop:
-; 	ld d,(hl)
-; 	cp d
-; 	jr nz,.next
-; 	inc e
-; .next
-; 	inc hl
-; 	ld d,(hl)
-; 	inc d
-; 	ret z 	; finish
-; 	inc hl
-; 	jr .loop
 ;------------------------------------------
-findCellIdBySpriteId:
-	; find first sprite ID in level data (after walls data)
-	; A - sprite ID
-	; HL - Level objects data (after walls data)
-	; return HL > level cell by sprite ID
-	ld bc,#C0
-	cpir
-	dec l
-	dec l
-	; > (HL) cell id 
-	ld l,(hl)
-	ld h,high levelCells
+countObjectsSameType:
+	; count objects of the same type (sprite ID)
+	; A - sprite ID for search
+	; return A > number of objects
+	ld de,OBJECT_DATA_SIZE
+	ld hl,objectsData + oData.spriteId
+	ld bc,MAX_OBJECTS * 256 	; C = 0 as counter
+.search:
+	cp (hl)
+	jr nz,.next
+	inc c
+.next
+	add hl,de
+	djnz .search
+	ld a,c
 	ret
 ;------------------------------------------
 ; my paste Fill algorithm: https://pastebin.com/4X4C8e62

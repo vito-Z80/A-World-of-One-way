@@ -19,7 +19,6 @@ update:
 	jp nz,ENEMY_SKULL.destroyThis
 
 
-	call blinkBrightness
 
 	ret
 ;----------------------------------------------------------

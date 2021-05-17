@@ -5,8 +5,25 @@ run:
 	ld sp,#8000
 	call SOUND_PLAYER.SET_SOUND.mute
 	;----------------------------test code
-
-
+; 	ld hl,#5800
+; 	ld bc,(%01000111 * 256) + %01000000
+; .loop:
+; 	ld (hl),b
+; 	inc hl
+; 	ld a,l
+; 	and #1f
+; 	jr z,.loop
+; 	ld a,b
+; 	xor c
+; 	ld b,a
+; 	ld a,h
+; 	cp #5b
+; 	jr c,.loop
+; 	ld l,80
+; 	ld e,220
+; 	call getScrAddrByCoords
+; 	ld (hl),%01010101
+; 	jr $
 
 ; 	ld a,9
 ; 	and  15
@@ -19,7 +36,7 @@ run:
 	
 	;----------------------------test code
 	xor a
-	inc a 		; remove later
+; 	inc a 		; remove later
 	out (254),a
 	ld bc,$
 	; A - system ID
@@ -37,11 +54,16 @@ run:
 	call SOUND_PLAYER.play
 	exx
 	BORDER 0
+	call int
+	push bc
+	jp (hl)
+;------------------------------------
+int:
 	ld iy,#5C3A
 	ei
 	halt
-	push bc
-	jp (hl)
+	di
+	ret
 ;------------------------------------
 	; system indices and addresses
 rooms:	

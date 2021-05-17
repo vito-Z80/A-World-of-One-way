@@ -11,9 +11,14 @@ init:
 ;-------------------------------------------
 update:
 
+
 	ld a,(ix+oData.isDestroyed)
 	or a
 	jr nz,destroyThis
+
+	ld a,(ix+oData.isMovable)
+	or a
+	jr z,stoneStill
 	
 	call OBJECTS.collision
 	call getDrawData
@@ -31,34 +36,47 @@ update:
 	jr z,convertToBomb
 
 	cp BOOM_01_PBM_ID
-	jp z,CHUPA.setExplosion
+	jp z,BOMB.setExplosion 		; rebuild
 
 	cp HERO_FACE_00_PBM_ID
 	jr z,killHero
-	
 
+	cp ICEHOLE_PBM_ID
+	jp z,OBJECTS.setDestroyIX
+
+	cp BROKEN_BLOCK_PBM_ID
+	jp z,OBJECTS.alignToCell
+
+	cp BOX_PBM_ID
+	jp z,destroyBox
+
+	
+	cp EXIT_DOOR_PBM_ID
+	ret nz
+	call OBJECTS.alignToCell
+	call OBJECTS.draw.oneObject
+	ld (ix+oData.isMovable),0
+	call POP_UP_INFO.setFear
+	call SOUND_PLAYER.SET_SOUND.eat
 	ret
 ;-------------------------------------------
+stoneStill:
+	ld a,#40
+	xor (ix+oData.color)
+	ld (ix+oData.color),a
+	ret
+;-------------------------------------------
+destroyBox:
+	call SOUND_PLAYER.SET_SOUND.impact
+	jp OBJECTS.setDestroyIY
 killHero:
-; 	ld (iy+oData.isDestroyed),1
-; 	ret
-	ld a,iyl
-	ld ixl,a
-	ld a,iyh
-	ld ixh,a
+	call setIYtoIX
 	jp HERO.dead
-	ld (ix+oData.isDestroyed),1
-	ld hl,SOUND_PLAYER.DATA.dead
-	ld bc,POP_UP_INFO.setWasted
-	jp OBJECTS.disableIXObject
-
-
 
 convertToBomb:
-	ld (ix+oData.isDestroyed),a
-	call OBJECTS.alignToCell
-	jp CHUPA.setBobm
-
+	ld (ix+oData.isDestroyed),1
+	call setIYtoIX
+	jp BOMB.init
 destroyThis:
 	ld hl,SOUND_PLAYER.DATA.eat
 	ld bc,POP_UP_INFO.setFear

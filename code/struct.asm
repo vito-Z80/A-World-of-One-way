@@ -23,8 +23,8 @@ spriteId	byte
 direction	byte	
 launchTime	byte 	; время до начала движения объекта
 color		byte	; color (8 bit)
-colorDataL:	byte 	; color sequence address (if want to)
-colorDataH:	byte 	; ------//-------
+targetL:	byte 	; address of target object data
+targetH:	byte 	; ------//-------
 delta		byte 	; delta for velocity
 accelerate	byte 	; velocity for object (FIXME rename to velocity)
 step:		byte 	; step for delta

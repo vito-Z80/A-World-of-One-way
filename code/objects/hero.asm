@@ -6,7 +6,7 @@ init:
 	ld (ix+oData.isMovable),a
 	ld (ix+oData.accelerate),a  	; начальное ускорение объекта при движении, если оно есть.
 	ld (ix+oData.drawMethod),a
-	ld (ix+oData.color),5
+	ld (ix+oData.color),INK.YELLOW | PAPER.BLACK | BRIGHTNESS
 	ld a,l
 	and 15
 	ld (ix+oData.step),a
@@ -31,10 +31,9 @@ update:
 ; 	or a
 ; 	jr nz,.toExit
 
-; 	ld a,(ix+oData.isDestroyed)
-; 	or a
-; ; 	jp nz,OBJECTS.killHero
-; 	jr nz,.finish
+	ld a,(ix+oData.isDestroyed)
+	or a
+	jr nz,dead
 
 
 	call OBJECTS.collision 		
@@ -52,23 +51,45 @@ update:
 	jp z,dead
 
 	cp BOOM_01_PBM_ID
-	jp z,CHUPA.setExplosion
+; 	jp z,dead
+	jp z,BOMB.setExplosion
+
 
 	cp CHUPA_001_PBM_ID
 	jp z,getCoin
 
+	cp ICEHOLE_PBM_ID
+	jr z,dead
+
+	cp BROKEN_BLOCK_PBM_ID
+	jp z,OBJECTS.alignToCell
+
+	cp BOX_PBM_ID
+	jp z,OBJECTS.alignToCell
+
+
 	cp EXIT_DOOR_PBM_ID
 	ret nz
+	call OBJECTS.alignToCell
+	call OBJECTS.draw.oneObject
 	call SOUND_PLAYER.SET_SOUND.done
+
+	ld a,(ix+oData.spriteId)
+	call countObjectsSameType
+	dec a
+	jr z,.leaveLevel
+	; stay on level
+	call POP_UP_INFO.setMore
+	jr finish
+.leaveLevel:	
 	call POP_UP_INFO.setDone
 	ld hl,currentLevel
 	inc (hl)
 	inc hl 	; isLevelPassed label
 	ld (hl),SYSTEM.SHOP_INIT
 
-	call OBJECTS.alignAndDraw
 finish:
-	halt
+	call SYSTEM.int
 	ld c,(ix+oData.cellId)
 	call getAttrAddrByCellId
 	ld a,(ix+oData.color)
@@ -82,11 +103,12 @@ finish:
 	call SOUND_PLAYER.play
 	call POP_UP_INFO.isFinish
 	jr nz,finish
-	ret
+	jp OBJECTS.resetObjectIX
 dead:
 	call SOUND_PLAYER.SET_SOUND.dead
 	call POP_UP_INFO.setWasted
 	call OBJECTS.alignToCell
+	call OBJECTS.draw.oneObject
 	ld (ix+oData.isDestroyed),1
 	call finish
 	ld hl,(lives)

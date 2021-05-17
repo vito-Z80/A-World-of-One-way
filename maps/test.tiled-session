@@ -74,11 +74,11 @@
             "scaleInDock": 1
         },
         "levels.tmx": {
-            "scale": 2,
-            "selectedLayer": 1,
+            "scale": 0.5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1239,
-                "y": 106.25
+                "x": 1250,
+                "y": 567
             }
         },
         "levels.tmx#sprites": {

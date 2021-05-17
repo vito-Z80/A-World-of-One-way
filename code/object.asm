@@ -33,6 +33,7 @@ draw:
 	ld a,d
 	or e
 	ret z
+.dStart:
 	ld l,(ix+oData.sprAddrL) 	; spr addr low
 	ld h,(ix+oData.sprAddrH) 	; spr addr high
 	; FIXME draw method
@@ -45,6 +46,11 @@ draw:
 	or a
 	jp z,printSprite3x2as2x2
 	jp printSprite3x2
+.oneObject
+	call .clear
+	ld e,(ix+oData.scrAddrL) 	; scr addr low
+	ld d,(ix+oData.scrAddrH) 	; scr addr high
+	jr .dStart
 .paint:
 
 	call scrAddrToAttrAddr
@@ -109,6 +115,7 @@ draw:
 	ld l,(ix+oData.clrScrAddrL)
 	ld h,(ix+oData.clrScrAddrH)
 .st:	
+
 	ld a,(ix+oData.clearSide)
 	ld (ix+oData.clearSide),0
 	rrca 
@@ -120,6 +127,7 @@ draw:
 	rrca
 	jr c,.clearVert
 	ret
+
 .clearHoriz:
 	ld b,2
 	ld de,32
@@ -198,7 +206,7 @@ disableIXObject:
 	jr nc,.fo
 	call POP_UP_INFO.isFinish
 	ret nz
-	rrc (ix+oData.isDestroyed)
+; 	rrc (ix+oData.isDestroyed)
 	call clear2x2
 	; reset object from object data map
 	jp resetObjectIX
@@ -221,6 +229,8 @@ disableIXObject:
 .setDefault:
 	push bc
 	call SOUND_PLAYER.init
+	call alignToCell
+	call draw.oneObject
 	rlc (ix+oData.isDestroyed)
 	ld (ix+oData.isMovable),0
 	ld (ix+oData.color),16
@@ -228,7 +238,8 @@ disableIXObject:
 	ld l,(ix+oData.cellId)
 	ld h,high levelCells
 	ld (hl),0
-	ret 	; go to pop-up info address
+	ret
+ 	; go to pop-up info address
 ;----------------------------------------------------------------
 preDestructionOther:
 	; HL - sound data
@@ -475,7 +486,7 @@ collision:
 	jr z,alignToCellNegative 	; #FF > wall
 	dec a
 	ret z 			; #00 > free way
-	jp getObjDataById 	; #01-#0A convert to object data address
+	jp getObjDataById 	; #01-#0A convert to object data address to IY
 .moveRight:
 	ld a,(ix+oData.x)
 	add 16
@@ -547,15 +558,19 @@ resetMovable:
 	ld (ix+oData.accelerate),1
 	jp getDrawData
 alignToCell:
+
+	; создать тоже самое без ресета для прохождения сквозь объекта но с выравниванием по ячейке
+	; если объект не проходной то юзать данную процу.
+	;
+	;
+
+
+
 	ld a,(ix+oData.direction)
 	and DIRECTION.LEFT or DIRECTION.UP 
 	; if (positive direction) #00 else #FF 
 	jr z,alignToCellPositive
 	jr alignToCellNegative 
-alignAndDraw:
-	call alignToCell
-	call getDrawData
-	jp draw
 ;---------------------------------------------------------
 
 moveObject:
@@ -677,8 +692,12 @@ findObj:
 	jp z,EXIT_DOOR.init
 	cp ICEHOLE_PBM_ID
 	jp z,ICE_HOLE.init
-	cp SPLIT_PBM_ID
-	jp z,SPLIT.init
+; 	cp SPLIT_PBM_ID
+; 	jp z,SPLIT.init
+	cp BOOM_01_PBM_ID
+	jp z,BOMB.init
+	cp BOX_PBM_ID
+	jp z,BOX.init
 
 	cp BROKEN_BLOCK_PBM_ID
 	jp z,BROKEN_BLOCK.init
@@ -692,6 +711,12 @@ setObjectId:
 	ld (hl),a
 	ret
 ;----------------------------------------------------------------
+setDestroyIX:
+	ld (ix+oData.isDestroyed),1
+	ret
+setDestroyIY:
+	ld (iy+oData.isDestroyed),1
+	ret
 /*
 	когда объект остановлен - заносим в ячейку карты на месте остановки объекта object ID
 
@@ -705,12 +730,12 @@ setObjectId:
 */
 ;----------------------------------------------------------------
 resetObjectIX:
-; 	call clear2x2
+	call clear2x2
 	ld e,ixl
 	ld d,ixh
 	ld l,(ix+oData.cellId)
-	call resetObject
-	ret
+; 	call resetObject
+; 	ret
 resetObject:
 	ld h,high levelCells
 	ld (hl),0

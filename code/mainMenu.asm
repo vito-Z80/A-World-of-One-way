@@ -3,17 +3,26 @@ init:
 	call fadeOutFull
 	call clearScreen
 	call clearAttributesBlack
-	call createYAdressess
+
+	ld hl,#4347
+	ld (textColor),hl
+	ld hl,title
+	ld de,#4007
+	call printText2x1
+
 	ld hl,#0446
 	ld (textColor),hl
 	ld hl,startGameText
-	ld de,#4808
+	ld de,#480a
 	call printText2x1
 	ld hl,continueText
-	ld de,#4848
+	ld de,#484a
 	call printText2x1
+
+	ld hl,#4203
+	ld (textColor),hl
 	ld hl,info
-	ld de,#50d4
+	ld de,#50c6
 	call printText2x1
 	ld a,SYSTEM.MAIN_MENU_UPDATE
 	ret
@@ -32,6 +41,7 @@ update:
 	ld (coins),hl
 	; start level number
 	xor a
+	ld a,0 			; remove later
 	ld (currentLevel),a
 	ld a,SYSTEM.GAME_INIT
 	ret
@@ -45,11 +55,12 @@ update:
 	ld a,SYSTEM.MAIN_MENU_UPDATE
 	ret
 ;------------------------------------------------
-
+title:
+	db "A World of One-Way",TEXT_END
 startGameText:
 	db "1 - Start",TEXT_END
 continueText:
 	db "2 - Continue",TEXT_END
 info:
-	db "Serdjuk 2021",TEXT_END
+	db "Serdjuk for ASM-2021",TEXT_END
 	endmodule
