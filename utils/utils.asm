@@ -416,11 +416,34 @@ scrAddrToAttrAddr:
 	ld d,a
 	ret
 ;------------------------------------------------------------
+getCellIdByScrAddr:
+	; HL - screen address
+	; return A > cell ID (16x16 tile ID 0-191) 
+	ld a,h
+	rlca
+	rlca
+	rlca
+	and %11000000
+	ld h,a
+
+	ld a,l
+	rrca
+	rrca
+	and #30
+	add h
+	ld h,a
+
+	ld a,l
+	rrca
+	and #0F
+	add h
+	ret
+;------------------------------------------------------------
 getObjDataById:
 	; A - object ID
 	; return IY = object data address by ID
 	dec a
-	push hl
+	push hl 
 	push bc
 	ld h,0
 	ld l,a

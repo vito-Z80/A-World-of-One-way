@@ -9,6 +9,7 @@ coinsInLevelVar:		db 0 	; VAR, VAL. in that order
 coinsInLevelVal:		db 0
 pointsPerLevel:			dw #0000 	; очки заработанные за уровень - сбором монет.
 preDir: 			db 0 		; previous direction
+; kempstonState:			db 0
         display "Current low byte address (for ALIGN 256) = ",/A, low $, " | address = ",/A, $
 			align 256
 	display "buffer256 address: ",/A,$

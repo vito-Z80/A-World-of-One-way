@@ -87,10 +87,14 @@ nextLevel:
 ;-----------------------------------------------
 returnKey:		
 	ld l,0
-	ld bc,#EFFE
-	in a,(c)
-	bit 0,a 	; 0 = exit to main menu
+	call CONTROL.caps
 	ret nz
+	call CONTROL.enter
+	ret nz
+; 	ld bc,#EFFE
+; 	in a,(c)
+; 	bit 0,a 	; 0 = exit to main menu
+; 	ret nz
 	ld l,SYSTEM.MAIN_MENU_INIT
 	ret
 ;-----------------------------------------------

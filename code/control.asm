@@ -36,15 +36,8 @@ update:
 	ld b,#FD
 	in a,(c)
 	bit 0,a
-	ret nz
+	jr nz,sinclairs
 set:
-	; E > direction
-; 	ld a,(preDir)
-; 	or a
-; 	jr z,.set
-; 	cp e
-; 	ret z
-; .set:
 	ld a,e
 	ld (hl),a 	; set direction to "global_direction"
 	ld (preDir),a
@@ -53,13 +46,60 @@ set:
 enter:
 	ld bc,#BFFE
 	jr caps + 3
-;-------------------------------------------
+space:
+	ld bc,#7FFE
+	jr caps + 3
 caps:
 	ld bc,#FEFE
 	in a,(c)
 	bit 0,a
 	ret
 ;-------------------------------------------
+sinclairs:
+	; without fire button
+	push hl
+	call digListener
+	pop hl
+	ld a,(de)
+	or a
+	ret z
+	ld e,DIRECTION.LEFT
+	; sinclair I
+	cp '1'
+	jr z,set
+	rlc e
+	cp '2'
+	jr z,set
+	rlc e
+	cp '4'
+	jr z,set
+	rlc e
+	cp '3'
+	jr z,set
+	; sinclair II
+	ld e,DIRECTION.LEFT
+	cp '6'
+	jr z,set
+	rlc e
+	cp '7'
+	jr z,set
+	rlc e
+	cp '9'
+	jr z,set
+	rlc e
+	cp '8'
+	jr z,set
+	ret
+; ;-------------------------------------------
+; kempston:
+; 	ld a,(kempstonState)
+; 	or a
+; 	ret z
+; 	ld c,0
+; 	in a,(#1f)
+; 	rrca
+; 	jr nc,
+; ;-------------------------------------------
 numbers:	db "1234509876",0
 digListener:
 	; return DE = address of digital char [(DE) == 0 = not pressed]

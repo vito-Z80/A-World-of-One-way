@@ -2,6 +2,7 @@
 
 init:
 	ld (ix+oData.color),%01000100
+	ld (ix+oData.color),INK.GREEN | PAPER.BLUE | BRIGHTNESS
 	xor a
 	ld (ix+oData.isMovable),a
 	ld (ix+oData.accelerate),a

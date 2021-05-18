@@ -3,7 +3,8 @@ init:
 	call fadeOutFull
 	call clearScreen
 	call clearAttributesBlack
-
+	ld hl,0
+	call csBlink
 	ld hl,#4347
 	ld (textColor),hl
 	ld hl,title
@@ -18,7 +19,8 @@ init:
 	ld hl,continueText
 	ld de,#484a
 	call printText2x1
-
+; 	ld hl,#0202
+; 	call showJoy
 	ld hl,#4203
 	ld (textColor),hl
 	ld hl,info
@@ -28,8 +30,23 @@ init:
 	ret
 ;------------------------------------------------
 update:
+	call SOUND_PLAYER.play
+	ld hl,0
+	ld a,(delta)
+	inc a
+	ld (delta),a
+	and #3F
+	cp #20
+	jr c,.noBlink
+	ld hl,#0101
+.noBlink:
+	call csBlink
 	call CONTROL.digListener
+	ld hl,lastKeyPresed
 	ld a,(de)
+	cp (hl)
+	jr z,.endUpd
+	ld (hl),a
 	or a
 	jr z,.endUpd
 	cp '1'
@@ -41,20 +58,42 @@ update:
 	ld (coins),hl
 	; start level number
 	xor a
-	ld a,0 			; remove later
+; 	ld a,11 			; remove later (test levels)
 	ld (currentLevel),a
 	ld a,SYSTEM.GAME_INIT
 	ret
 .continue:
 	cp '2'
-	jr nz,.endUpd
+	jr nz,.kempston
 	call SOUND_PLAYER.SET_SOUND.key
 	ld a,SYSTEM.PASS_INIT
 	ret
+.kempston:
+; 	cp '3'
+; 	jr nz,.endUpd
+; 	ld hl,#4404
+; 	ld a,(kempstonState)
+; 	xor 1
+; 	ld (kempstonState),a
+; 	jr nz,.joyEnable
+; 	ld hl,#0202
+; .joyEnable:
+; 	call showJoy 
+; 	call SOUND_PLAYER.SET_SOUND.key
 .endUpd:
 	ld a,SYSTEM.MAIN_MENU_UPDATE
 	ret
 ;------------------------------------------------
+csBlink:
+	ld (textColor),hl
+	ld hl,capsSpace
+	ld de,#5045
+	jp printText2x1
+; showJoy:
+; 	ld (textColor),hl
+; 	ld hl,joystick
+; 	ld de,#488a
+; 	jp printText2x1
 title:
 	db "A World of One-Way",TEXT_END
 startGameText:
@@ -63,4 +102,8 @@ continueText:
 	db "2 - Continue",TEXT_END
 info:
 	db "Serdjuk for ASM-2021",TEXT_END
+; joystick:
+; 	db "3 - KEMPSTON",TEXT_END
+capsSpace:
+	db "CapsEnter to main menu",TEXT_END
 	endmodule

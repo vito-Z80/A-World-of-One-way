@@ -4,25 +4,27 @@ run:
 
 	ld sp,#8000
 	call SOUND_PLAYER.SET_SOUND.mute
+	xor a
+; 	inc a 		; remove later
+	out (254),a
 	;----------------------------test code
-; 	ld hl,#5800
-; 	ld bc,(%01000111 * 256) + %01000000
-; .loop:
-; 	ld (hl),b
-; 	inc hl
-; 	ld a,l
-; 	and #1f
-; 	jr z,.loop
-; 	ld a,b
-; 	xor c
-; 	ld b,a
-; 	ld a,h
-; 	cp #5b
-; 	jr c,.loop
-; 	ld l,80
-; 	ld e,220
-; 	call getScrAddrByCoords
-; 	ld (hl),%01010101
+
+	
+
+
+; 	ld hl,#5900
+; 	ld de,#5901
+; 	ld bc,#ff
+; 	ld (hl),99
+; 	ldir
+
+; 	ld hl,#48ff
+; 	ld (hl),#FF
+; 	call getCellIdByScrAddr
+; 	ld c,a
+; 	call getScrAddrByCellId
+; 	ld a,%01010101
+; 	ld (de),a
 ; 	jr $
 
 ; 	ld a,9
@@ -35,9 +37,6 @@ run:
 
 	
 	;----------------------------test code
-	xor a
-; 	inc a 		; remove later
-	out (254),a
 	ld bc,$
 	; A - system ID
 	rlca

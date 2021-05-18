@@ -61,7 +61,8 @@ NONE:	byte
 LEFT:	byte
 RIGHT:	block 2
 UP:	block 4
-DOWN:	
+DOWN:	block 8
+FIRE
 	ends
 
 	//-------------------------------------------------------------

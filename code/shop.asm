@@ -2,10 +2,10 @@
 levelText:		db "Level:         ",TEXT_END
 userCoins:		db "Coins:         ",TEXT_END
 userLives:		db "Lives:         ",TEXT_END
-continuations: 		db "1 - Life:             50",TEXT_END
+continuations: 		db "1 - Life:             55",TEXT_END
 ; invulnerable:		db "Invulnerable:     75",TEXT_END
 ; skipLevel:		db "Skip level:      100",TEXT_END
-currentLevelPassword:	db "2 - Password:        150",TEXT_END
+currentLevelPassword:	db "2 - Password:        120",TEXT_END
 complete:		db "fire to complete",TEXT_END
 notMoney:		db "not enough money",TEXT_END
 successfulPurchase:	db "successful  purchase",TEXT_END	
@@ -51,6 +51,13 @@ update:
 	ld (lastKeyPresed),a 	; save last key pressed
 	cp b
  	jr nz,.more
+
+ 	; space key
+	ld bc,#7FFE
+	in a,(c)
+	bit 0,a
+	jr z,.toGame
+
 	ld a,SYSTEM.SHOP_UPDATE
  	ret
 .more:
@@ -62,9 +69,13 @@ update:
 	push af
 	call z,showPassword
 	pop af
+	cp '0'
+	jr z,.toGame
 	cp '5'
+	jr z,.toGame
 	ld a,SYSTEM.SHOP_UPDATE
 	ret nz
+.toGame:
 	ld a,SYSTEM.GAME_INIT
 	ret
 ;---------------------------------------------
@@ -95,7 +106,7 @@ notMoneyShow:
 ;---------------------------------------------
 addLife:
 	ld hl,(coins)
-	ld de,50
+	ld de,55
 	or a
 	sbc hl,de
 	jr c,notMoneyShow
@@ -111,7 +122,7 @@ showPassword:
 	or a
 	jr nz,.show 	; защита от дурака, что бы не купил этот-же пароль еще раз.
 	ld hl,(coins)
-	ld de,150
+	ld de,120
 	or a
 	sbc hl,de
 	jr c,notMoneyShow

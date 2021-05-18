@@ -5,7 +5,6 @@ MACHINE = 9 		; 9k version with basic loader
 ; MACHINE = 48  	; 48k full version
 //--------------------------------------------------------------------------
 
-	; починить взрыв.
 
 
 
@@ -31,7 +30,7 @@ MACHINE = 9 		; 9k version with basic loader
 
 
     display "::::::::: ",/A,OBJECTS.alignToCell
-    display "::::::::: ",/A,BOMB.explosion
+;     display "::::::::: ",/A,CONTROL.fire
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds
