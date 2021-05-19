@@ -24,7 +24,7 @@ Sprite | Name
 
 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 ------------ | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
- | ![GitHub Logo](/sprites/gif/hero.gif) | ![GitHub Logo](/sprites/gif/enemy.gif) | ![GitHub Logo](/sprites/gif/bomb.gif) | ![GitHub Logo](/sprites/gif/box.gif) |![GitHub Logo](/sprites/gif/coin.gif) | ![GitHub Logo](/sprites/gif/exit.gif) | ![GitHub Logo](/sprites/gif/iceHole.gif) | ![GitHub Logo](/sprites/gif/destroyableBlock.gif) 
+ Objects | ![GitHub Logo](/sprites/gif/hero.gif) | ![GitHub Logo](/sprites/gif/enemy.gif) | ![GitHub Logo](/sprites/gif/bomb.gif) | ![GitHub Logo](/sprites/gif/box.gif) |![GitHub Logo](/sprites/gif/coin.gif) | ![GitHub Logo](/sprites/gif/exit.gif) | ![GitHub Logo](/sprites/gif/iceHole.gif) | ![GitHub Logo](/sprites/gif/destroyableBlock.gif) 
 ![GitHub Logo](/sprites/gif/hero.gif) |  | | | | | | | 
 ![GitHub Logo](/sprites/gif/enemy.gif) | | | | | | | | 
 ![GitHub Logo](/sprites/gif/bomb.gif) | | | | | | | | 
