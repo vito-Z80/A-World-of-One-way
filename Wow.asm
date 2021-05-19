@@ -1,5 +1,5 @@
         device zxspectrum48
-DEBUG = 1
+DEBUG = 0
 MACHINE = 9 		; 9k version with basic loader
 ; MACHINE = 16 		; 16k cartrige version
 ; MACHINE = 48  	; 48k full version
@@ -30,7 +30,6 @@ MACHINE = 9 		; 9k version with basic loader
 
 
     display "::::::::: ",/A,OBJECTS.alignToCell
-;     display "::::::::: ",/A,CONTROL.fire
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

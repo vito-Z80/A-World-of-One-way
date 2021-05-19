@@ -523,7 +523,7 @@
 			"file": "Wow.asm",
 			"settings":
 			{
-				"buffer_size": 1429,
+				"buffer_size": 1386,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -532,7 +532,7 @@
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 151,
+				"buffer_size": 214,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -542,6 +542,15 @@
 			"settings":
 			{
 				"buffer_size": 1826,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "code/pass.asm",
+			"settings":
+			{
+				"buffer_size": 3222,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -1065,15 +1074,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1429,
+						"buffer_size": 1386,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								466,
-								466
+								334,
+								334
 							]
 						],
 						"settings":
@@ -1083,7 +1092,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 180.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1095,15 +1104,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 151,
+						"buffer_size": 214,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								148,
-								148
+								170,
+								170
 							]
 						],
 						"settings":
@@ -1130,8 +1139,8 @@
 						"selection":
 						[
 							[
-								917,
-								917
+								920,
+								920
 							]
 						],
 						"settings":
@@ -1140,14 +1149,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 600.0,
+						"translation.y": 840.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
+					"file": "code/pass.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1851,
+								1851
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2280.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "code/shop.asm",
 					"semi_transient": false,
 					"settings":
@@ -1172,11 +1210,11 @@
 						"translation.y": 1860.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "code/system.asm",
 					"semi_transient": false,
 					"settings":
@@ -1188,8 +1226,8 @@
 						"selection":
 						[
 							[
-								138,
-								138
+								670,
+								670
 							]
 						],
 						"settings":
@@ -1198,14 +1236,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 780.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "code/object.asm",
 					"semi_transient": false,
 					"settings":
@@ -1230,11 +1268,11 @@
 						"translation.y": 7339.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "code/objects/chupa.asm",
 					"semi_transient": false,
 					"settings":
@@ -1259,11 +1297,11 @@
 						"translation.y": 60.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "code/objects/bomb.asm",
 					"semi_transient": false,
 					"settings":
@@ -1287,11 +1325,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "code/objects/hero.asm",
 					"semi_transient": false,
 					"settings":
@@ -1316,11 +1354,11 @@
 						"translation.y": 1080.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "code/objects/enemySkull.asm",
 					"semi_transient": false,
 					"settings":
@@ -1345,11 +1383,11 @@
 						"translation.y": 660.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "code/objects/brokenBlock.asm",
 					"semi_transient": false,
 					"settings":
@@ -1374,11 +1412,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 12,
 					"file": "code/objects/iceHole.asm",
 					"semi_transient": false,
 					"settings":
@@ -1403,11 +1441,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 13,
 					"file": "code/popUpInfo.asm",
 					"semi_transient": false,
 					"settings":
@@ -1432,11 +1470,11 @@
 						"translation.y": 159.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 14,
 					"file": "includes.asm",
 					"semi_transient": false,
 					"settings":
@@ -1461,11 +1499,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 15,
 					"file": "code/title2.asm",
 					"semi_transient": false,
 					"settings":
@@ -1490,11 +1528,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 16,
 					"file": "code/audio/soundPlayer.asm",
 					"semi_transient": false,
 					"settings":
@@ -1520,11 +1558,11 @@
 						"translation.y": 259.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 17,
 					"file": "code/game.asm",
 					"semi_transient": false,
 					"settings":
@@ -1536,8 +1574,8 @@
 						"selection":
 						[
 							[
-								1283,
-								1283
+								120,
+								120
 							]
 						],
 						"settings":
@@ -1546,14 +1584,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 960.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 18,
 					"file": "code/struct.asm",
 					"semi_transient": false,
 					"settings":
@@ -1575,14 +1613,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 779.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 19,
 					"file": "code/basic.asm",
 					"semi_transient": false,
 					"settings":
@@ -1594,8 +1632,8 @@
 						"selection":
 						[
 							[
-								369,
-								369
+								393,
+								393
 							]
 						],
 						"settings":
@@ -1606,11 +1644,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 20,
 					"file": "code/objects/split.asm",
 					"semi_transient": false,
 					"settings":
@@ -1635,7 +1673,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 19,
 					"type": "text"
 				}
 			]

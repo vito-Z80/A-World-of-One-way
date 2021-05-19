@@ -7,4 +7,7 @@
  * QAOP
  * Caps + Enter in game, to main menu.
 
+ ###### Description:
+ * ![GitHub Logo](/sprites/gif/bomb.gif)
+
 

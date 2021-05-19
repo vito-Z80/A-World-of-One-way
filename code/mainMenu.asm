@@ -58,7 +58,7 @@ update:
 	ld (coins),hl
 	; start level number
 	xor a
-; 	ld a,11 			; remove later (test levels)
+; 	ld a,12 			; remove later (test levels)
 	ld (currentLevel),a
 	ld a,SYSTEM.GAME_INIT
 	ret

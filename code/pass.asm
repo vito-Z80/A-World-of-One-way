@@ -131,6 +131,12 @@ update:
 	cp #FF
 	ld a,SYSTEM.MAIN_MENU_INIT
 	ret z
+	; убрать когда пароли будут хранить кол-во монет и жизней !!!
+	ld hl,1
+	ld (lives),hl
+	dec l
+	ld (coins),hl
+
 	ld a,c
 	ld (currentLevel),a
 	ld a,SYSTEM.SHOP_INIT
