@@ -9,6 +9,7 @@ currentLevelPassword:	db "2 - Password:        120",TEXT_END
 complete:		db "fire to complete",TEXT_END
 notMoney:		db "not enough money",TEXT_END
 successfulPurchase:	db "successful  purchase",TEXT_END	
+pricelist:		db "Pricelist:",TEXT_END
 ;---------------------------------------------
 	; FIXME защита от дурака не работает если купить пароль, далее играть и умереть, после смерти в магазине можно опять купить тот-же пароль.
 	; 
@@ -153,13 +154,20 @@ displayShop:
 	call printText2x1
 
 
+	ld hl,#4344
+	ld (textColor),hl
+	ld hl,pricelist
+	ld de,#480b
+	call printText2x1
+
+
 	ld hl,#4645
 	ld (textColor),hl
 	ld hl,continuations
-	ld de,#4804
+	ld de,#4844
 	call printText2x1
 	ld hl,currentLevelPassword
-	ld de,#4844
+	ld de,#4884
 	call printText2x1
 
 	ld hl,#0141
