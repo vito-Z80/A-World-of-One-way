@@ -1,0 +1,11 @@
+A World of One-Way
+------------------------------------------------------------
+Controls:
+ * Sinclair I
+ * Sinclair II
+ * QAOP
+ * Caps + Enter in game, to main menu.
+------------------------------------------------------------
+source code: https://github.com/vito-Z80/A-World-of-One-way
+------------------------------------------------------------
+Serdjuk 2021 for ASM-2021
