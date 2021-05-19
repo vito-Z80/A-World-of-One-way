@@ -9,24 +9,6 @@ run:
 	out (254),a
 	;----------------------------test code
 
-	
-
-
-; 	ld hl,#5900
-; 	ld de,#5901
-; 	ld bc,#ff
-; 	ld (hl),99
-; 	ldir
-
-; 	ld hl,#48ff
-; 	ld (hl),#FF
-; 	call getCellIdByScrAddr
-; 	ld c,a
-; 	call getScrAddrByCellId
-; 	ld a,%01010101
-; 	ld (de),a
-; 	jr $
-
 ; 	ld a,9
 ; 	and  15
 ; 	add  a,#90

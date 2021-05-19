@@ -4,7 +4,7 @@ init:
 	SET_EXEC_IX update
 	ld a,1
 	ld (ix+oData.isMovable),a
-	ld (ix+oData.accelerate),a  	; начальное ускорение объекта при движении, если оно есть.
+	ld (ix+oData.accelerate),a  	; РЅР°С‡Р°Р»СЊРЅРѕРµ СѓСЃРєРѕСЂРµРЅРёРµ РѕР±СЉРµРєС‚Р° РїСЂРё РґРІРёР¶РµРЅРёРё, РµСЃР»Рё РѕРЅРѕ РµСЃС‚СЊ.
 	ld (ix+oData.drawMethod),a
 	ld (ix+oData.color),INK.YELLOW | PAPER.BLACK | BRIGHTNESS
 	ld a,l

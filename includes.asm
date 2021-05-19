@@ -1,5 +1,5 @@
 	
-	include "code/system.asm" 	; любые подгрузки после, так как тут запуск приложения
+	include "code/system.asm" 	; Р»СЋР±С‹Рµ РїРѕРґРіСЂСѓР·РєРё РїРѕСЃР»Рµ, С‚Р°Рє РєР°Рє С‚СѓС‚ Р·Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ
 ; 	include "code/debug.asm" 	; remove before release!!!
 lds:
 	include "maps/levelsData.asm"
