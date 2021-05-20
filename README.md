@@ -25,11 +25,11 @@ Sprite | Name
 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 ------------ | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
  Objects | ![GitHub Logo](/sprites/gif/hero.gif) | ![GitHub Logo](/sprites/gif/enemy.gif) | ![GitHub Logo](/sprites/gif/bomb.gif) | ![GitHub Logo](/sprites/gif/box.gif) |![GitHub Logo](/sprites/gif/coin.gif) | ![GitHub Logo](/sprites/gif/exit.gif) | ![GitHub Logo](/sprites/gif/iceHole.gif) | ![GitHub Logo](/sprites/gif/destroyableBlock.gif) 
-![GitHub Logo](/sprites/gif/hero.gif) | stop | death | death | stop | collect | exit | death | stop 
-![GitHub Logo](/sprites/gif/enemy.gif) | death | stop | death | destroy | death | freezing | death | stop
+![GitHub Logo](/sprites/gif/hero.gif) | stop | death | destroy | stop | collect | exit | death | stop 
+![GitHub Logo](/sprites/gif/enemy.gif) | death | stop | destroy | destroy | death | freezing | death | stop
 ![GitHub Logo](/sprites/gif/bomb.gif) | destroy | destroy | destroy | destroy | destroy | destroy | destroy | destroy
 ![GitHub Logo](/sprites/gif/box.gif) | stop | destroy | destroy | - | - | - | - | -
-![GitHub Logo](/sprites/gif/coin.gif) | collect | death | death | - | - | - | - | - 
+![GitHub Logo](/sprites/gif/coin.gif) | collect | death | destroy | - | - | - | - | - 
 ![GitHub Logo](/sprites/gif/exit.gif) | exit | freezing | destroy | - | - | - | - | - 
 ![GitHub Logo](/sprites/gif/iceHole.gif) | death | death | destroy | - | - | - | - | - 
 ![GitHub Logo](/sprites/gif/destroyableBlock.gif) | stop | stop | destroy | - | - | - | - | - 

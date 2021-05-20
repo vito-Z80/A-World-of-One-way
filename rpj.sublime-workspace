@@ -532,7 +532,7 @@
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 1917,
+				"buffer_size": 1923,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -941,15 +941,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1917,
+						"buffer_size": 1923,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1541,
-								1541
+								1651,
+								1651
 							]
 						],
 						"settings":
