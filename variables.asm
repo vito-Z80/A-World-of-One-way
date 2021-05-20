@@ -1,3 +1,4 @@
+
 		; переменные ниже должны следовать друг за другом !!!
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
@@ -30,10 +31,10 @@ global_direction:		db DIRECTION.NONE
 textColor:			db 0,0
 lastKeyPresed:			db 0
 lives:				dw #0000
-livesText:			db "00000",TEXT_END
+livesText:			db 0,0,0,0,0,TEXT_END
 coins:				dw #0000	
-coinsText:			db "00000",TEXT_END
-levelNumberText:		db "00000",TEXT_END
+coinsText:			db 0,0,0,0,0,TEXT_END
+levelNumberText:		db 0,0,0,0,0,TEXT_END
 passData:			block PASS_LENGTH + 1,0
 
 globalSeed:			dw 0
@@ -60,7 +61,9 @@ varsEnd:
 ; objectsData:			block OBJECT_DATA_SIZE * MAX_OBJECTS 	; space for objects data 320 bytes
 
 testS: 				block MAX_OBJECTS,0
-				db #FF,#FF
+setFF2:
+				db 0,0
 renderData:			block MAX_OBJECTS * 2,0
-				db #FF
+setFF1:
+				db 0
 endRenderData: 			equ $

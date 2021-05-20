@@ -12,7 +12,6 @@ startLine:
 code: 	; 23774
         include "includes.asm"
 vars:
-        include "variables.asm"
         db #0D
         display "Launch address: ",/A,code
         display "vars address: ",/A,vars
@@ -21,3 +20,5 @@ endB:
 	SAVETAP "Wow.tap", BASIC,"Wow", basic, endB-basic, 0
 	TAPOUT Wow.tap
 	TAPEND
+
+        include "variables.asm"

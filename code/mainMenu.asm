@@ -1,5 +1,10 @@
 	module MAIN_MENU
 init:
+	ld hl,#FFFF
+	ld (setFF2),hl
+	ld a,l
+	ld (setFF1),a
+
 	call fadeOutFull
 	call clearScreen
 	call clearAttributesBlack
