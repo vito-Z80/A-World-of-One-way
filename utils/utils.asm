@@ -174,7 +174,7 @@ getScrAddrByCoords:
 	ret
 ;---------------------------------------------------------
 sortObjectIds:
-	; сортировка 10ти байт по возрастанию ~ 3500t (byte value range 0..254)
+	; Sorts an array of 10 bytes in ascending order. ~ 3500t (byte value range 0..254)
 	ld b,MAX_OBJECTS
 	ld hl,testS
 .main:
@@ -204,6 +204,7 @@ sortObjectIds:
 	ret
 ;---------------------------------------------------------
 getDrawData:
+	; Preparing the object for rendering.
 	; screen address by coordinates
 	; sprite address
 	call setRemoveSides
@@ -405,6 +406,7 @@ getCellIDByCoords:
 	ret
 ;------------------------------------------------------------
 scrAddrToAttrAddr:
+	; Convert screen address to attribute address
 	; DE = screen address
 	; return DE = attributes address
 	ld a,d
@@ -470,6 +472,7 @@ getObjDataById:
 	ret
 ;------------------------------------------------------------
 printSpr:
+	; print sprite 2
 	; HL - sprite address
 	; C - cell ID
 	call getScrAddrByCellId

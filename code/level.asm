@@ -180,17 +180,17 @@ buildLevel:
 	ret
 ;----------------------------------------------
 cutInsideRooms:
-	; поставить заглушки на все двери, что бы заливка не вышла за пределы уровня
-	; поставить заглушки на всех героев, как точки начала заливки
-	; по заглушкам всех героев произвести заливку
+	; put plugs on all doors so that the fill does not go beyond the level
+	; put stubs on all heroes as start points of the fill
+	; filling starts from the place where the hero is located.
 	push hl
 	push hl
-	; устанавливаем на карту заглушки дверей.
+	; install door plugs on the card.
 	ld c,#FD
 	ld e,EXIT_DOOR_PBM_ID
 	call .blockDoors
 	pop hl
-	; внесение на карту всех чаров под установленным значением.
+	; entering on the card all heroes under the set value.
 	ld c,#FE
 	ld e,HERO_FACE_00_PBM_ID
 	call .blockDoors
@@ -198,7 +198,7 @@ cutInsideRooms:
 	pop hl
 	ret
 .fill:
-	; ищем значение, заменяем его на 1 и заливаем область нулями от найденного значения, пока на карте не кончатся искомые значения.
+	; look for a value, replace it with 1 and fill the area with zeros from the found value until the map runs out of the desired values.
 	ld hl,levelCells
 	ld a,#FE
 	ld bc,#C0
@@ -212,8 +212,8 @@ cutInsideRooms:
 	jr .fill
 	ret
 .blockDoors:	
-	; C > значение заглушки/подмены
-	; E > id искомого спрайта
+	; C > value
+	; E > id of the desired sprite
 	; HL > objects (after 24 level bytes)
 .nextDoor:
 	ld a,(hl)
@@ -232,10 +232,8 @@ cutInsideRooms:
 	ld (hl),c 
 	pop hl
 	jr .nextDoor
-
 ;----------------------------------------------
 fillWalls:
-
 	ld c,#C0
 	call getFloorSprite
 .loop:
@@ -270,9 +268,7 @@ fillWalls:
 	call printSpr
 	pop bc
 	djnz .loop2
-
 	ret
-
 ;----------------------------------------------
 wallColors:
 	db 4,6,6,6
@@ -293,7 +289,6 @@ getFloorSprite:
 	ret c
 	ld hl,FLOOR_0004_PBM
 	ret
-
 ;----------------------------------------------
 
 

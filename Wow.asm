@@ -1,12 +1,12 @@
         device zxspectrum48
+
+        ; Compile from this file with sjasmplus !!!!!!!!!!!
+
 DEBUG = 0
 MACHINE = 9 		; 9k version with basic loader
 ; MACHINE = 16 		; 16k cartrige version
 ; MACHINE = 48  	; 48k full version
 //--------------------------------------------------------------------------
-
-
-
 
 	include "code/struct.asm"
 

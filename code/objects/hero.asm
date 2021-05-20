@@ -4,7 +4,7 @@ init:
 	SET_EXEC_IX update
 	ld a,1
 	ld (ix+oData.isMovable),a
-	ld (ix+oData.accelerate),a  	; начальное ускорение объекта при движении, если оно есть.
+	ld (ix+oData.accelerate),a  	; the initial acceleration of the object during movement, if any.
 	ld (ix+oData.drawMethod),a
 	ld (ix+oData.color),INK.YELLOW | PAPER.BLACK | BRIGHTNESS
 	ld a,l
@@ -26,10 +26,6 @@ getCoin:
 update:
 	; IX = this object data address
 	; IY = target object data address or IY = #0000
-
-; 	ld a,(ix+oData.isLeave)
-; 	or a
-; 	jr nz,.toExit
 
 	ld a,(ix+oData.isDestroyed)
 	or a

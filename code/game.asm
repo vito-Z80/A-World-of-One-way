@@ -9,9 +9,6 @@ init:
 	ret
 ;-----------------------------------------------
 update:
-	
-; 	BORDER 6
-; 	call OBJECTS.clear
 	BORDER 1
 	call OBJECTS.draw
 	BORDER 2
@@ -21,34 +18,17 @@ update:
 	BORDER 3
 	call CONTROL.update
 	BORDER 4
-; 	push  iy
 	call OBJECTS.update
-; 	pop iy
-; 	xor a
-; 	ld (global_direction),a
 	BORDER 5
-
-
-; 	BORDER 7
-
-; 	call charsDead
-; 	ld a,c
-; 	or a
-; 	ret nz 		; all characters were dead
-
-
 	call returnKey
 	ld a,l
 	or a
 	ret nz 		; to main menu
-
-
 	call rebuildLvl
 	ret nz 		; rebuild level
 ; 	; check level passed
 	call nextLevel
 	ret z 		; next level
-
 	ld a,(delta)
 	inc a
 	ld (delta),a
@@ -93,6 +73,5 @@ returnKey:
 	ret nz
 	ld l,SYSTEM.MAIN_MENU_INIT
 	ret
-;-----------------------------------------------
 ;-----------------------------------------------
 	endmodule

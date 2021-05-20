@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"spr",
+				"sprites"
+			],
+			[
+				"pri",
+				"printSpr"
+			],
+			[
 				"setF",
 				"setFF2"
 			],
@@ -506,14 +514,6 @@
 			[
 				"te",
 				"testS"
-			],
-			[
-				"objec",
-				"object"
-			],
-			[
-				"address",
-				"addresses"
 			]
 		]
 	},
@@ -523,62 +523,17 @@
 			"file": "Wow.asm",
 			"settings":
 			{
-				"buffer_size": 1386,
+				"buffer_size": 1445,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "code/basic.asm",
+			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 472,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "variables.asm",
-			"settings":
-			{
-				"buffer_size": 2562,
+				"buffer_size": 1917,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "code/mainMenu.asm",
-			"settings":
-			{
-				"buffer_size": 1879,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/pass.asm",
-			"settings":
-			{
-				"buffer_size": 3222,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/shop.asm",
-			"settings":
-			{
-				"buffer_size": 3655,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/system.asm",
-			"settings":
-			{
-				"buffer_size": 1102,
-				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
 		},
@@ -586,105 +541,7 @@
 			"file": "code/object.asm",
 			"settings":
 			{
-				"buffer_size": 13218,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/objects/chupa.asm",
-			"settings":
-			{
-				"buffer_size": 5316,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/objects/hero.asm",
-			"settings":
-			{
-				"buffer_size": 2312,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/objects/enemySkull.asm",
-			"settings":
-			{
-				"buffer_size": 1511,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/objects/iceHole.asm",
-			"settings":
-			{
-				"buffer_size": 378,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/popUpInfo.asm",
-			"settings":
-			{
-				"buffer_size": 4094,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "includes.asm",
-			"settings":
-			{
-				"buffer_size": 849,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/title2.asm",
-			"settings":
-			{
-				"buffer_size": 3293,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/audio/soundPlayer.asm",
-			"settings":
-			{
-				"buffer_size": 4231,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/game.asm",
-			"settings":
-			{
-				"buffer_size": 1434,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/level.asm",
-			"settings":
-			{
-				"buffer_size": 4311,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "code/objects/split.asm",
-			"settings":
-			{
-				"buffer_size": 1658,
+				"buffer_size": 12819,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -751,34 +608,37 @@
 	"file_history":
 	[
 		"/P/ZX/A-World-of-One-way/code/struct.asm",
+		"/P/ZX/A-World-of-One-way/code/level.asm",
+		"/P/ZX/A-World-of-One-way/code/objects/split.asm",
+		"/P/ZX/A-World-of-One-way/code/game.asm",
+		"/P/ZX/A-World-of-One-way/code/audio/soundPlayer.asm",
+		"/P/ZX/A-World-of-One-way/code/title2.asm",
+		"/P/ZX/A-World-of-One-way/includes.asm",
+		"/P/ZX/A-World-of-One-way/code/popUpInfo.asm",
+		"/P/ZX/A-World-of-One-way/code/objects/iceHole.asm",
+		"/P/ZX/A-World-of-One-way/code/objects/enemySkull.asm",
+		"/P/ZX/A-World-of-One-way/code/objects/hero.asm",
+		"/P/ZX/A-World-of-One-way/code/objects/chupa.asm",
+		"/P/ZX/A-World-of-One-way/code/shop.asm",
+		"/P/ZX/A-World-of-One-way/code/basic.asm",
+		"/P/ZX/A-World-of-One-way/variables.asm",
+		"/P/ZX/A-World-of-One-way/code/mainMenu.asm",
+		"/P/ZX/A-World-of-One-way/code/pass.asm",
+		"/P/ZX/A-World-of-One-way/code/system.asm",
+		"/P/ZX/A-World-of-One-way/utils/utils.asm",
 		"/P/ZX/A-World-of-One-way/code/objects/info.txt",
 		"/P/ZX/A-World-of-One-way/code/objects/brokenBlock.asm",
 		"/P/ZX/A-World-of-One-way/code/objects/bomb.asm",
 		"/P/ZX/A-World-of-One-way/README.md",
-		"/P/ZX/A-World-of-One-way/utils/utils.asm",
-		"/P/ZX/A-World-of-One-way/variables.asm",
-		"/P/ZX/A-World-of-One-way/code/mainMenu.asm",
-		"/P/ZX/A-World-of-One-way/code/shop.asm",
 		"/P/ZX/A-World-of-One-way/code/control.asm",
 		"/P/ZX/A-World-of-One-way/code/objects/exitDoor.asm",
-		"/P/ZX/A-World-of-One-way/code/level.asm",
 		"/P/ZX/A-World-of-One-way/code/objects/box.asm",
 		"/P/ZX/A-World-of-One-way/maps/levelsData.asm",
 		"/P/ZX/A-World-of-One-way/sprites/storage.asm",
-		"/P/ZX/A-World-of-One-way/code/pass.asm",
-		"/P/ZX/A-World-of-One-way/code/popUpInfo.asm",
-		"/P/ZX/A-World-of-One-way/code/system.asm",
 		"/P/ZX/A-World-of-One-way/code/debug.asm",
-		"/P/ZX/A-World-of-One-way/code/objects/chupa.asm",
-		"/P/ZX/A-World-of-One-way/code/audio/soundPlayer.asm",
-		"/P/ZX/A-World-of-One-way/includes.asm",
-		"/P/ZX/A-World-of-One-way/code/title2.asm",
-		"/P/ZX/A-World-of-One-way/code/objects/enemySkull.asm",
 		"/C/Users/Serdjuk/AppData/Roaming/Sublime Text 3/Packages/z80asm/build.bat",
 		"/P/ZX/A-World-of-One-way/code/rom.asm",
-		"/P/ZX/A-World-of-One-way/code/game.asm",
 		"/C/Users/Serdjuk/AppData/Roaming/Sublime Text 3/Packages/z80asm/run.bat",
-		"/P/ZX/A-World-of-One-way/code/basic.asm",
 		"/P/ZX/A-World-of-One-way/rom.asm",
 		"/P/ZX/A-World-of-One-way/font.SpecCHR",
 		"/P/ZX/A-World-of-One-way/code/bas.asm",
@@ -874,10 +734,7 @@
 		"/C/ZX/Next/Test/Begin/nextSprite.asm",
 		"/C/ZX/Next/Test/Begin/esxdos.asm",
 		"/E/Next/project/data/Code/Macros/Sprite.asm",
-		"/C/ZX/trash/QuestAlice.asm",
-		"/C/ZX/Projects/sources/memory banks (128k)/copyBanks.asm",
-		"/C/ZX/Projects/sources/memory banks (128k)/main.asm",
-		"/C/ZX/Projects/sources/memory banks (128k)/man.asm"
+		"/C/ZX/trash/QuestAlice.asm"
 	],
 	"find":
 	{
@@ -1054,15 +911,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1386,
+						"buffer_size": 1445,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								158,
-								158
+								325,
+								325
 							]
 						],
 						"settings":
@@ -1080,24 +937,24 @@
 				},
 				{
 					"buffer": 1,
-					"file": "code/basic.asm",
+					"file": "README.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 472,
+						"buffer_size": 1917,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								472,
-								472
+								1541,
+								1541
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1108,164 +965,19 @@
 				},
 				{
 					"buffer": 2,
-					"file": "variables.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2562,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "code/mainMenu.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1879,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								52,
-								52
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "code/pass.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3222,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1851,
-								1851
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2280.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "code/shop.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3655,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2923,
-								2923
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2833.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "code/system.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1102,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								192,
-								192
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
 					"file": "code/object.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13218,
+						"buffer_size": 12819,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6137,
-								6137
+								12057,
+								12057
 							]
 						],
 						"settings":
@@ -1274,330 +986,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7339.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "code/objects/chupa.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5316,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								297,
-								297
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 17,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "code/objects/hero.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2312,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1218,
-								1218
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1080.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "code/objects/enemySkull.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1511,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1164,
-								1164
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 660.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "code/objects/iceHole.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 378,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								249,
-								260
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "code/popUpInfo.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4094,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								639,
-								639
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 159.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "includes.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 849,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								703,
-								703
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 13860.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "code/title2.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3293,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								137,
-								137
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "code/audio/soundPlayer.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4231,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1487,
-								1496
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"tab_size": 8,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 259.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 18,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "code/game.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1434,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								602,
-								602
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 480.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "code/level.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4311,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3480.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": "code/objects/split.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1658,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								629,
-								640
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
 					"type": "text"
 				}
 			]

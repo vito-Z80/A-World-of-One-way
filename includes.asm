@@ -1,5 +1,5 @@
 	
-	include "code/system.asm" 	; любые подгрузки после, так как тут запуск приложения
+	include "code/system.asm" 	; The file with the main loop code must be included first!
 ; 	include "code/debug.asm" 	; remove before release!!!
 lds:
 	include "maps/levelsData.asm"
@@ -21,7 +21,7 @@ elds:
 	include "code/objects/brokenBlock.asm"
 	include "code/objects/iceHole.asm"
 	include "code/objects/box.asm"
-; 	include "code/objects/split.asm"
+; 	include "code/objects/split.asm" 	; not used in currnent version
 	include "code/audio/soundPlayer.asm"
 	include "utils/utils.asm"
 ss:

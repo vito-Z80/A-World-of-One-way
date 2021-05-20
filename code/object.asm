@@ -14,7 +14,8 @@ draw:
 	ld ixl,a
 	or ixh
 	jr z,.nnn
-	ld a,(ix+oData.x) 		; X не может быть = 0, значит объект уничтожен.
+	ld a,(ix+oData.x) 		; X cannot be = 0, so the object is destroyed. 
+	;(this is not a valid solution and must be changed since the exit door may be on the left edge of the screen)
 	or a
 	jr z,.nnn
 	call .clear
@@ -57,7 +58,7 @@ draw:
 	ex de,hl
 	ld a,(ix+oData.launchTime)
 	or a
-	jr nz,.normal		; не красить вперед пока не стартовал
+	jr nz,.normal		; do not paint forward until started
 	ld a,(ix+oData.direction)
 	rrca
 	jr c,.normal
@@ -315,15 +316,15 @@ sortObjects:
 	ex af,af
 	dec a
 	jr nz,.sendCell
-	call sortObjectIds 	; сортировка идентификаторов ячеек
-	;  отчистка буфера адресов объектов для рендера
+	call sortObjectIds 	; sorting cell IDs
+	; clearing the buffer of object addresses for rendering
 	ld hl,renderData
 	ld de,renderData + 1
 	ld bc,(MAX_OBJECTS * 2) - 1
 	ld (hl),0
 	ldir
 
-	;  создание адресов объектов для ренддера: слева на право сверху вниз.
+	; creating addresses of objects for rendering: from left to right, top to bottom.
 	ld ix,objectsData
 	ld de,objectsData + oData.cellId
 	ld bc,MAX_OBJECTS * 256
@@ -353,7 +354,6 @@ sortObjects:
 	inc hl
 	ld a,ixl
 	ld (hl),a
-	; TODO еще проверить, хз че происходит
 ; 	ld bc,OBJECT_DATA_SIZE
 ; 	add ix,bc
 .skip:
@@ -367,7 +367,7 @@ sortObjects:
 	djnz .mLoop
 	ret
 ;-------------------------------------------------------------------
-; 	Определяет начальное движение подвижного объекта, если по направлению движеня не стена - то движется.
+; 	Determines the initial movement of a moving object, if the direction of movement is not a wall, then it moves.
 identifyMovingObjects:
 	call getRenderDataAddress
 	; HL > renderData address
@@ -559,12 +559,8 @@ resetMovable:
 	jp getDrawData
 alignToCell:
 
-	; создать тоже самое без ресета для прохождения сквозь объект но с выравниванием по ячейке
-	; если объект не проходной то юзать данную процу.
-	;
-	;
-
-
+	; FIXME create the same without a reset to pass through the object but with cell alignment, 
+	; if the object is not passable then use this subroutine.
 
 	ld a,(ix+oData.direction)
 	and DIRECTION.LEFT or DIRECTION.UP 
@@ -718,17 +714,6 @@ setDestroyIX:
 setDestroyIY:
 	ld (iy+oData.isDestroyed),1
 	ret
-/*
-	когда объект остановлен - заносим в ячейку карты на месте остановки объекта object ID
-
-	как только объект начинает движение - эта ячейка очищается !!
-	перед пунктом выше требуется проверить один раз каждый объект, с целью выяснить разрешено ли движение в требуемом направлении ?
-	К примеру могут стоять 2 врага рядом по горизонтали (движение влево)
-		слева от них стена = стоят оба
-		справа от них стена = оба движутяся
-
-	приминимо только к передвигаемым объектам - isMovable
-*/
 ;----------------------------------------------------------------
 resetObjectIX:
 	call clear2x2

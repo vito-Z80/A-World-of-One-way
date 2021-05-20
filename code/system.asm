@@ -7,24 +7,15 @@ run:
 	xor a
 ; 	inc a 		; remove later
 	out (254),a
-	;----------------------------test code
-
-; 	ld a,9
-; 	and  15
-; 	add  a,#90
-; 	daa
-; 	adc  a,#40
-; 	daa
-
-
-	
-	;----------------------------test code
+; The main loop of the program.
+; The main loop calls the required system by identifier.
+; The index and address of the execution of the required system are stored in a pre-created table.
 	ld bc,$
 	; A - system ID
 	rlca
-	add a,low rooms
+	add a,low systemMap
 	ld l,a
-	adc a,high rooms
+	adc a,high systemMap
 	sub l
 	ld h,a
 	ld a,(hl)
@@ -46,8 +37,8 @@ int:
 	di
 	ret
 ;------------------------------------
+systemMap:	
 	; system indices and addresses
-rooms:	
 TITLE:			equ 0
 			dw TITLE_2.run
 MAIN_MENU_INIT:		equ 1

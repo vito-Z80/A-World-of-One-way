@@ -36,7 +36,7 @@ update:
 	jr z,convertToBomb
 
 	cp BOOM_01_PBM_ID
-	jp z,BOMB.setExplosion 		; rebuild
+	jp z,BOMB.setExplosion 		; FIXME rebuild
 
 	cp HERO_FACE_00_PBM_ID
 	jr z,killHero
@@ -82,12 +82,4 @@ destroyThis:
 	ld bc,POP_UP_INFO.setFear
 	jp OBJECTS.disableIXObject
 ;-------------------------------------------
-
-
-;-------------------------------------------
-	
-
-
-
-
 	endmodule

@@ -4,28 +4,22 @@ currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 rebuildLevel:			db 0
 
-levelAddr: 			dw #0000 	; адрес карты
+levelAddr: 			dw #0000 	; level address
 
 coinsInLevelVar:		db 0 	; VAR, VAL. in that order
 coinsInLevelVal:		db 0
-pointsPerLevel:			dw #0000 	; очки заработанные за уровень - сбором монет.
+pointsPerLevel:			dw #0000 	; coins collected for level (not used)
 preDir: 			db 0 		; previous direction
 ; kempstonState:			db 0
         display "Current low byte address (for ALIGN 256) = ",/A, low $, " | address = ",/A, $
 			align 256
 	display "buffer256 address: ",/A,$
-buffer256: 		block 256, 0 	; буфер восстановления аттибуртов для информационной бегущей строки вверх и еще чего нибудь :)
+buffer256: 		block 256, 0 	; attribute recovery buffer for informational crawl upwards and something else :)
 	; #00 > 	free way
 	; #01-#0A > 	object ID`s
 	; #FF > 	wall
-	; 	общее: 
-	; объекты на карте со значением 0 = пустая ячейка (свободный путь)
-	; объекты на карте со значением (128-255) = не возможно пересеч (стена)
-	; объекты на карте со значением (1-127) = объекты взаимодействия
 				; low address byte = 0
 levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
-		; ниже забить 64 байта переменных что бы screenAddresses LOW = 0
-		; больше сюда не добавлять переменных. Либо выше верхнего align или после objectsData 
 varsStart:
 global_direction:		db DIRECTION.NONE
 textColor:			db 0,0
@@ -40,14 +34,14 @@ passData:			block PASS_LENGTH + 1,0
 globalSeed:			dw 0
 globalSeedTmp:			dw 0
 		; pop up variables
-popupAttrAddr:			dw #0000 ; адрес рисования атрибутов информационной бегущей строки вверх 
+popupAttrAddr:			dw #0000 ; the address of drawing the attributes of the information crawl up
 popupPreAttrAddr:		dw #0000 ; 
 popupBitmapAddr:		dw #0000 ; bitmap address	
-popupBitmapColor:		db 0 	; цвет атрибутов информационной бегущей строки вверх
+popupBitmapColor:		db 0 	; color of the attributes of the information crawl up
 bitmapWidth:			db 0 	; bitmap width in bytes
 		;-----------------
-delta:				db 0	; каждый кадр +1 в GAME.update
-delta2: 			db 0
+delta:				db 0	; every frame +=1  (GAME.update)
+delta2: 			db 0 	; used in "SHOP"
 ; title data
 byteValue:			db 0 	; used for title (after title used for fill inside level start address > 2 bytes) 
 pathAddress:			dw 0 	;  --//--

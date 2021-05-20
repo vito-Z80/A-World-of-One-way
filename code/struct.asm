@@ -21,7 +21,7 @@ preY		byte	// 3
 cellId		byte	
 spriteId	byte	
 direction	byte	
-launchTime	byte 	; время до начала движения объекта
+launchTime	byte 	; time before the object starts to move
 color		byte	; color (8 bit)
 targetL:	byte 	; address of target object data
 targetH:	byte 	; ------//-------
@@ -29,10 +29,10 @@ delta		byte 	; delta for velocity
 accelerate	byte 	; velocity for object (FIXME rename to velocity)
 step:		byte 	; step for delta
 isMovable	byte 	; 0 - false, !=0 - true
-isLeave:	byte 	; 
+isLeave:	byte 	; not used
 isDestroyed	byte	; object destroyed
 exec		dw 	; The address of the procedure executed every frame for the current object. #0000 = not called.
-		; порядок следующих 6ти байт нельзя менять !!!
+		; the order of the next 6 bytes cannot be changed !!!
 scrAddrL:	byte 
 scrAddrH:	byte
 sprAddrL:	byte
@@ -41,16 +41,16 @@ drawMethod:	byte 	; !=0 = 3x2, ==0 = 2x2
 bit:		byte 	; bit 0-7 of X coordinate
 
 
-clearSide:	byte 	; сторона с которой требуется отчистка хвоста спрайта. 0 = не чистить
-clrScrAddrL:	byte 	; адрес экрана где будет происходить отчистка.
-clrScrAddrH:	byte 	; 
+clearSide:	byte 	; the side on which you want to clean up the sprite tail. 0 = do not clean
+clrScrAddrL:	byte 	; the address of the screen where the cleaning will take place.
+clrScrAddrH:	byte 	; --------------//--------------
 
-		; ввести переменную drawOnce ? к примеру для двери выхода - это объект, но нет смысла ее печатать каждый кадр
-		; достаточно при инициализации уровня.
+		; introduce a variable drawOnce? for example, for an exit door, it is an object, 
+		; but it makes no sense to print it every frame, it is enough when the level is initialized.
 
 animationId: 	byte
 n1:		byte 	; --//--	
-isFinalClean:	byte 	; нужно чистить хвост спрайта или нет при остановке спрайта
+isFinalClean:	byte 	; whether the tail of the sprite needs to be cleaned or not when the sprite is stopped
 id:		byte	; id of this object in objects map
      	ends
 

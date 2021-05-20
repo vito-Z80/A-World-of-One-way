@@ -4,7 +4,7 @@
 reset:
 	ld hl,popupAttrAddr
 	ld de,popupAttrAddr + 1
-	ld bc,7 	; 8 байт переменных для всплывающей информации
+	ld bc,7 	; 8 bytes of variables for popup information
 	ld (hl),0
 	ldir
 	ret
@@ -46,7 +46,7 @@ setFear:
 	ld de,POP_UP_INFO.bitmapFear
 	ld bc,3 * 256 + %00010010
 set:
-	; пока один мессадж не заверщен, другой вызывать нельзя (не подчищается предыдущий мессадж на атрибутах, можно исправить)
+	; until one message is completed, the other cannot be called (the previous message on the attributes is not cleared, it can be corrected)
 	call isFinish 	
 	ret nz
 	; HL - start attributes address (outside the scope of attributes)
@@ -80,7 +80,7 @@ show:
 	neg
 	ld e,a
 	ld d,0
-	; de = число прибавляемое к адресу атрибутов что бы получить следующую строку.
+	; de = the number to add to the attribute address to get the next line.
 	ld b,5
 
 .restoreFull:

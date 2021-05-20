@@ -11,15 +11,7 @@ notMoney:		db "not enough money",TEXT_END
 successfulPurchase:	db "successful  purchase",TEXT_END	
 pricelist:		db "Pricelist:",TEXT_END
 ;---------------------------------------------
-	; FIXME защита от дурака не работает если купить пароль, далее играть и умереть, после смерти в магазине можно опять купить тот-же пароль.
-	; 
-	;
-	;
-	;
-
-
-
-
+	; FIXME fool protection does not work if you buy a password, then play and die, after death in the store you can buy the same password again.
 init:
 	call PASS.clearData
 	call fadeOutFull
@@ -121,7 +113,7 @@ addLife:
 showPassword:
 	ld a,(passData)
 	or a
-	jr nz,.show 	; защита от дурака, что бы не купил этот-же пароль еще раз.
+	jr nz,.show 	; protection from the fool, so as not to buy the same password again.
 	ld hl,(coins)
 	ld de,120
 	or a
@@ -199,8 +191,5 @@ showCoinsLives:
 	ld hl,coinsText
 	ld de,#4086+20-5
 	jp printText2x1
-
-
-
 
 	endmodule

@@ -1,4 +1,4 @@
-objectsData: 	; перенесено из variables так как данная часть проги юзается всего 1 раз при старте !!! занимает 344 байта, требуется 320 !
+objectsData: 	; moved from variables since this part of the program is used only 1 time at start !!! takes 344 bytes, 320 is required!
 ;	Concurso juegos ASM 2021
 	module TITLE_2
 run:
@@ -17,13 +17,11 @@ run:
 	ldir
 	call process
 ;-------------------------------------------------------------
-
 	ld hl,#0406
 	ld (textColor),hl
 	ld de,#5028
 	ld hl,text
 	call printText2x1
-
 aPoint:
 	ld hl,#4242
 	ld (#5942),hl
@@ -47,8 +45,8 @@ aPoint:
 process:
 	ld ix,(pathAddress)
 	ld b,8
-	ld a,(byteValue) 	; 	top-left bit
-	cp %11111111 	; 	full byte
+	ld a,(byteValue) 	; top-left bit
+	cp %11111111 		; full byte
 	jr nz,.loop - 1
 	inc ix
 	ld (pathAddress),ix 	; next address of path
@@ -92,7 +90,6 @@ process:
 	sla c
 	jr nz,.fillPath
 	ret
-
 .symbol:
 	ld a,h
 	cpl
