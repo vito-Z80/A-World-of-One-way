@@ -35,5 +35,5 @@ Sprite | Name
 ![GitHub Logo](/sprites/gif/destroyableBlock.gif) | stop | stop | destroy | - | - | - | - | - 
 
 
-##### Advice:
+ ##### Advice:
 Between levels, you can buy an extra life or a password for the next level, for the accumulated coins.
