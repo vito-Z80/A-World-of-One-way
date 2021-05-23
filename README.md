@@ -33,3 +33,6 @@ Sprite | Name
 ![GitHub Logo](/sprites/gif/exit.gif) | exit | freezing | destroy | - | - | - | - | - 
 ![GitHub Logo](/sprites/gif/iceHole.gif) | death | death | destroy | - | - | - | - | - 
 ![GitHub Logo](/sprites/gif/destroyableBlock.gif) | stop | stop | destroy | - | - | - | - | - 
+
+
+Between levels, you can buy an extra life or a password for the next level, for the accumulated coins.
