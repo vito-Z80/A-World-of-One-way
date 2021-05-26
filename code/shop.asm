@@ -2,10 +2,10 @@
 levelText:		db "Level:         ",TEXT_END
 userCoins:		db "Coins:         ",TEXT_END
 userLives:		db "Lives:         ",TEXT_END
-continuations: 		db "1 - Life:             55",TEXT_END
+continuations: 		db "1 - Life:       55 coins",TEXT_END
 ; invulnerable:		db "Invulnerable:     75",TEXT_END
 ; skipLevel:		db "Skip level:      100",TEXT_END
-currentLevelPassword:	db "2 - Password:        120",TEXT_END
+currentLevelPassword:	db "2 - Password:  120 coins",TEXT_END
 complete:		db "fire to complete",TEXT_END
 notMoney:		db "not enough money",TEXT_END
 successfulPurchase:	db "successful  purchase",TEXT_END	

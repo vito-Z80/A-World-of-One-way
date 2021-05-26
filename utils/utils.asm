@@ -100,7 +100,7 @@ clearAttributes:
 	; A - color
 	ld hl,#5800
 	ld de,#5801
-	ld bc,#3FF
+	ld bc,#2FF
 	ld (hl),a
 	ldir
 	ret
@@ -110,11 +110,11 @@ nextLine:
         inc d
         ld  a,d
         and 7
-        jr  nz,$+12
+        ret nz
         ld  a,e
         add a,32
         ld  e,a
-        jr  c,$+6
+        ret c
         ld  a,d
         sub 8
         ld  d,a
