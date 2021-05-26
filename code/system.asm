@@ -5,7 +5,7 @@ run:
 	ld sp,#8000
 	call SOUND_PLAYER.SET_SOUND.mute
 	xor a
-; 	inc a 		; remove later
+	inc a 		; remove later
 	out (254),a
 ; The main loop of the program.
 ; The main loop calls the required system by identifier.
