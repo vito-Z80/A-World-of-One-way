@@ -1,18 +1,18 @@
 
 		; переменные ниже должны следовать друг за другом !!!
+varsStart:
 currentLevel:			db 0
 isLevelPassed:			db 0 	; 1 - true; 0 - false
 rebuildLevel:			db 0
 
 levelAddr: 			dw #0000 	; level address
 
-coinsInLevelVar:		db 0 	; VAR, VAL. in that order
-coinsInLevelVal:		db 0
-pointsPerLevel:			dw #0000 	; coins collected for level (not used)
+; coinsInLevelVar:		db 0 	; VAR, VAL. in that order
+; coinsInLevelVal:		db 0
+; pointsPerLevel:			dw #0000 	; coins collected for level (not used)
 preDir: 			db 0 		; previous direction
 textAxis:			db 0 		; 0 = horizontal text, !0 = verical text
 ; kempstonState:			db 0
-varsStart:
 global_direction:		db DIRECTION.NONE
 textColor:			db 0,0
 lastKeyPresed:			db 0
@@ -62,4 +62,6 @@ buffer256: 		block 256, 0 	; attribute recovery buffer for informational crawl u
 	; #01-#0A > 	object ID`s
 	; #FF > 	wall
 				; low address byte = 0
-levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
+levelCells:		block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
+
+levelCellsEnd:		equ $

@@ -29,7 +29,7 @@ delta		byte 	; delta for velocity
 accelerate	byte 	; velocity for object (FIXME rename to velocity)
 step:		byte 	; step for delta
 isMovable	byte 	; 0 - false, !=0 - true
-isLeave:	byte 	; not used
+needDraw:	byte 	; 0 - redraw every frame, !0 - no redraw
 isDestroyed	byte	; object destroyed
 exec		dw 	; The address of the procedure executed every frame for the current object. #0000 = not called.
 		; the order of the next 6 bytes cannot be changed !!!

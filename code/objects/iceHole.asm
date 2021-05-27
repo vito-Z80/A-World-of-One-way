@@ -5,6 +5,8 @@ init:
 	ld (ix+oData.isMovable),a
 	ld (ix+oData.accelerate),a
 	ld (ix+oData.drawMethod),a
+	inc a
+	ld (ix+oData.needDraw),a
 	ld (ix+oData.color),5
 	ld c,(ix+oData.cellId)
 	call getAttrAddrByCellId

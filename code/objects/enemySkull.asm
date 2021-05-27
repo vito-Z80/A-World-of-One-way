@@ -55,6 +55,7 @@ update:
 	ret nz
 	call OBJECTS.alignToCell
 	call OBJECTS.draw.oneObject
+	ld (ix+oData.needDraw),1
 	ld (ix+oData.isMovable),0
 	call POP_UP_INFO.setFear
 	call SOUND_PLAYER.SET_SOUND.eat

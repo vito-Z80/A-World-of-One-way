@@ -2,10 +2,10 @@
 levelText:		db "Level:         ",TEXT_END
 userCoins:		db "Coins:         ",TEXT_END
 userLives:		db "Lives:         ",TEXT_END
-continuations: 		db "1 - Life:.......55 coins",TEXT_END
+continuations: 		db "1 - Life:       55 coins",TEXT_END
 ; invulnerable:		db "Invulnerable:     75",TEXT_END  	; 1 time
 ; skipLevel:		db "Skip level:      100",TEXT_END
-currentLevelPassword:	db "2 - Password:..120 coins",TEXT_END
+currentLevelPassword:	db "2 - Password:  120 coins",TEXT_END
 complete:		db "fire to complete",TEXT_END
 notMoney:		db "not enough money",TEXT_END
 successfulPurchase:	db "successful  purchase",TEXT_END	
@@ -115,8 +115,7 @@ addLife:
 	ld hl,(lives)
 	inc hl
 	ld (lives),hl
-	call sucPurchaseShow
-	ret
+	jr sucPurchaseShow
 ;---------------------------------------------
 showPassword:
 	ld a,(passData)
@@ -157,7 +156,7 @@ displayShop:
 	ld hl,#4344
 	ld (textColor),hl
 	ld hl,pricelist
-	ld de,#480b
+	ld de,#080b
 	call printText2x1
 
 
@@ -181,10 +180,7 @@ displayShop:
 	call printText2x1V
 	ld hl,sale
 	ld de,#481E
-	call printText2x1V
-
-
-	ret
+	jp printText2x1V
 ;---------------------------------------------
 showCoinsLives:
 	call convertCoin

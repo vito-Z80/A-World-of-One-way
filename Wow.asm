@@ -29,7 +29,7 @@ MACHINE = 9 		; 9k version with basic loader
     display "SPRITE_STORAGE: ",/A,SPRITE_MAP
 
 
-    display "::::::::: ",/A,printText2x1V
+    display "::::::::: ",/A,coins
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds
@@ -40,7 +40,6 @@ MACHINE = 9 		; 9k version with basic loader
     endif
 
     display "LAST ADDRESS = ",/A, $
-    display "vars length max 64bytes, or change memory address = ",/A, varsEnd - varsStart
 
    	if MACHINE == 9 && __ERRORS__ == 0
 		SHELLEXEC "P:\ZX\Emulators\ue\unreal.exe Wow.tap" 
