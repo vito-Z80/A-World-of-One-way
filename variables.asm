@@ -10,16 +10,8 @@ coinsInLevelVar:		db 0 	; VAR, VAL. in that order
 coinsInLevelVal:		db 0
 pointsPerLevel:			dw #0000 	; coins collected for level (not used)
 preDir: 			db 0 		; previous direction
+textAxis:			db 0 		; 0 = horizontal text, !0 = verical text
 ; kempstonState:			db 0
-        display "Current low byte address (for ALIGN 256) = ",/A, low $, " | address = ",/A, $
-			align 256
-	display "buffer256 address: ",/A,$
-buffer256: 		block 256, 0 	; attribute recovery buffer for informational crawl upwards and something else :)
-	; #00 > 	free way
-	; #01-#0A > 	object ID`s
-	; #FF > 	wall
-				; low address byte = 0
-levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
 varsStart:
 global_direction:		db DIRECTION.NONE
 textColor:			db 0,0
@@ -61,3 +53,13 @@ renderData:			block MAX_OBJECTS * 2,0
 setFF1:
 				db 0
 endRenderData: 			equ $
+
+        display "Current low byte address (for ALIGN 256) = ",/A, low $, " | address = ",/A, $
+			align 256
+	display "buffer256 address: ",/A,$
+buffer256: 		block 256, 0 	; attribute recovery buffer for informational crawl upwards and something else :)
+	; #00 > 	free way
+	; #01-#0A > 	object ID`s
+	; #FF > 	wall
+				; low address byte = 0
+levelCells:			block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes

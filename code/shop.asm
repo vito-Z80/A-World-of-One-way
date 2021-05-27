@@ -3,13 +3,14 @@ levelText:		db "Level:         ",TEXT_END
 userCoins:		db "Coins:         ",TEXT_END
 userLives:		db "Lives:         ",TEXT_END
 continuations: 		db "1 - Life:.......55 coins",TEXT_END
-; invulnerable:		db "Invulnerable:     75",TEXT_END
+; invulnerable:		db "Invulnerable:     75",TEXT_END  	; 1 time
 ; skipLevel:		db "Skip level:      100",TEXT_END
 currentLevelPassword:	db "2 - Password:..120 coins",TEXT_END
 complete:		db "fire to complete",TEXT_END
 notMoney:		db "not enough money",TEXT_END
 successfulPurchase:	db "successful  purchase",TEXT_END	
 pricelist:		db "Pricelist:",TEXT_END
+sale:			db "SALE",TEXT_END
 ;---------------------------------------------
 	; FIXME fool protection does not work if you buy a password, then play and die, after death in the store you can buy the same password again.
 init:
@@ -24,6 +25,13 @@ update:
 	ld de,#0e08 	; Y,X
 	ld bc,#0210 	; height, width	
 	call blinkArea
+	ld de,#0801
+	ld bc,#0801
+	call blinkArea
+	ld de,#081E
+	ld bc,#0801
+	call blinkArea
+
 
 	ld a,(delta2)
 	inc a
@@ -167,6 +175,15 @@ displayShop:
 	ld hl,complete
 	ld de,#50c8
 	call printText2x1
+
+	ld hl,sale
+	ld de,#4801
+	call printText2x1V
+	ld hl,sale
+	ld de,#481E
+	call printText2x1V
+
+
 	ret
 ;---------------------------------------------
 showCoinsLives:

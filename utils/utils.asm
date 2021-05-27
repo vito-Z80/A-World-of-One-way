@@ -1,7 +1,15 @@
 ;--------------------------------------------------------------------
+printText2x1V:
+	; HL - text address (multiply symbol)
+	; DE - screen address	
+	ld a,1
+	jr printText2x1 + 1
 printText2x1:
 	; HL - text address (multiply symbol)
 	; DE - screen address
+	xor a
+	ld (textAxis),a
+printTextLoop:
 	ld a,(hl)
 	or a
 	ret z 	 	; 0 == end of text (TEXT_END)
@@ -61,9 +69,16 @@ printText2x1:
 	inc hl
 	djnz .fourth2
 	pop de
-	inc e
 	pop hl
-	jr printText2x1
+	inc e
+	ld a,(textAxis)
+	or a
+	jr z,printTextLoop
+	dec e
+	ex de,hl
+	call nextLine16
+	ex de,hl
+	jr printTextLoop
 ;--------------------------------------------------------------------
 charAddr: 
         ; calc address of char in font

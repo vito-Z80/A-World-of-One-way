@@ -29,7 +29,7 @@ MACHINE = 9 		; 9k version with basic loader
     display "SPRITE_STORAGE: ",/A,SPRITE_MAP
 
 
-    display "::::::::: ",/A,OBJECTS.alignToCell
+    display "::::::::: ",/A,printText2x1V
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds

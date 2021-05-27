@@ -6,6 +6,20 @@ Controls:
  * QAOP
  * Caps + Enter in game, to main menu.
 ------------------------------------------------------------
+ When you move, you move all the way through the screen until you reach a wall. When moving you move all characters on the screen - sometimes  you control several persons, and you also move the enemies. The objective is to reach the exit door, and on the way you can collect coins to  get a bigger score. 
+ Don't touch the skeletons or the bombs or the toxic liquid. Move the skeletons into the bombs and toxic liquid to get rid of them. The  skeletons can destroy the crates that are blocking your way. Don't move the skeletons into the exit door - they will be stuck there and you  can not exit the level.
+
+ The description in accessible language is taken from here:
+ https://youtu.be/1_y3klhPTVk
+ Thanks to Modern ZX-Retro Gaming youtube channel.
+------------------------------------------------------------
+ Between the levels, you find yourself in the store, 
+ where you can buy an extra life or a password for the next level, 
+ for the accumulated coins.
+ In the store, press the key:
+        1 to buy an extra life.
+        2 to buy a password for the next level.
+------------------------------------------------------------
 source code: https://github.com/vito-Z80/A-World-of-One-way
 ------------------------------------------------------------
 Serdjuk 2021 for ASM-2021
