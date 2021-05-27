@@ -36,4 +36,11 @@ Sprite | Name
 
 
  ##### Advice:
-Between levels, you can buy an extra life or a password for the next level, for the accumulated coins.
+ Between the levels, you find yourself in the store, 
+ where you can buy an extra life or a password for the next level, 
+ for the accumulated coins.
+ In the store, press the key:
+        1 to buy an extra life.
+        2 to buy a password for the next level.
+
+![GitHub Logo](/other/shop.gif)
