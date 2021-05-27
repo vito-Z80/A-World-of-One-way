@@ -64,4 +64,4 @@ buffer256: 		block 256, 0 	; attribute recovery buffer for informational crawl u
 				; low address byte = 0
 levelCells:		block MAP_WIDTH * MAP_HEIGHT 	; level cells for collision 	  192 bytes
 
-levelCellsEnd:		equ $
+tablesEnd:		equ $
