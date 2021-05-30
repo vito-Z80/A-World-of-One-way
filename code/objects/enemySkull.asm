@@ -42,7 +42,7 @@ update:
 	jr z,killHero
 
 	cp ICEHOLE_PBM_ID
-	jp z,OBJECTS.setDestroyIX
+	jp z,OBJECTS.alignAndDestroy
 
 	cp BROKEN_BLOCK_PBM_ID
 	jp z,OBJECTS.alignToCell
@@ -58,9 +58,9 @@ update:
 	ld (ix+oData.needDraw),1
 	ld (ix+oData.isMovable),0
 	call POP_UP_INFO.setFear
-	call SOUND_PLAYER.SET_SOUND.eat
-	ret
+	jp SOUND_PLAYER.SET_SOUND.eat
 ;-------------------------------------------
+
 stoneStill:
 	ld a,#40
 	xor (ix+oData.color)

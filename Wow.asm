@@ -29,7 +29,7 @@ MACHINE = 9 		; 9k version with basic loader
     display "SPRITE_STORAGE: ",/A,SPRITE_MAP
 
 
-    display "::::::::: ",/A,coins
+    display "::::::::: ",/A,ICE_HOLE.update
 
 	display "SPRITE STORAGE SIZE = ",/A, ess - ss
 	display "ALL LEVELS SIZE = ",/A, elds - lds
