@@ -46,4 +46,3 @@ Sprite | Name
 
 ![GitHub Logo](/other/shop.gif)
 
-Antonio, please send the (ZxDos) to Nihirash. ;)
