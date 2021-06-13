@@ -110,5 +110,6 @@ info:
 ; joystick:
 ; 	db "3 - KEMPSTON",TEXT_END
 capsSpace:
-	db "CapsEnter to main menu",TEXT_END
+; 	db "CapsEnter to main menu",TEXT_END
+	db "CapsEnter restart/menu",TEXT_END
 	endmodule

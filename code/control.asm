@@ -109,6 +109,7 @@ digListener:
 .pass:
 	in a,(c)
 	cpl
+	and %00011111
 .half
 	rrca
 	ret c
