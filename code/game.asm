@@ -71,7 +71,15 @@ returnKey:
 	ret nz
 	call CONTROL.enter
 	ret nz
+	ld hl,(lives)
+	ld bc,#FFFF
+	add hl,bc
+	ld (lives),hl
+	ld a,l
+	or h
 	ld l,SYSTEM.MAIN_MENU_INIT
+	ret z
+	ld l,SYSTEM.SHOP_INIT
 	ret
 ;-----------------------------------------------
 	endmodule
