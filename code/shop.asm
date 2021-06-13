@@ -156,7 +156,7 @@ displayShop:
 	ld hl,#4344
 	ld (textColor),hl
 	ld hl,pricelist
-	ld de,#080b
+	ld de,#480b
 	call printText2x1
 
 
