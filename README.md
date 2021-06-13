@@ -45,3 +45,4 @@ Sprite | Name
          2 to buy a password for the next level.
 
 ![GitHub Logo](/other/shop.gif)
+
