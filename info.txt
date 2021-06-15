@@ -23,3 +23,7 @@ Controls:
 source code: https://github.com/vito-Z80/A-World-of-One-way
 ------------------------------------------------------------
 Serdjuk 2021 for ASM-2021
+
+
+-0.41
+	Fix password input.

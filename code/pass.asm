@@ -140,14 +140,14 @@ inputEnd:
 	pop de
 	pop hl
 	ret
-	ld hl,passData
-	ld bc,PASS_LENGTH
-	xor a
-	cpir
-	dec hl
-	cp (hl)
-	ret nz
-	call SOUND_PLAYER.SET_SOUND.dead
+; 	ld hl,passData
+; 	ld bc,PASS_LENGTH
+; 	xor a
+; 	cpir
+; 	dec hl
+; 	cp (hl)
+; 	ret nz
+; 	call SOUND_PLAYER.SET_SOUND.dead
 input:
 	call clearData
 	call clearScreen
@@ -172,20 +172,28 @@ input:
 	ld hl,lastKeyPresed
 	call CONTROL.enter
 	jr z,inputEnd
+	call CONTROL.caps
+	jr z,.checkRemoveKey
 	ld a,(de) 	; current key
 	cp (hl) 	
 	jr z,.listen 	; if current key == last key
 	or a
 	ld (hl),a 	; save last key pressed
 	jr z,.listen
+	jr .printNext
+.checkRemoveKey:
+	ld a,(de)
+	cp (hl)
+	jr z,.listen
 	cp '0'
-	jr nz,.notCaps
-	ex af,af
-	call CONTROL.caps
-	jr nz,.notCaps - 1
+	jr nz,.listen
+	ld (hl),a
+.removeLastChar:
 	; remove last char
 	pop de
 	pop hl
+	xor a
+	ld (#5c08),a
 	ld a,e
 	cp #09 		; first input low byte on screen
 	jr c,.loop
@@ -200,8 +208,7 @@ input:
 	pop de
 	pop hl
 	jr .loop
-	ex af,af
-.notCaps:
+.printNext:
 	pop de
 	pop hl
 	ex af,af
