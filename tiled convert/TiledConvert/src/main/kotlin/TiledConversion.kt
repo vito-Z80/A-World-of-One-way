@@ -3,9 +3,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 // gradlew desktop:dist for jar create in path ..../ desktop / build / libs
-// автор тайледа 100% редактор делал изначально не для геймдэва - он не логичен пиздец !!!
-// есть выделение части слоя, но его нельзя двигать блять !!! Нужно удалять выделение и вставлять куда требуется !!!!
-// ятаворотибал
 const val LEVEL_WIDTH = 16
 const val LEVEL_HEIGHT = 12
 @ExperimentalUnsignedTypes
